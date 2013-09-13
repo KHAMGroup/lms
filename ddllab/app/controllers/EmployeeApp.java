@@ -47,7 +47,7 @@ public class EmployeeApp extends Controller {
             return badRequest(views.html.employee.render(employeeForm.get(),employeeForm));
         }
         employeeForm.get().save();
-        return redirect(routes.EmployeeApp.employees());
+        return GO_HOME;
     }
     
     @Transactional
@@ -57,10 +57,14 @@ public class EmployeeApp extends Controller {
             return badRequest(views.html.employee.render(employeeForm.get(),employeeForm));
         }
         employeeForm.get().update(employeeNumber);
-        return redirect(routes.EmployeeApp.employees());
+        return GO_HOME;
     }
     
-    public static Result deleteEmployee(Integer id){
-    	return TODO;
+    @Transactional
+    public static Result delete(Integer id){
+    	Employee.findById(id).delete();
+    	return GO_HOME;
     }
+    
+    private static Result GO_HOME = redirect(routes.EmployeeApp.employees());
 }
