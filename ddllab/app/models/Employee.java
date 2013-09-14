@@ -21,21 +21,24 @@ public class Employee {
 	@Column(name="employee_number", nullable=false)
 	private int employeeNumber;
 	
-	@Column(nullable=false, length=20)
+	@Column(nullable=false)
+	@Constraints.MaxLength(20)
 	@Constraints.Required
 	private String first;
 	
-	@Column(nullable=false, length=20)
+	@Column(nullable=false)
+	@Constraints.MaxLength(20)
 	@Constraints.Required
 	private String last;
 
-	@Column(length=20)
+	@Constraints.MaxLength(20)
 	private String password;
 
 	@Column(name="user_role")
 	private int userRole;
 	
-	@Column(nullable=false, length=20)
+	@Column(nullable=false)
+	@Constraints.MaxLength(20)
 	@Constraints.Required
 	private String username;
 
