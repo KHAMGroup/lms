@@ -7,7 +7,7 @@ GET     /                           controllers.Application.index()
 GET		/employees					controllers.EmployeeApp.employees()
 GET		/employees/:id				controllers.EmployeeApp.employee(id: Int) 
 POST	/employees/:id/update		controllers.EmployeeApp.update(id: Int) 
-POST	/employees/new				controllers.EmployeeApp.newEmployee()
+POST	/employees/new				controllers.EmployeeApp.create()
 POST	/employees/save				controllers.EmployeeApp.save()
 POST	/employees/:id/delete		controllers.EmployeeApp.delete(id: Int)
 

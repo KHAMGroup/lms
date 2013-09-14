@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.*;
+
+import play.data.validation.Constraints;
 import play.db.jpa.*;
 
 /**
@@ -16,18 +18,25 @@ public class Employee {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="employee_number")
+	@Column(name="employee_number", nullable=false)
 	private int employeeNumber;
-
+	
+	@Column(nullable=false, length=20)
+	@Constraints.Required
 	private String first;
-
+	
+	@Column(nullable=false, length=20)
+	@Constraints.Required
 	private String last;
 
+	@Column(length=20)
 	private String password;
 
 	@Column(name="user_role")
 	private int userRole;
-
+	
+	@Column(nullable=false, length=20)
+	@Constraints.Required
 	private String username;
 
 	public Employee() {

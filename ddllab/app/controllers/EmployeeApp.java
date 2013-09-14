@@ -33,7 +33,7 @@ public class EmployeeApp extends Controller {
     }
     
     @Transactional
-    public static Result newEmployee(){
+    public static Result create(){
         Form<Employee> employeeForm = form(Employee.class);
         return ok(
             views.html.createEmployee.render(new Employee(),employeeForm)
