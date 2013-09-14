@@ -1,0 +1,21 @@
+# --- First database schema
+
+# --- !Ups
+CREATE TABLE IF NOT EXISTS EMPLOYEES
+(
+	employee_number SMALLINT NOT NULL AUTO_INCREMENT,  
+	username VARCHAR(20) NOT NULL, 
+	password VARCHAR(20), 
+	first VARCHAR(20) NOT NULL, 
+	last VARCHAR(20) NOT NULL, 
+	user_role TINYINT NOT NULL, 
+	PRIMARY KEY(employee_number)
+);
+
+# --- !Downs
+
+SET REFERENTIAL_INTEGRITY FALSE;
+
+DROP TABLE IF EXISTS EMPLOYEES
+
+SET REFERENTIAL_INTEGRITY TRUE;
