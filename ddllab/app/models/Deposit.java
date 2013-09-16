@@ -5,6 +5,7 @@ import javax.persistence.*;
 
 import play.data.format.Formats;
 import play.data.validation.Constraints;
+import play.db.jpa.JPA;
 
 import java.util.Date;
 
@@ -132,6 +133,20 @@ public class Deposit implements Serializable {
 		this.client = client;
 	}
 	
-	
+    public static Deposit findById(int id) {
+        return JPA.em().find(Deposit.class, id);
+    }
 
+    public void update(int depositNumber) {
+    	setDepositNumber(depositNumber);
+    	JPA.em().merge(this);
+    }
+    
+    public void save(){
+        JPA.em().persist(this);
+    }
+    
+    public void delete() {
+        JPA.em().remove(this);
+    }
 }
