@@ -2,7 +2,7 @@ package controllers;
 
 import static play.data.Form.*;
 import models.Employee;
-import play.*;
+
 import play.data.Form;
 import play.db.jpa.Transactional;
 import play.mvc.*;
@@ -10,10 +10,7 @@ import play.mvc.*;
 import views.html.*;
 
 public class EmployeeApp extends Controller {
-  
-    public static Result index() {
-        return ok(index.render("Your new application is ready."));
-    }
+
     
     @Transactional
     public static Result employee(Integer id){
