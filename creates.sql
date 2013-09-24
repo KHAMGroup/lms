@@ -193,7 +193,7 @@ CREATE TABLE IF NOT EXISTS CASE_TEST_RESULTS_COMMENTS
 	case_FK INT NOT NULL, 
 	test_FK SMALLINT NOT NULL, 
 	results VARCHAR(8), 
-	employee_entered CHAR(3), 
+	employee_entered TINYINT, 
 	informational_comment INT, 
 	actual_comment INT, 
 	PRIMARY KEY(case_FK, test_FK), 
