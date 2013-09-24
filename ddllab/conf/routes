@@ -4,12 +4,21 @@
 
 # Home page
 GET     /                           controllers.Application.index()
+# Employees
 GET		/employees					controllers.EmployeeApp.employees()
 GET		/employees/:id				controllers.EmployeeApp.employee(id: Int) 
 POST	/employees/:id/update		controllers.EmployeeApp.update(id: Int) 
 POST	/employees/new				controllers.EmployeeApp.create()
 POST	/employees/save				controllers.EmployeeApp.save()
 POST	/employees/:id/delete		controllers.EmployeeApp.delete(id: Int)
+
+# Deposits
+# GET		/deposits					controllers.DepositApp.deposits()
+#GET		/deposits/:id				controllers.DepositApp.deposit(id: Int) 
+#POST	/deposits/:id/update		controllers.DepositApp.update(id: Int) 
+#POST	/deposits/new				controllers.DepositApp.create()
+#POST	/deposits/save				controllers.DepositApp.save()
+#POST	/deposits/:id/delete		controllers.DepositApp.delete(id: Int)
 
 
 # Map static resources from the /public folder to the /assets URL path
