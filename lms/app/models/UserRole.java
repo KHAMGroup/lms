@@ -16,6 +16,10 @@ public class UserRole implements Serializable {
 	@Column(name="privilege_name", nullable=false, length=64)
 	private String privilegeName;
 
+	@Id
+	@Column(name="surrogate_key")
+	private int surrogateKey;
+
 	//bi-directional many-to-one association to Employee
 	@ManyToOne
 	@JoinColumn(name="employee_number", nullable=false)

@@ -12,7 +12,7 @@ import java.util.List;
  */
 @Entity
 @Table(name="TEST")
-public class Test implements Serializable {
+public class TestEntityObject implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -60,7 +60,7 @@ public class Test implements Serializable {
 	@JoinColumn(name="default_comment")
 	private Comment defaultComment;
 
-	public Test() {
+	public TestEntityObject() {
 	}
 
 	public int getTestNumber() {

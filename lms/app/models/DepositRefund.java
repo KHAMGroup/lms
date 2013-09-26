@@ -15,6 +15,10 @@ import java.util.Date;
 public class DepositRefund implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@Column(name="surrogate_key")
+	private int surrogateKey;
+
 	@Column(name="refund_amount", nullable=false, precision=9, scale=2)
 	private BigDecimal refundAmount;
 

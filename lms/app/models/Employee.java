@@ -3,8 +3,7 @@ package models;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
-
+import play.db.jpa.*;
 
 /**
  * The persistent class for the EMPLOYEES database table.
@@ -46,7 +45,7 @@ public class Employee implements Serializable {
 
 	//bi-directional many-to-one association to UserRole
 	@OneToMany(mappedBy="employee")
-	private Set<UserRole> userRoles;
+	private List<UserRole> userRoles;
 
 	public Employee() {
 	}
@@ -83,11 +82,11 @@ public class Employee implements Serializable {
 		this.password = password;
 	}
 
-	public String getUsername() {
+	public String getUserName() {
 		return this.username;
 	}
 
-	public void setUsername(String username) {
+	public void setUserName(String username) {
 		this.username = username;
 	}
 
@@ -115,12 +114,34 @@ public class Employee implements Serializable {
 		this.caseTestsPerformed = caseTestsPerformed;
 	}
 
-	public Set<UserRole> getUserRoles() {
+	public List<UserRole> getUserRoles() {
 		return this.userRoles;
 	}
 	
-	public void setUserRoles(Set<UserRole> userRoles) {
+	public void setUserRoles(List<UserRole> userRoles) {
 		this.userRoles = userRoles;
 	}
 
+    public static Employee findById(int id) {
+        return JPA.em().find(Employee.class, id);
+    }
+    
+    public static List<Employee> findByUserName(String user) {
+	String query = "from Employee where username = '"+user+"' ";
+	return JPA.em().createQuery(query).getResultList(); 
+    }
+
+    public void update(int employeeNumber) {
+    	setEmployeeNumber(employeeNumber);
+    	JPA.em().merge(this);
+    }
+    
+    public void save(){
+        JPA.em().persist(this);
+    }
+    
+    public void delete() {
+        JPA.em().remove(this);
+    }
+    
 }

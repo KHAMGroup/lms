@@ -29,11 +29,11 @@ public class Comment implements Serializable {
 	//bi-directional many-to-one association to Test
 	@ManyToOne
 	@JoinColumn(name="test_number")
-	private Test associatedTest;
+	private TestEntityObject associatedTest;
 
 	//bi-directional many-to-one association to Test
 	@OneToMany(mappedBy="defaultComment")
-	private List<Test> testsUsingThisAsDefault;
+	private List<TestEntityObject> testsUsingThisAsDefault;
 
 	public Comment() {
 	}
@@ -62,19 +62,19 @@ public class Comment implements Serializable {
 		this.cases = cases;
 	}
 
-	public Test getAssociatedTest() {
+	public TestEntityObject getAssociatedTest() {
 		return this.associatedTest;
 	}
 
-	public void setAssociatedTest(Test associatedTest) {
+	public void setAssociatedTest(TestEntityObject associatedTest) {
 		this.associatedTest = associatedTest;
 	}
 
-	public List<Test> getTestsUsingThisAsDefault() {
+	public List<TestEntityObject> getTestsUsingThisAsDefault() {
 		return this.testsUsingThisAsDefault;
 	}
 
-	public void setTestsUsingThisAsDefault(List<Test> testsUsingThisAsDefault) {
+	public void setTestsUsingThisAsDefault(List<TestEntityObject> testsUsingThisAsDefault) {
 		this.testsUsingThisAsDefault = testsUsingThisAsDefault;
 	}
 

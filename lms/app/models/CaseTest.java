@@ -65,7 +65,7 @@ public class CaseTest implements Serializable {
 	//bi-directional many-to-one association to Test
 	@ManyToOne
 	@JoinColumn(name="test_FK", nullable=false, insertable=false, updatable=false)
-	private Test test;
+	private TestEntityObject test;
 
 	public CaseTest() {
 	}
@@ -158,11 +158,11 @@ public class CaseTest implements Serializable {
 		this.employeePerformed = employeePerformed;
 	}
 
-	public Test getTest() {
+	public TestEntityObject getTest() {
 		return this.test;
 	}
 
-	public void setTest(Test test) {
+	public void setTest(TestEntityObject test) {
 		this.test = test;
 	}
 	
