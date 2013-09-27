@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import play.data.format.*;
 
 /**
  * The persistent class for the DEPOSIT database table.
@@ -34,6 +35,7 @@ public class Deposit implements Serializable {
 	private String checkNumber;
 
 	@Temporal(TemporalType.DATE)
+	@Formats.DateTime(pattern="yyyy-MM-dd")
 	@Column(nullable=false)
 	private Date date;
 
