@@ -2,7 +2,9 @@ package models;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.persistence.criteria.*;
 import java.util.List;
+import java.util.LinkedList;
 import play.db.jpa.*;
 
 /**
@@ -28,7 +30,7 @@ public class Employee implements Serializable {
 	@Column(length=20)
 	private String password;
 
-	@Column(nullable=false, length=20)
+	@Column(unique=true, nullable=false, length=20)
 	private String username;
 
 	//bi-directional many-to-one association to CaseEntityObject
@@ -122,13 +124,44 @@ public class Employee implements Serializable {
 		this.userRoles = userRoles;
 	}
 
+	//Todo
+	public Employee authenticate(String username, String password) {
+		return null;
+	}
+
     public static Employee findById(int id) {
         return JPA.em().find(Employee.class, id);
     }
     
     public static List<Employee> findByUserName(String user) {
-	String query = "from Employee where username = '"+user+"' ";
-	return JPA.em().createQuery(query).getResultList(); 
+	CriteriaBuilder builder = JPA.em().getCriteriaBuilder();
+	CriteriaQuery<Employee> query = builder.createQuery(Employee.class);
+	Root<Employee> employee = query.from(Employee.class);
+	query.select(employee);
+
+	//List<Predicate> predicateList = new LinkedList<Predicate>();
+	Predicate predicate = builder.equal(employee.<Employee>get("username"), user);
+	//predicateList.add(userNamePredicate);
+
+	query.where(predicate);
+	return JPA.em().createQuery(query).getResultList();
+	/*
+	return JPA.em().createQuery("from Employee where username = ? ")
+		.setParameter(1, user)
+		.getResultList(); */
+    }
+
+    public static List<Employee> findByFirstAndLastName(String first, String last) {
+	CriteriaBuilder builder = JPA.em().getCriteriaBuilder();
+	CriteriaQuery<Employee> query = builder.createQuery(Employee.class);
+	Root<Employee> employee = query.from(Employee.class);
+	query.select(employee);
+
+	Predicate predicate = builder.equal(employee.<Employee>get("last"), last);
+	predicate = builder.and(predicate, builder.equal(employee.<Employee>get("first"), first));
+
+	query.where(predicate);
+	return JPA.em().createQuery(query).getResultList();
     }
 
     public void update(int employeeNumber) {

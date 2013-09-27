@@ -26,12 +26,15 @@ public class EmployeeTest extends WithApplication {
 		           public void invoke() {
 				Employee bob = new Employee();
 				bob.setFirst("bob");
-				bob.setLast("bob");
+				bob.setLast("boba");
 				bob.setUserName("bb");
 				bob.save();
 				List<Employee> foundBob = Employee.findByUserName("bb");
 				assertEquals(1,foundBob.size());
 				assertEquals("bob",foundBob.get(0).getFirst());
+
+				List<Employee> foundBobAgain = Employee.findByFirstAndLastName("bob","boba");
+				assertEquals("boba",foundBob.get(0).getLast());
 		           }
 		       });
 		   }
