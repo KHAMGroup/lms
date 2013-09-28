@@ -29,10 +29,13 @@ public class Application extends Controller {
     public static Result authenticate() {
 	Form<Login> loginForm = form(Login.class).bindFromRequest();
 	if(loginForm.hasErrors()) {
+		System.out.println("badrequest");
 		return badRequest(views.html.login.render(loginForm));
 	} else {
+		System.out.println("redirecting");
 		session().clear();
 		session("username", loginForm.get().getUserName());
+
 		return redirect(
 			routes.Application.index()
 		);
