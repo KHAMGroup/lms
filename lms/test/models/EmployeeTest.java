@@ -29,6 +29,7 @@ public class EmployeeTest extends WithApplication {
 				bob.setLast("boba");
 				bob.setUserName("bb");
 				bob.save();
+
 				List<Employee> foundBob = Employee.findByUserName("bb");
 				assertEquals(1,foundBob.size());
 				assertEquals("bob",foundBob.get(0).getFirst());

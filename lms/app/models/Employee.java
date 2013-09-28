@@ -124,15 +124,24 @@ public class Employee implements Serializable {
 		this.userRoles = userRoles;
 	}
 
-	//Todo
-	public Employee authenticate(String username, String password) {
-		return null;
+
+	public static Employee authenticate(String username, String password) {
+		List<Employee> foundList = findByUserName(username);
+		Employee found = null;
+		if(foundList.size()>0){
+			found = foundList.get(0);
+		}
+		if(found==null || !(found.getPassword().equals(password))){
+			found=null;
+		}
+		return found;
 	}
 
     public static Employee findById(int id) {
         return JPA.em().find(Employee.class, id);
     }
     
+
     public static List<Employee> findByUserName(String user) {
 	CriteriaBuilder builder = JPA.em().getCriteriaBuilder();
 	CriteriaQuery<Employee> query = builder.createQuery(Employee.class);

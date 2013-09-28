@@ -2,17 +2,21 @@ package controllers;
 
 import play.*;
 import play.mvc.*;
-
-import views.html.*;
+import static play.data.Form.*;
+import play.data.Form;
+import play.db.jpa.Transactional;
+import models.*;
 
 public class Application extends Controller {
-  
+
+    @Security.Authenticated(DDLAuthenticator.class)
     public static Result index() {
-        return ok(index.render("Your new application is ready."));
+        return ok(views.html.index.render("Your new application is ready."));
     }
-/*
+
+
     public static Result login() {
-	return ok(login.render(form(Login.class)));
+	return ok(views.html.login.render(form(Login.class)));
     }
 
     public static Result logout() {
@@ -21,10 +25,11 @@ public class Application extends Controller {
 	return redirect(routes.Application.login());
     }
 
+    @Transactional
     public static Result authenticate() {
 	Form<Login> loginForm = form(Login.class).bindFromRequest();
 	if(loginForm.hasErrors()) {
-		return badRequest(login.render(loginForm));
+		return badRequest(views.html.login.render(loginForm));
 	} else {
 		session().clear();
 		session("username", loginForm.get().getUserName());
@@ -35,7 +40,7 @@ public class Application extends Controller {
     }
 
   
-    private static class Login {
+    public static class Login {
 
 	private String username;
 	private String password;
@@ -52,10 +57,10 @@ public class Application extends Controller {
 	}
 
 	public String validate() {
-		if (Employee.authenticate(email, password) == null) {
+		if (Employee.authenticate(username, password) == null) {
 		    return "Invalid user or password";
 		}
 		    return null;
 	}
-    }  */
+    }  
 }
