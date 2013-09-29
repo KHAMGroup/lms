@@ -2,7 +2,7 @@
 
 <html>
   <head>
-    <title>Zentasks</title>
+    <title>Lab Management System</title>
     <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
     <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
   </head>
@@ -13,7 +13,11 @@
     @helper.form(routes.Application.authenticate) {
       <h1>Login</h1>
 
-
+	  @if(flash.contains("error")){
+	  <p class="error">
+	  	@flash.get("error")
+	  </p>
+	  }
       @if(flash.contains("success")) {
 	  <p class="success">
 	     @flash.get("success")

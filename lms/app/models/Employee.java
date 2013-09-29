@@ -126,12 +126,8 @@ public class Employee implements Serializable {
 
 
 	public static Employee authenticate(String username, String password) {
-		List<Employee> foundList = findByUserName(username);
-		Employee found = null;
-		if(foundList.size()>0){
-			found = foundList.get(0);
-		}
-		if(found==null || !(found.getPassword().equals(password))){
+		Employee found = findByUserName(username);
+		if(found!=null && found.getPassword() != null && !((found.getPassword()).equals(password))){
 			found=null;
 		}
 		return found;
@@ -142,18 +138,23 @@ public class Employee implements Serializable {
     }
     
 
-    public static List<Employee> findByUserName(String user) {
-	CriteriaBuilder builder = JPA.em().getCriteriaBuilder();
-	CriteriaQuery<Employee> query = builder.createQuery(Employee.class);
-	Root<Employee> employee = query.from(Employee.class);
-	query.select(employee);
-
-	//List<Predicate> predicateList = new LinkedList<Predicate>();
-	Predicate predicate = builder.equal(employee.<Employee>get("username"), user);
-	//predicateList.add(userNamePredicate);
-
-	query.where(predicate);
-	return JPA.em().createQuery(query).getResultList();
+    public static Employee findByUserName(String user) {
+		CriteriaBuilder builder = JPA.em().getCriteriaBuilder();
+		CriteriaQuery<Employee> query = builder.createQuery(Employee.class);
+		Root<Employee> employee = query.from(Employee.class);
+		query.select(employee);
+	
+		//List<Predicate> predicateList = new LinkedList<Predicate>();
+		Predicate predicate = builder.equal(employee.<Employee>get("username"), user);
+		//predicateList.add(userNamePredicate);
+	
+		query.where(predicate);
+		List<Employee> resultList = JPA.em().createQuery(query).getResultList();
+		Employee found = null;
+		if(resultList.size()>0){
+			found = resultList.get(0);
+		}
+		return found;
 	/*
 	return JPA.em().createQuery("from Employee where username = ? ")
 		.setParameter(1, user)

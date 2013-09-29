@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS EMPLOYEES
 	password VARCHAR(20), 
 	first VARCHAR(20) NOT NULL, 
 	last VARCHAR(20) NOT NULL, 
+	UNIQUE(username), 
 	PRIMARY KEY(employee_number) 
 ); 
 

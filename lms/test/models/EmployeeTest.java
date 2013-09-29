@@ -30,12 +30,12 @@ public class EmployeeTest extends WithApplication {
 				bob.setUserName("bb");
 				bob.save();
 
-				List<Employee> foundBob = Employee.findByUserName("bb");
-				assertEquals(1,foundBob.size());
-				assertEquals("bob",foundBob.get(0).getFirst());
+				Employee foundBob = Employee.findByUserName("bb");
+
+				assertEquals("bob",foundBob.getFirst());
 
 				List<Employee> foundBobAgain = Employee.findByFirstAndLastName("bob","boba");
-				assertEquals("boba",foundBob.get(0).getLast());
+				assertEquals("boba",foundBobAgain.get(0).getLast());
 		           }
 		       });
 		   }

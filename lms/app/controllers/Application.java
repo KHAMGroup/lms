@@ -3,7 +3,7 @@ package controllers;
 import play.*;
 import play.mvc.*;
 import static play.data.Form.*;
-import play.data.Form;
+import play.data.*;
 import play.db.jpa.Transactional;
 import models.*;
 
@@ -16,7 +16,7 @@ public class Application extends Controller {
 
 
     public static Result login() {
-	return ok(views.html.login.render(form(Login.class)));
+    	return ok(views.html.login.render(form(Login.class)));
     }
 
     public static Result logout() {
@@ -29,13 +29,12 @@ public class Application extends Controller {
     public static Result authenticate() {
 	Form<Login> loginForm = form(Login.class).bindFromRequest();
 	if(loginForm.hasErrors()) {
-		System.out.println("badrequest");
-		return badRequest(views.html.login.render(loginForm));
+		flash("error",loginForm.errorsAsJson().toString().replaceAll("[^0-9a-zA-Z ]", ""));
+//		return badRequest(views.html.login.render(loginForm));
+		return redirect(routes.Application.login());
 	} else {
-		System.out.println("redirecting");
 		session().clear();
-		session("username", loginForm.get().getUserName());
-
+		session("username", loginForm.get().username);
 		return redirect(
 			routes.Application.index()
 		);
@@ -44,26 +43,14 @@ public class Application extends Controller {
 
   
     public static class Login {
+    	public String username;
+		public String password;
 
-	private String username;
-	private String password;
-
-	public String getUserName(){return username;}
-	public String getPassword(){return password;}
-
-	public void setUserName(String userName){
-		this.username = userName;
-	}
-
-	public void setPassword(String password){
-		this.password = password;
-	}
-
-	public String validate() {
-		if (Employee.authenticate(username, password) == null) {
-		    return "Invalid user or password";
-		}
+		public String validate() {
+			if (Employee.authenticate(username, password) == null) {
+				return "Invalid user or password";
+			}
 		    return null;
-	}
+		}
     }  
 }
