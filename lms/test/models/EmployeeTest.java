@@ -41,4 +41,27 @@ public class EmployeeTest extends WithApplication {
 		   }
 		});
 	}
+
+	@Test
+	public void addUserRole() {
+		running(fakeApplication(), new Runnable() {
+		   public void run() {
+		       JPA.withTransaction(new play.libs.F.Callback0() {
+		           public void invoke() {
+				Employee labman = Employee.findByUserName("labman");
+				assertEquals("Jeff",labman.getFirst());
+				assertEquals("Zehnder",labman.getLast());
+				labman.addUserRole("admin");
+				labman.save();
+
+				Employee jeff = Employee.findByUserName("labman");
+				List<UserRole> userRoles = jeff.getUserRoles();
+				assertEquals(2, userRoles.size());
+				assertEquals(true, jeff.hasUserRole("admin"));
+				assertEquals(true, jeff.hasUserRole("produce quarterly reports"));
+		           }
+		       });
+		   }
+		});
+	}
 }

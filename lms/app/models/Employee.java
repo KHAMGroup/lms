@@ -5,6 +5,7 @@ import javax.persistence.*;
 import javax.persistence.criteria.*;
 import java.util.List;
 import java.util.LinkedList;
+import java.util.Iterator;
 import play.db.jpa.*;
 
 /**
@@ -124,11 +125,34 @@ public class Employee implements Serializable {
 		this.userRoles = userRoles;
 	}
 
+	public boolean hasUserRole(String roleName) {
+		boolean roleFound = false;
+		Iterator<UserRole> rolesIterator = getUserRoles().iterator();
+		while(rolesIterator.hasNext() && !roleFound){
+			if((rolesIterator.next().getPrivilegeName()).equals(roleName)){
+				roleFound = true;
+			}
+		}
+		return roleFound;
+	}	
+	
+	public void addUserRole(String roleName){
+		UserRole added = new UserRole();
+		added.setEmployee(this);
+		added.setPrivilegeName(roleName);
+		this.getUserRoles().add(added);
+	}
 
 	public static Employee authenticate(String username, String password) {
 		Employee found = findByUserName(username);
-		if(found!=null && found.getPassword() != null && !((found.getPassword()).equals(password))){
-			found=null;
+		if(found != null){
+			String foundPw = found.getPassword();
+			if(foundPw == null && password.length() > 0){
+				found = null;
+			}
+			else if(foundPw != null && !(foundPw.equals(password))){
+				found = null;
+			}
 		}
 		return found;
 	}
