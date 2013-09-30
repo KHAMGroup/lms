@@ -2,9 +2,6 @@ package models;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
-import play.data.validation.Constraints;
-
 import java.util.List;
 
 
@@ -15,93 +12,83 @@ import java.util.List;
 @Entity
 @Table(name="CLIENT")
 public class Client implements Serializable {
-
-	private static final long serialVersionUID = -2390031803338014946L;
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="client_id")
+	@Column(name="client_id", unique=true, nullable=false)
 	private int clientId;
 
-	@Column(nullable=false)
-	@Constraints.Required
-	@Constraints.MaxLength(30)
+	@Column(name="cell_phone", length=10)
+	private String cellPhone;
+
+	@Column(nullable=false, length=30)
 	private String city;
 
-	@Constraints.MaxLength(30)
+	@Column(length=30)
 	private String company;
 
 	@Column(nullable=false)
-	@Constraints.Required
 	private boolean email_invoice_OK;
 
 	@Column(nullable=false)
-	@Constraints.Required
 	private boolean email_report_OK;
 
-	@Constraints.MaxLength(10)
+	@Column(length=10)
 	private String fax;
 
-	@Column(nullable=false)
-	@Constraints.Required
-	@Constraints.MaxLength(20)
+	@Column(nullable=false, length=20)
 	private String first;
 
-	@Column(name="invoice_email")
-	@Constraints.MaxLength(30)
+	@Column(name="invoice_email", length=30)
 	private String invoiceEmail;
 
-	
-	@Column(nullable=false)
-	@Constraints.Required
-	@Constraints.MaxLength(20)
+	@Column(nullable=false, length=20)
 	private String last;
 
-	@Column(name="mailing_address")
-	@Constraints.MaxLength(50)
+	@Column(name="mailing_address", length=50)
 	private String mailingAddress;
 
-	@Constraints.MaxLength(1)
+	@Column(length=1)
 	private String mi;
 
-	@Column(name="office_phone", nullable=false)
-	@Constraints.Required
-	@Constraints.MaxLength(10)
+	@Column(name="office_phone", nullable=false, length=10)
 	private String officePhone;
-	
-	@Column(name="cell_phone")
-	@Constraints.MaxLength(10)
-	private String cellPhone;
-	
-	@Column(nullable=false)
-	@Constraints.Required
-	private boolean phoneReportOK;
 
-	@Column(name="reporting_email")
-	@Constraints.MaxLength(30)
+	@Column(nullable=false)
+	private boolean phone_report_OK;
+
+	@Column(name="reporting_email", length=30)
 	private String reportingEmail;
 
-	@Constraints.MaxLength(1)
+	@Column(length=1)
 	private String sex;
 
-	@Constraints.MaxLength(2)
+	@Column(length=2)
 	private String state;
 
-	@Column(name="street_address")
-	@Constraints.MaxLength(50)
+	@Column(name="street_address", length=50)
 	private String streetAddress;
 
-	@Constraints.MaxLength(10)
+	@Column(nullable=false, length=10)
 	private String zip;
+
+	//bi-directional many-to-one association to CaseEntityObject
+	@OneToMany(mappedBy="client")
+	private List<CaseEntityObject> cases;
+
+	//bi-directional many-to-one association to CaseEntityObject
+	@OneToMany(mappedBy="cctoClient")
+	private List<CaseEntityObject> casesCCedOn;
 
 	//bi-directional many-to-one association to Client
 	@ManyToOne
 	@JoinColumn(name="bill_to_client")
-	private Client client;
+	private Client billToClient;
 
 	//bi-directional many-to-one association to Client
-	@OneToMany(mappedBy="client")
-	private List<Client> clients;
+	@OneToMany(mappedBy="billToClient")
+	private List<Client> billedByClients;
 
 	//bi-directional many-to-one association to Deposit
 	@OneToMany(mappedBy="client")
@@ -116,6 +103,14 @@ public class Client implements Serializable {
 
 	public void setClientId(int clientId) {
 		this.clientId = clientId;
+	}
+
+	public String getCellPhone() {
+		return this.cellPhone;
+	}
+
+	public void setCellPhone(String cellPhone) {
+		this.cellPhone = cellPhone;
 	}
 
 	public String getCity() {
@@ -134,19 +129,19 @@ public class Client implements Serializable {
 		this.company = company;
 	}
 
-	public boolean getEmailInvoiceOK() {
+	public boolean getEmail_invoice_OK() {
 		return this.email_invoice_OK;
 	}
 
-	public void setEmailInvoiceOK(boolean email_invoice_OK) {
+	public void setEmail_invoice_OK(boolean email_invoice_OK) {
 		this.email_invoice_OK = email_invoice_OK;
 	}
 
-	public boolean getEmailReportOK() {
+	public boolean getEmail_report_OK() {
 		return this.email_report_OK;
 	}
 
-	public void setEmailReportOK(boolean email_report_OK) {
+	public void setEmail_report_OK(boolean email_report_OK) {
 		this.email_report_OK = email_report_OK;
 	}
 
@@ -205,21 +200,13 @@ public class Client implements Serializable {
 	public void setOfficePhone(String officePhone) {
 		this.officePhone = officePhone;
 	}
-	
-	public String getCellPhone() {
-		return this.cellPhone;
+
+	public boolean getPhone_report_OK() {
+		return this.phone_report_OK;
 	}
 
-	public void setCellPhone(String cellPhone) {
-		this.cellPhone = cellPhone;
-	}
-
-	public boolean getPhoneReportOK() {
-		return this.phoneReportOK;
-	}
-
-	public void setPhoneReportOK(boolean phone_report_OK) {
-		this.phoneReportOK = phone_report_OK;
+	public void setPhone_report_OK(boolean phone_report_OK) {
+		this.phone_report_OK = phone_report_OK;
 	}
 
 	public String getReportingEmail() {
@@ -262,23 +249,37 @@ public class Client implements Serializable {
 		this.zip = zip;
 	}
 
+	public List<CaseEntityObject> getCases() {
+		return this.cases;
+	}
+
+	public void setCases(List<CaseEntityObject> cases) {
+		this.cases = cases;
+	}
+
+	public List<CaseEntityObject> getCasesCCedOn() {
+		return this.casesCCedOn;
+	}
+
+	public void setCasesCCedOn(List<CaseEntityObject> casesCCedOn) {
+		this.casesCCedOn = casesCCedOn;
+	}
+
 	public Client getBillToClient() {
-		return this.client;
+		return this.billToClient;
 	}
 
-	public void setBillToClient(Client client) {
-		this.client = client;
+	public void setBillToClient(Client billToClient) {
+		this.billToClient = billToClient;
 	}
 
-	/*
-	public List<Client> getClients() {
-		return this.clients;
+	public List<Client> getBilledByClients() {
+		return this.billedByClients;
 	}
 
-	public void setClients(List<Client> clients) {
-		this.clients = clients;
+	public void setBilledByClients(List<Client> billedByClients) {
+		this.billedByClients = billedByClients;
 	}
-	*/
 
 	public List<Deposit> getDeposits() {
 		return this.deposits;
