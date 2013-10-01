@@ -15,11 +15,11 @@ CREATE TABLE IF NOT EXISTS EMPLOYEES
 
 CREATE TABLE IF NOT EXISTS USER_ROLES 
 (
-	surrogate_key SMALLINT NOT NULL AUTO_INCREMENT, 
+	role_PK INT NOT NULL AUTO_INCREMENT, 
 	employee_number TINYINT NOT NULL, 
 	role_name VARCHAR(64) NOT NULL, 
 	UNIQUE(employee_number, role_name),  
-	PRIMARY KEY(surrogate_key), 
+	PRIMARY KEY(role_PK), 
 	FOREIGN KEY(employee_number) REFERENCES EMPLOYEES(employee_number) 
 ); 
  
@@ -98,11 +98,11 @@ CREATE TABLE IF NOT EXISTS DEPOSIT
 
 CREATE TABLE IF NOT EXISTS DEPOSIT_REFUND 
 (
-	surrogate_key INT NOT NULL AUTO_INCREMENT, 
+	refund_PK INT NOT NULL AUTO_INCREMENT, 
 	deposit_number INT NOT NULL, 
 	refund_amount DECIMAL(9,2) NOT NULL, 
 	refund_date DATE NOT NULL, 
-	PRIMARY KEY(surrogate_key), 
+	PRIMARY KEY(refund_PK), 
 	FOREIGN KEY (deposit_number) REFERENCES DEPOSIT(deposit_number) 
 );
 
@@ -145,10 +145,12 @@ CREATE TABLE IF NOT EXISTS CASES
 
 CREATE TABLE IF NOT EXISTS CASE_DEPOSIT 
 (
+	case_dep_PK INT NOT NULL AUTO_INCREMENT, 	
 	case_FK INT NOT NULL, 
 	deposit_FK INT NOT NULL, 
 	amount DECIMAL(9,2) NOT NULL, 
-	PRIMARY KEY(case_FK, deposit_FK), 
+	PRIMARY KEY(case_dep_PK), 
+--	PRIMARY KEY(case_FK, deposit_FK), 
 --	INDEX (deposit_FK), 
 --	INDEX (case_FK), 
 	FOREIGN KEY (deposit_FK) REFERENCES DEPOSIT(deposit_number), 

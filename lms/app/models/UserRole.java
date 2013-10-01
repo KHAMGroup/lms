@@ -17,8 +17,8 @@ public class UserRole implements Serializable {
 	private String roleName;
 
 	@Id
-	@Column(name="surrogate_key")
-	private int surrogateKey;
+	@Column(name="role_PK")
+	private int role_PK;
 
 	//bi-directional many-to-one association to Employee
 	@ManyToOne

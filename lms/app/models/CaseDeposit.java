@@ -14,8 +14,9 @@ import java.math.BigDecimal;
 public class CaseDeposit implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
-	private CaseDepositPK id;
+	@Id
+	@Column(name="case_dep_PK")
+	private int caseDepPK;
 
 	@Column(nullable=false, precision=9, scale=2)
 	private BigDecimal amount;
