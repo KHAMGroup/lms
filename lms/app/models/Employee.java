@@ -129,7 +129,7 @@ public class Employee implements Serializable {
 		boolean roleFound = false;
 		Iterator<UserRole> rolesIterator = getUserRoles().iterator();
 		while(rolesIterator.hasNext() && !roleFound){
-			if((rolesIterator.next().getPrivilegeName()).equals(roleName)){
+			if((rolesIterator.next().getRoleName()).equals(roleName)){
 				roleFound = true;
 			}
 		}
@@ -137,9 +137,7 @@ public class Employee implements Serializable {
 	}	
 	
 	public void addUserRole(String roleName){
-		UserRole added = new UserRole();
-		added.setEmployee(this);
-		added.setPrivilegeName(roleName);
+		UserRole added = new UserRole(this,roleName);
 		this.getUserRoles().add(added);
 	}
 

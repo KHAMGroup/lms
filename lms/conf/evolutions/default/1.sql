@@ -17,8 +17,8 @@ CREATE TABLE IF NOT EXISTS USER_ROLES
 (
 	surrogate_key SMALLINT NOT NULL AUTO_INCREMENT, 
 	employee_number TINYINT NOT NULL, 
-	privilege_name VARCHAR(64) NOT NULL, 
-	UNIQUE(employee_number, privilege_name),  
+	role_name VARCHAR(64) NOT NULL, 
+	UNIQUE(employee_number, role_name),  
 	PRIMARY KEY(surrogate_key), 
 	FOREIGN KEY(employee_number) REFERENCES EMPLOYEES(employee_number) 
 ); 

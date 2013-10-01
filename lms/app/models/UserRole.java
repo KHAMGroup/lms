@@ -13,8 +13,8 @@ import javax.persistence.*;
 public class UserRole implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="privilege_name", nullable=false, length=64)
-	private String privilegeName;
+	@Column(name="role_name", nullable=false, length=64)
+	private String roleName;
 
 	@Id
 	@Column(name="surrogate_key")
@@ -28,12 +28,16 @@ public class UserRole implements Serializable {
 	public UserRole() {
 	}
 
-	public String getPrivilegeName() {
-		return this.privilegeName;
+	public UserRole(Employee employee, String roleName){
+		setEmployee(employee);
+		setRoleName(roleName);
+	}
+	public String getRoleName() {
+		return this.roleName;
 	}
 
-	public void setPrivilegeName(String privilegeName) {
-		this.privilegeName = privilegeName;
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
 	}
 
 	public Employee getEmployee() {
