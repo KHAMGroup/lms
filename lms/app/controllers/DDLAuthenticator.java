@@ -17,4 +17,13 @@ public class DDLAuthenticator extends Security.Authenticator {
 	public Result onUnauthorized(Context ctx) {
 		return redirect(routes.Application.login());
 	}
+
+	public static boolean hasRole(String userRole) {
+		Employee found = Employee.findByUserName(Context.current().request().username());
+		boolean hasRole = false;
+		if(found!=null && found.hasUserRole(userRole)){
+			hasRole = true;
+		}
+		return hasRole;
+	}
 }
