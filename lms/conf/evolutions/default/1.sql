@@ -44,7 +44,6 @@ CREATE TABLE IF NOT EXISTS TEST (
 	control_text VARCHAR(300), 
 	control_result_line VARCHAR(10), 
 	PRIMARY KEY(test_number), 
---	INDEX (default_comment), 
 	FOREIGN KEY (default_comment) REFERENCES COMMENTS(comment_code) 
 );
 
@@ -77,7 +76,6 @@ CREATE TABLE IF NOT EXISTS CLIENT
 	bill_to_client INT, 
 	PRIMARY KEY(client_id), 
 	UNIQUE(first, last, mailing_address, city, state, zip), 
---	INDEX (bill_to_client), 
 	FOREIGN KEY (bill_to_client) REFERENCES CLIENT(client_id) 
 );
 
@@ -92,7 +90,7 @@ CREATE TABLE IF NOT EXISTS DEPOSIT
 	check_number VARCHAR(8), 
 	posted BIT NOT NULL DEFAULT 0, 
 	PRIMARY KEY(deposit_number), 
---	INDEX (client_number), 
+	--INDEX (client_number), 
 	FOREIGN KEY (client_number) REFERENCES CLIENT(client_id) 
 );
 
@@ -121,9 +119,9 @@ CREATE TABLE IF NOT EXISTS CASES
 	date_collected DATE, 
 	time_collected TIME, 
 	other_id_number VARCHAR(10), 
-	total_cost DECIMAL(9,2) NOT NULL, 
-	total_paid DECIMAL(9,2) NOT NULL, 
-	unpaid_balance DECIMAL(9,2) NOT NULL, 
+	total_cost DECIMAL(9,2) NOT NULL DEFAULT 0, 
+	total_paid DECIMAL(9,2) NOT NULL DEFAULT 0, 
+	unpaid_balance DECIMAL(9,2) NOT NULL DEFAULT 0, 
 	invoice_number INT, 
 	sample_type VARCHAR(10) NOT NULL, 
 	medical_history_notes VARCHAR(100), 
@@ -134,9 +132,7 @@ CREATE TABLE IF NOT EXISTS CASES
 	date_tasks_completed DATE, 
 	UNIQUE(case_number), 
 	PRIMARY KEY(case_PK), 
---	INDEX (clt_no), 
---	INDEX (ccto_client), 
---	INDEX (note_code), 
+	--INDEX (clt_no), 
 	FOREIGN KEY (clt_no) REFERENCES CLIENT(client_id), 
 	FOREIGN KEY (note_code) REFERENCES COMMENTS(comment_code), 
 	FOREIGN KEY (ccto_client) REFERENCES CLIENT(client_id), 
@@ -150,15 +146,15 @@ CREATE TABLE IF NOT EXISTS CASE_DEPOSIT
 	deposit_FK INT NOT NULL, 
 	amount DECIMAL(9,2) NOT NULL, 
 	PRIMARY KEY(case_dep_PK), 
---	PRIMARY KEY(case_FK, deposit_FK), 
---	INDEX (deposit_FK), 
---	INDEX (case_FK), 
+	--INDEX (deposit_FK), 
+	--INDEX (case_FK), 
 	FOREIGN KEY (deposit_FK) REFERENCES DEPOSIT(deposit_number), 
 	FOREIGN KEY (case_FK) REFERENCES CASES(case_PK) 
 );
 
 CREATE TABLE IF NOT EXISTS CASE_TEST 
 (
+	case_test_PK BIGINT NOT NULL AUTO_INCREMENT, 	
 	case_FK INT NOT NULL, 
 	test_FK SMALLINT NOT NULL, 
 	billed BIT NOT NULL DEFAULT 0, 
@@ -169,9 +165,9 @@ CREATE TABLE IF NOT EXISTS CASE_TEST
 	date_completed DATE, 
 	employee_entered TINYINT, 
 	employee_performed TINYINT, 
-	PRIMARY KEY(case_FK, test_FK), 
---	INDEX (test_FK), 
---	INDEX (case_FK), 
+	PRIMARY KEY(case_test_PK), 
+	--INDEX (test_FK), 
+	--INDEX (case_FK), 
 	FOREIGN KEY (test_FK) REFERENCES TEST(test_number), 
 	FOREIGN KEY (case_FK) REFERENCES CASES(case_PK), 
 	FOREIGN KEY (employee_entered) REFERENCES EMPLOYEES(employee_number), 
@@ -180,17 +176,13 @@ CREATE TABLE IF NOT EXISTS CASE_TEST
 
 CREATE TABLE IF NOT EXISTS CASE_TEST_RESULTS_COMMENTS 
 (
-	case_FK INT NOT NULL, 
-	test_FK SMALLINT NOT NULL, 
+	case_test_FK BIGINT NOT NULL, 
 	results VARCHAR(8), 
 	employee_entered TINYINT, 
 	informational_comment INT, 
 	actual_comment INT, 
-	PRIMARY KEY(case_FK, test_FK), 
---	INDEX (test_FK), 
---	INDEX (case_FK), 
-	FOREIGN KEY (test_FK) REFERENCES CASE_TEST(test_FK), 
-	FOREIGN KEY (case_FK) REFERENCES CASE_TEST(case_FK), 
+	UNIQUE(case_test_FK), 
+	FOREIGN KEY (case_test_FK) REFERENCES CASE_TEST(case_test_PK), 
 	FOREIGN KEY (employee_entered) REFERENCES EMPLOYEES(employee_number), 
 	FOREIGN KEY (informational_comment) REFERENCES COMMENTS(comment_code), 
 	FOREIGN KEY (actual_comment) REFERENCES COMMENTS(comment_code) 

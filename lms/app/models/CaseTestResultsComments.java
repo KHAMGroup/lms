@@ -2,7 +2,7 @@ package models;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import models.CaseTest.CaseTestPK;
+//import models.CaseTest.CaseTestPK;
 
 
 @Entity
@@ -11,8 +11,9 @@ public class CaseTestResultsComments implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
-	private CaseTestPK id;
+	@Id
+	@Column(name="case_test_FK", unique=true, nullable=false)
+	private long caseTestFK;
 
 	@Column(length = 8)
 	private String results;

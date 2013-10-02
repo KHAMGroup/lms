@@ -15,8 +15,9 @@ import java.util.Date;
 public class CaseTest implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
-	private CaseTestPK id;
+	@Id
+	@Column(name="case_test_PK", unique=true, nullable=false)
+	private long caseTestPK;
 
 	@Column(name="amount_billed", precision=9, scale=2)
 	private BigDecimal amountBilled;
@@ -45,11 +46,15 @@ public class CaseTest implements Serializable {
 	private CaseEntityObject caseEntity;
 
 	//bi-directional one-to-one association to CaseTestResultsComment
+	//@OneToOne
+	//@JoinColumns({
+	//	@JoinColumn(name="case_FK", referencedColumnName="case_FK", nullable=false, insertable=false, updatable=false),
+	//	@JoinColumn(name="test_FK", referencedColumnName="test_FK", nullable=false, insertable=false, updatable=false)
+	//	})
+	//private CaseTestResultsComments resultsAndComments;
+
 	@OneToOne
-	@JoinColumns({
-		@JoinColumn(name="case_FK", referencedColumnName="case_FK", nullable=false, insertable=false, updatable=false),
-		@JoinColumn(name="test_FK", referencedColumnName="test_FK", nullable=false, insertable=false, updatable=false)
-		})
+	@JoinColumn(referencedColumnName="case_test_FK", nullable=true, insertable=false, updatable=false)
 	private CaseTestResultsComments resultsAndComments;
 
 	//bi-directional many-to-one association to Employee
@@ -70,13 +75,13 @@ public class CaseTest implements Serializable {
 	public CaseTest() {
 	}
 
-	public CaseTestPK getId() {
-		return this.id;
-	}
-
-	public void setId(CaseTestPK id) {
-		this.id = id;
-	}
+//	public CaseTestPK getId() {
+//		return this.id;
+//	}
+//
+//	public void setId(CaseTestPK id) {
+//		this.id = id;
+//	}
 
 	public BigDecimal getAmountBilled() {
 		return this.amountBilled;
@@ -166,7 +171,7 @@ public class CaseTest implements Serializable {
 		this.test = test;
 	}
 	
-	@Embeddable
+/*	@Embeddable
 	public class CaseTestPK implements Serializable {
 		//default serial version id, required for serializable classes.
 		private static final long serialVersionUID = 1L;
@@ -192,5 +197,5 @@ public class CaseTest implements Serializable {
 //			this.test_FK = test_FK;
 //		}
 
-	}
+	}*/
 }
