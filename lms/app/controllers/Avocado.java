@@ -6,7 +6,7 @@ import play.mvc.Http.*;
 
 import models.*;
 
-public class DDLAuthenticator extends Security.Authenticator {
+public class Avocado extends Security.Authenticator {
 	
 	@Override
 	public String getUsername(Context ctx) {
