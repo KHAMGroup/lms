@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 import javax.persistence.criteria.*;
 import java.util.List;
+import java.util.Set;
 import java.util.LinkedList;
 import java.util.Iterator;
 import play.db.jpa.*;
@@ -48,7 +49,7 @@ public class Employee implements Serializable {
 
 	//bi-directional many-to-one association to UserRole
 	@OneToMany(mappedBy="employee")
-	private List<UserRole> userRoles;
+	private Set<UserRole> userRoles;
 
 	public Employee() {
 	}
@@ -117,11 +118,11 @@ public class Employee implements Serializable {
 		this.caseTestsPerformed = caseTestsPerformed;
 	}
 
-	public List<UserRole> getUserRoles() {
+	public Set<UserRole> getUserRoles() {
 		return this.userRoles;
 	}
 	
-	public void setUserRoles(List<UserRole> userRoles) {
+	public void setUserRoles(Set<UserRole> userRoles) {
 		this.userRoles = userRoles;
 	}
 

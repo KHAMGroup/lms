@@ -8,6 +8,7 @@ import play.test.WithApplication;
 import static play.test.Helpers.*;
 import play.libs.*;
 import java.util.List;
+import java.util.Set;
 import play.libs.F.*;
 import play.db.jpa.*;
 
@@ -54,8 +55,9 @@ public class EmployeeTest extends WithApplication {
 				labman.addUserRole("admin");
 				labman.save();
 
+
 				Employee jeff = Employee.findByUserName("labman");
-				List<UserRole> userRoles = jeff.getUserRoles();
+				Set<UserRole> userRoles = jeff.getUserRoles();
 				assertEquals(2, userRoles.size());
 				assertEquals(true, jeff.hasUserRole("admin"));
 				assertEquals(true, jeff.hasUserRole("produce quarterly reports"));
