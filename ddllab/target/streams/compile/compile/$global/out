@@ -1,3 +1,0 @@
-[0m[[0minfo[0m] [0mCompiling 7 Scala sources and 8 Java sources to /Users/matthewreyes/programming/workspace01-indigo/lms/ddllab/target/scala-2.10/classes...[0m
-[0m[[33mwarn[0m] [0mNote: /Users/matthewreyes/programming/workspace01-indigo/lms/ddllab/app/models/Employee.java uses unchecked or unsafe operations.[0m
-[0m[[33mwarn[0m] [0mNote: Recompile with -Xlint:unchecked for details.[0m

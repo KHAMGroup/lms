@@ -13,6 +13,9 @@ public class ClientController extends Controller {
     @Transactional
     public static Result search(String searchString) {
 		if (Avocado.hasRole("manage clients")) {
+			
+			
+			
 			return TODO;
 		} else {
 			return forbidden();
