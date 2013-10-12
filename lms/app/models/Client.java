@@ -2,6 +2,9 @@ package models;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import play.db.jpa.JPA;
+
 import java.util.List;
 
 
@@ -288,5 +291,14 @@ public class Client implements Serializable {
 	public void setDeposits(List<Deposit> deposits) {
 		this.deposits = deposits;
 	}
+	
+    public void save(){
+        JPA.em().persist(this);
+    }
+    
+    public void update(int clientId) {
+    	setClientId(clientId);
+    	JPA.em().merge(this);
+    }
 
 }

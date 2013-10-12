@@ -10,8 +10,8 @@ import models.*;
 @Security.Authenticated(Avocado.class)
 public class MainController extends Controller {
     
-    public static Result showDashboard() {
-	return TODO;
+    public static Result returnToDashboard() {
+    	return TODO;
     }
 
     public static Result createClient() {
