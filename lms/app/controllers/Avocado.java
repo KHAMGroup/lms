@@ -19,11 +19,12 @@ public class Avocado extends Security.Authenticator {
 	}
 
 	public static boolean hasRole(String userRole) {
-		Employee found = Employee.findByUserName(Context.current().request().username());
-		boolean hasRole = false;
-		if(found!=null && found.hasUserRole(userRole)){
-			hasRole = true;
-		}
-		return hasRole;
+//		Employee found = Employee.findByUserName(Context.current().request().username());
+//		boolean hasRole = false;
+//		if(found!=null && found.hasUserRole(userRole)){
+//			hasRole = true;
+//		}
+//		return hasRole;
+		return Employee.hasUserRole(Context.current().request().username(), userRole);
 	}
 }

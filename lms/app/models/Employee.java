@@ -137,6 +137,14 @@ public class Employee implements Serializable {
 		return roleFound;
 	}	
 	
+	public static boolean hasUserRole(String username, String roleName) {
+		String query = "from EMPLOYEES AS e " +
+				"INNER JOIN USER_ROLES AS u WHERE e.employee_number = u.employee_number " +
+				"AND u.roleName LIKE '"+roleName+"' ";
+		List resultList = JPA.em().createQuery(query).getResultList();
+		return resultList.size() > 0;
+	}
+	
 	public void addUserRole(String roleName){
 		UserRole added = new UserRole(this,roleName);
 		this.getUserRoles().add(added);
