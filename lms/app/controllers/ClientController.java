@@ -11,7 +11,7 @@ import models.*;
 public class ClientController extends Controller {
 
     @Transactional
-    public static Result search() {
+    public static Result search(String searchString) {
 		if (Avocado.hasRole("manage clients")) {
 			return TODO;
 		} else {

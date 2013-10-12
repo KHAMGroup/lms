@@ -10,7 +10,7 @@ import models.*;
 @Security.Authenticated(Avocado.class)
 public class CaseController extends Controller {
 
-    public static Result search() {
+    public static Result search(String data) {
 	if (Avocado.hasRole("manage_cases")) {
 //		return ok();
 		return TODO;
