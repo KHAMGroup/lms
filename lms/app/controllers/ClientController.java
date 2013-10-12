@@ -1,6 +1,5 @@
 package controllers;
 
-import controllers.Application.Login;
 import play.*;
 import play.mvc.*;
 import static play.data.Form.*;
@@ -11,8 +10,9 @@ import models.*;
 @Security.Authenticated(Avocado.class)
 public class ClientController extends Controller {
 
+    @Transactional
     public static Result search() {
-		if (Avocado.hasRole("manage_clients")) {
+		if (Avocado.hasRole("manage clients")) {
 			return TODO;
 		} else {
 			return forbidden();
@@ -22,7 +22,7 @@ public class ClientController extends Controller {
     
     @Transactional
     public static Result createClient() {
-		if (Avocado.hasRole("manage_clients")) {
+		if (Avocado.hasRole("manage clients")) {
 			return ok(views.html.create_client.render(new Client(), form(Client.class)));
 		} else {
 			return forbidden();

@@ -3,6 +3,7 @@
 
 INSERT INTO EMPLOYEES(first,last,username) VALUES('Jeff','Zehnder','labman');
 INSERT INTO USER_ROLES(employee_number,role_name) VALUES((SELECT employee_number FROM EMPLOYEES WHERE username = 'labman') ,'produce quarterly reports');
+INSERT INTO USER_ROLES(employee_number,role_name) VALUES((SELECT employee_number FROM EMPLOYEES WHERE username = 'labman') ,'manage clients');
 INSERT INTO CLIENT(last,first,city,zip, office_phone,phone_report_OK, email_report_OK, email_invoice_OK) 
 VALUES('goodman','saul','Riverside','92005','9098675309',1,1,1);
 INSERT INTO DEPOSIT(deposit_number, client_number, amount, amount_remaining, date) VALUES(1, (SELECT c.client_id FROM CLIENT AS c WHERE c.last = 'goodman') ,1000.0,1000.0,NOW());

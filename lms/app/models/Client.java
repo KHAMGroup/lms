@@ -100,6 +100,14 @@ public class Client implements Serializable {
 	public Client() {
 	}
 
+	private String trimPhoneNumber(String phoneNumber){
+		if(phoneNumber.matches(".*[^0-9].*")){
+			return phoneNumber.replaceAll("[^0-9]", "");
+		}else{
+			return phoneNumber;
+		}
+	}
+	
 	public int getClientId() {
 		return this.clientId;
 	}
@@ -113,7 +121,7 @@ public class Client implements Serializable {
 	}
 
 	public void setCellPhone(String cellPhone) {
-		this.cellPhone = cellPhone;
+		this.cellPhone = trimPhoneNumber(cellPhone);
 	}
 
 	public String getCity() {
@@ -153,7 +161,7 @@ public class Client implements Serializable {
 	}
 
 	public void setFax(String fax) {
-		this.fax = fax;
+		this.fax = trimPhoneNumber(fax);
 	}
 
 	public String getFirst() {
@@ -201,7 +209,7 @@ public class Client implements Serializable {
 	}
 
 	public void setOfficePhone(String officePhone) {
-		this.officePhone = officePhone;
+		this.officePhone = trimPhoneNumber(officePhone);
 	}
 
 	public boolean getPhone_report_OK() {
@@ -301,4 +309,21 @@ public class Client implements Serializable {
     	JPA.em().merge(this);
     }
 
+    public static List<Client> findByFirstOrLastName(String firstOrLast){
+    	String asLowerCase = firstOrLast.toLowerCase() + "%";
+    	return JPA.em().createQuery("from Client where lower(first) LIKE ? " +
+    			"OR lower(last) LIKE ? ")
+    		.setParameter(1, asLowerCase)
+    		.setParameter(2, asLowerCase)
+    		.getResultList(); 
+    }
+
+    public static List<Client> findByFirstAndLastName(String first, String last){
+    	return JPA.em().createQuery("from Client where lower(first) LIKE ? " +
+    			"AND lower(last) LIKE ? ")
+    		.setParameter(1, first.toLowerCase()+"%")
+    		.setParameter(2, last.toLowerCase()+"%")
+    		.getResultList(); 
+    }
+    
 }
