@@ -4,7 +4,9 @@ import java.io.Serializable;
 import javax.persistence.*;
 import javax.persistence.criteria.*;
 import java.util.List;
+import java.util.Set;
 import java.util.LinkedList;
+import java.util.Iterator;
 import play.db.jpa.*;
 
 /**
@@ -47,7 +49,7 @@ public class Employee implements Serializable {
 
 	//bi-directional many-to-one association to UserRole
 	@OneToMany(mappedBy="employee")
-	private List<UserRole> userRoles;
+	private Set<UserRole> userRoles;
 
 	public Employee() {
 	}
@@ -116,19 +118,48 @@ public class Employee implements Serializable {
 		this.caseTestsPerformed = caseTestsPerformed;
 	}
 
-	public List<UserRole> getUserRoles() {
+	public Set<UserRole> getUserRoles() {
 		return this.userRoles;
 	}
 	
-	public void setUserRoles(List<UserRole> userRoles) {
+	public void setUserRoles(Set<UserRole> userRoles) {
 		this.userRoles = userRoles;
 	}
 
+	public boolean hasUserRole(String roleName) {
+		boolean roleFound = false;
+		Iterator<UserRole> rolesIterator = getUserRoles().iterator();
+		while(rolesIterator.hasNext() && !roleFound){
+			if((rolesIterator.next().getRoleName()).equals(roleName)){
+				roleFound = true;
+			}
+		}
+		return roleFound;
+	}	
+	
+	public static boolean hasUserRole(String username, String roleName) {
+		String query = "from EMPLOYEES AS e " +
+				"INNER JOIN USER_ROLES AS u WHERE e.employee_number = u.employee_number " +
+				"AND u.roleName LIKE '"+roleName+"' ";
+		List resultList = JPA.em().createQuery(query).getResultList();
+		return resultList.size() > 0;
+	}
+	
+	public void addUserRole(String roleName){
+		UserRole added = new UserRole(this,roleName);
+		this.getUserRoles().add(added);
+	}
 
 	public static Employee authenticate(String username, String password) {
 		Employee found = findByUserName(username);
-		if(found!=null && found.getPassword() != null && !((found.getPassword()).equals(password))){
-			found=null;
+		if(found != null){
+			String foundPw = found.getPassword();
+			if(foundPw == null && password.length() > 0){
+				found = null;
+			}
+			else if(foundPw != null && !(foundPw.equals(password))){
+				found = null;
+			}
 		}
 		return found;
 	}

@@ -9,7 +9,7 @@ import models.*;
 
 public class Application extends Controller {
 
-    @Security.Authenticated(DDLAuthenticator.class)
+    @Security.Authenticated(Avocado.class)
     public static Result index() {
         return ok(views.html.index.render("Your new application is ready."));
     }
