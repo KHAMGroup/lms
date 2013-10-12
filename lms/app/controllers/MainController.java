@@ -15,11 +15,17 @@ public class MainController extends Controller {
     }
 
     public static Result createClient() {
-	return TODO;
+    	return ClientController.createClient();
     }
 
-    public static Result search(Object data, String clientOrCase) {
-	return TODO;
+    public static Result search(String data, String clientOrCase) {
+    	if(clientOrCase.equals("Client")){
+    		return ClientController.search(data);
+    	}else if(clientOrCase.equals("Case")){
+    		return CaseController.search(data);
+    	}else{
+    		return returnToDashboard();
+    	}
     }
 
     public static Result printWorksheet() {
