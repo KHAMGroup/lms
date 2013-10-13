@@ -1,9 +1,9 @@
 package controllers;
 
 public class SearchTools {
-	private static String firstOrLastRegex = "";
-	private static String firstThenLastRegex = "";
-	private static String lastThenFirstRegex = "";
+	private static String firstOrLastRegex = " *[a-zA-Z0-9]* *";
+	private static String firstThenLastRegex = " *[a-zA-Z0-9]* *[a-zA-Z0-9]* *";
+	private static String lastThenFirstRegex = " *[a-zA-Z0-9]* *, *[a-zA-Z0-9]* *";
 	
 	public static boolean isFirstOrLast(String name){
 		return name.matches(firstOrLastRegex);
@@ -16,4 +16,5 @@ public class SearchTools {
 	public static boolean isLastThenFirst(String name){
 		return name.matches(lastThenFirstRegex);
 	}
+
 }
