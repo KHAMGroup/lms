@@ -41,7 +41,7 @@ public class CaseEntityObjectTest extends WithApplication {
 						
 						CaseEntityObject foundCheck = CaseEntityObject.findByCaseNumber("001100");
 						assertEquals("blood",foundCheck.getSampleType());
-
+						
 		           }
 		       });
 		   }
