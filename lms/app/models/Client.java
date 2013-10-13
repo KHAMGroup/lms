@@ -140,19 +140,19 @@ public class Client implements Serializable {
 		this.company = company;
 	}
 
-	public boolean getEmail_invoice_OK() {
+	public boolean getEmailInvoiceOk() {
 		return this.email_invoice_OK;
 	}
 
-	public void setEmail_invoice_OK(boolean email_invoice_OK) {
+	public void setEmailInvoiceOk(boolean email_invoice_OK) {
 		this.email_invoice_OK = email_invoice_OK;
 	}
 
-	public boolean getEmail_report_OK() {
+	public boolean getEmailReportOk() {
 		return this.email_report_OK;
 	}
 
-	public void setEmail_report_OK(boolean email_report_OK) {
+	public void setEmailReportOk(boolean email_report_OK) {
 		this.email_report_OK = email_report_OK;
 	}
 
@@ -212,11 +212,11 @@ public class Client implements Serializable {
 		this.officePhone = trimPhoneNumber(officePhone);
 	}
 
-	public boolean getPhone_report_OK() {
+	public boolean getPhoneReportOk() {
 		return this.phone_report_OK;
 	}
 
-	public void setPhone_report_OK(boolean phone_report_OK) {
+	public void setPhoneReportOk(boolean phone_report_OK) {
 		this.phone_report_OK = phone_report_OK;
 	}
 
@@ -309,6 +309,10 @@ public class Client implements Serializable {
     	JPA.em().merge(this);
     }
 
+    public static Client findByClientNumber(int clientNumber){
+    	return JPA.em().find(Client.class, clientNumber);
+    }
+    
     public static List<Client> findByFirstOrLastName(String firstOrLast){
     	String asLowerCase = firstOrLast.toLowerCase() + "%";
     	return JPA.em().createQuery("from Client where lower(first) LIKE ? " +

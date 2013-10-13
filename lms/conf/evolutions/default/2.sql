@@ -10,8 +10,8 @@ INSERT INTO DEPOSIT(deposit_number, client_number, amount, amount_remaining, dat
 INSERT INTO DEPOSIT_REFUND(deposit_number, refund_amount, refund_date) VALUES(1, 200, NOW());
 
 
-INSERT INTO CASES(clt_no, case_number, subject_lastname, subject_firstname, received_date, received_by, sample_type, total_cost, total_paid, unpaid_balance, email_invoice_OK, email_results_OK) 
-VALUES((SELECT c.client_id FROM CLIENT AS c WHERE c.last = 'goodman'), '007','Heisenberg', 'Walter', NOW(), (SELECT employee_number FROM EMPLOYEES WHERE username = 'labman'), 
+INSERT INTO CASES(clt_no, case_number, subject_lastname, subject_firstname,  received_by, sample_type, total_cost, total_paid, unpaid_balance, email_invoice_OK, email_results_OK) 
+VALUES((SELECT c.client_id FROM CLIENT AS c WHERE c.last = 'goodman'), '007','Heisenberg', 'Walter', (SELECT employee_number FROM EMPLOYEES WHERE username = 'labman'), 
 'blood', 300, 0, 300, 1, 1); 
 
 INSERT INTO CASE_DEPOSIT(case_FK, deposit_FK, amount) VALUES(1,1,300); 

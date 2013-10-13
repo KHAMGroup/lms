@@ -113,7 +113,7 @@ CREATE TABLE IF NOT EXISTS CASES
 	ccto_client INT, 
 	subject_lastname VARCHAR(20) NOT NULL, 
 	subject_firstname VARCHAR(20) NOT NULL, 
-	received_date DATE NOT NULL, 
+	received_date DATE DEFAULT CURRENT_DATE, 
 	received_from INT, 
 	received_by TINYINT NOT NULL, 
 	date_collected DATE, 

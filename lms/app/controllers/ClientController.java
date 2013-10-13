@@ -1,5 +1,8 @@
 package controllers;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import play.*;
 import play.mvc.*;
 import static play.data.Form.*;
@@ -12,22 +15,25 @@ public class ClientController extends Controller {
 
     @Transactional
     public static Result search(String searchString) {
-		if (Avocado.hasRole("manage clients")) {
-			String trimmed = searchString.trim();
-			if(SearchTools.isFirstOrLast(searchString)){
-				
-			}
-			else if(SearchTools.isFirstThenLast(searchString)){
-				
-			}
-			else if(SearchTools.isLastThenFirst(searchString)){
-				
-			}
-			
-			return TODO;
-		} else {
-			return forbidden();
+		String trimmed = searchString.trim();
+		List<Client> clientsFound = new LinkedList<Client>();
+		if(SearchTools.isFirstThenLast(trimmed)){
+			String[] firstAndLast = SearchTools.getFirstAndLast(trimmed);
+			String first = firstAndLast[0];
+			String last = firstAndLast[1];
+			clientsFound.addAll(Client.findByFirstAndLastName(first, last));
 		}
+		else if(SearchTools.isFirstOrLast(trimmed)){
+			clientsFound.addAll(Client.findByFirstOrLastName(trimmed));
+		}
+		else if(SearchTools.isLastThenFirst(trimmed)){
+			String[] lastAndFirst = SearchTools.getLastAndFirst(trimmed);
+			String first = lastAndFirst[1];
+			String last = lastAndFirst[0];
+			clientsFound.addAll(Client.findByFirstAndLastName(first, last));
+		}
+//			return ok(views.html.dashboard.render(clientsFound));
+		return TODO;
     }
     
     

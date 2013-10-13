@@ -32,14 +32,31 @@ public class ClientTest extends WithApplication {
 						rick.setState("CA");
 						rick.setZip("92525");
 						rick.setOfficePhone("(916) 925-9292");
-						rick.setEmail_invoice_OK(true);
-						rick.setEmail_report_OK(true);
-						rick.setPhone_report_OK(true);
+						rick.setEmailInvoiceOk(true);
+						rick.setEmailReportOk(true);
+						rick.setPhoneReportOk(true);
 						rick.save();
 		           }
 		       });
 		   }
 		});
+	}
+	
+	@Test
+	public void findExistingClient() {
+		running(fakeApplication(), new Runnable() {
+			   public void run() {
+			       JPA.withTransaction(new play.libs.F.Callback0() {
+			           public void invoke() {
+							List<Client> isSaulHere = Client.findByFirstAndLastName("Saul", "Goodman");
+							
+							assertEquals(1,isSaulHere.size());
+							Client saul = isSaulHere.get(0);
+							assertEquals("riverside",saul.getCity().toLowerCase());
+			           }
+			       });
+			   }
+			});
 	}
 
 }

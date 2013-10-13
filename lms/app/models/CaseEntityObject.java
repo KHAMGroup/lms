@@ -2,8 +2,12 @@ package models;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import play.db.jpa.JPA;
+
 import java.math.BigDecimal;
 import java.sql.Time;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -25,7 +29,7 @@ public class CaseEntityObject implements Serializable {
 	@Column(name="all_tasks_completed", nullable=false)
 	private boolean allTasksCompleted;
 
-	@Column(name="case_number", length=7)
+	@Column(name="case_number", length=7, unique=true)
 	private String caseNumber;
 
 	@Temporal(TemporalType.DATE)
@@ -52,7 +56,8 @@ public class CaseEntityObject implements Serializable {
 	private String otherIdNumber;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="received_date", nullable=false)
+	@Column(name = "received_date", 
+			columnDefinition = "received_date DATE DEFAULT CURRENT_DATE")
 	private Date receivedDate;
 
 	@Column(name="received_from")
@@ -70,13 +75,16 @@ public class CaseEntityObject implements Serializable {
 	@Column(name="time_collected")
 	private Time timeCollected;
 
-	@Column(name="total_cost", nullable=false, precision=9, scale=2)
+	@Column(columnDefinition="total_cost DECIMAL(9,2) NOT NULL DEFAULT 0", 
+			name="total_cost", precision=9, scale=2)
 	private BigDecimal totalCost;
 
-	@Column(name="total_paid", nullable=false, precision=9, scale=2)
+	@Column(columnDefinition="total_paid DECIMAL(9,2) NOT NULL DEFAULT 0", 
+			name="total_paid", precision=9, scale=2)
 	private BigDecimal totalPaid;
 
-	@Column(name="unpaid_balance", nullable=false, precision=9, scale=2)
+	@Column(columnDefinition="unpaid_balance DECIMAL(9,2) NOT NULL DEFAULT 0",
+			name="unpaid_balance", precision=9, scale=2)
 	private BigDecimal unpaidBalance;
 
 	//bi-directional many-to-one association to Client
@@ -108,6 +116,9 @@ public class CaseEntityObject implements Serializable {
 	private List<CaseTest> caseTests;
 
 	public CaseEntityObject() {
+		setUnpaidBalance(new BigDecimal(0.0));
+		setTotalCost(new BigDecimal(0.0));
+		setTotalPaid(new BigDecimal(0.0));
 	}
 
 	public int getCase_PK() {
@@ -150,19 +161,19 @@ public class CaseEntityObject implements Serializable {
 		this.dateTasksCompleted = dateTasksCompleted;
 	}
 
-	public boolean getEmail_invoice_OK() {
+	public boolean getEmailInvoiceOk() {
 		return this.email_invoice_OK;
 	}
 
-	public void setEmail_invoice_OK(boolean email_invoice_OK) {
+	public void setEmailInvoiceOk(boolean email_invoice_OK) {
 		this.email_invoice_OK = email_invoice_OK;
 	}
 
-	public boolean getEmail_results_OK() {
+	public boolean getEmailResultsOk() {
 		return this.email_results_OK;
 	}
 
-	public void setEmail_results_OK(boolean email_results_OK) {
+	public void setEmailResultsOk(boolean email_results_OK) {
 		this.email_results_OK = email_results_OK;
 	}
 
@@ -245,6 +256,10 @@ public class CaseEntityObject implements Serializable {
 	public void setTotalCost(BigDecimal totalCost) {
 		this.totalCost = totalCost;
 	}
+	
+	public void setTotalCost(double totalCost) {
+		setTotalCost(new BigDecimal(totalCost));
+	}
 
 	public BigDecimal getTotalPaid() {
 		return this.totalPaid;
@@ -253,6 +268,10 @@ public class CaseEntityObject implements Serializable {
 	public void setTotalPaid(BigDecimal totalPaid) {
 		this.totalPaid = totalPaid;
 	}
+	
+	public void setTotalPaid(double totalPaid){
+		setTotalPaid(new BigDecimal(totalPaid));
+	}
 
 	public BigDecimal getUnpaidBalance() {
 		return this.unpaidBalance;
@@ -260,6 +279,10 @@ public class CaseEntityObject implements Serializable {
 
 	public void setUnpaidBalance(BigDecimal unpaidBalance) {
 		this.unpaidBalance = unpaidBalance;
+	}
+	
+	public void setUnpaidBalance(double unpaidBalance) {
+		setUnpaidBalance(new BigDecimal(unpaidBalance));
 	}
 
 	public Client getClient() {
@@ -308,6 +331,50 @@ public class CaseEntityObject implements Serializable {
 
 	public void setCaseTests(List<CaseTest> caseTests) {
 		this.caseTests = caseTests;
+	}
+
+    public void save(){
+        JPA.em().persist(this);
+    }
+    
+    public void update(int casePK) {
+    	setCase_PK(casePK);
+    	JPA.em().merge(this);
+    }
+    
+    public static CaseEntityObject findByCasePK(int casePK){
+    	return JPA.em().find(CaseEntityObject.class, casePK);
+    }
+    
+    public static CaseEntityObject findByCaseNumber(String caseNumber){
+    	List<CaseEntityObject> found = JPA.em().createQuery("from " +
+    			"CaseEntityObject where caseNumber = ? ")
+    			.setParameter(1, caseNumber)
+    			.getResultList();
+    	if(found.size()>0){
+    		return found.get(0);
+    	}else{
+    		return new CaseEntityObject();
+    	}
+    }
+    
+	public static List<CaseEntityObject> findBySubjectFirstAndLastName(
+			String first, String last) {
+    	return JPA.em().createQuery("from CaseEntityObject where lower(first) LIKE ? " +
+    			"AND lower(last) LIKE ? ")
+    		.setParameter(1, first.toLowerCase()+"%")
+    		.setParameter(2, last.toLowerCase()+"%")
+    		.getResultList(); 
+	}
+
+	public static List<CaseEntityObject> findBySubjectFirstOrLastName(
+			String firstOrLast) {
+    	String asLowerCase = firstOrLast.toLowerCase() + "%";
+    	return JPA.em().createQuery("from CaseEntityObject where lower(first) LIKE ? " +
+    			"OR lower(last) LIKE ? ")
+    		.setParameter(1, asLowerCase)
+    		.setParameter(2, asLowerCase)
+    		.getResultList();
 	}
 
 }
