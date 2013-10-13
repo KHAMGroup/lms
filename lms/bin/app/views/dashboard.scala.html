@@ -4,9 +4,7 @@
 @main("Dashboard"){
 <div class="search_area" style="">
 	<div style="float:left;">
-		@if(emp != null){
 		<h1>Welcome, @emp.getFirst()</h1>
-		}
 	</div>
 	<div style="float:right; margin-right:10%;">
 	<fieldset>
@@ -56,10 +54,8 @@
 	<center>
 	<h3>Search Results</h3>
 	<ul>
-		@if(searchResults != null){
 		@for( sr <- searchResults){
 			<li>@sr</li>
-		}
 		}
 	</ul>
 	</center>

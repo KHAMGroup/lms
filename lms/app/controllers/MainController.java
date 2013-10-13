@@ -1,5 +1,8 @@
 package controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import play.*;
 import play.mvc.*;
 import static play.data.Form.*;
@@ -11,7 +14,7 @@ import models.*;
 public class MainController extends Controller {
     
     public static Result returnToDashboard() {
-    	return TODO;
+    	return ok(views.html.dashboard.render(null, null));
     }
 
     public static Result createClient() {
