@@ -1,5 +1,5 @@
-@(emp: Employee, searchResults: List[String])
-
+@(emp: Employee, userRoles: Set[String], clientSearchResults: List[Client], caseSearchResults: List[CaseEntityObject])
+@import helper._
 
 @main("Dashboard"){
 <div class="search_area" style="">
@@ -44,21 +44,28 @@
 
 <nav class="button_area" style="clear:left; float:left; background-color:#C0C0C0; height:100%; width:10%;">
 	<center>
-	<button>btn 00</button><br/>
-	<button>btn 01</button><br/>
-	<button>btn 02</button><br/>
-	<button>btn 03</button><br/>
-	<button>btn 04</button><br/>
+	@if(emp!=null){
+		@if(userRoles.contains("manage clients")){
+			@form(routes.ClientController.createClient()){
+				<button type="submit">Create Client</button><br/>
+			}
+		}
+		<button>btn 01</button><br/>
+		<button>btn 02</button><br/>
+		<button>btn 03</button><br/>
+		<button>btn 04</button><br/>
+	}
+
 	</center>
 </nav>
 
 <div class="search_results" style="float:left; background-color:#00FF00; height:100%; width:90%;">
 	<center>
-	<h3>Search Results</h3>
+	<h3>Client Search Results</h3>
 	<ul>
-		@if(searchResults != null){
-		@for( sr <- searchResults){
-			<li>@sr</li>
+		@if(clientSearchResults != null){
+		@for( client <- clientSearchResults){
+			<li>@client.toString()/li>
 		}
 		}
 	</ul>

@@ -38,4 +38,8 @@ public class CaseController extends Controller {
     public static Result createCase() {
 	return TODO;
     }
+
+    public static Result saveCase() {
+	return TODO;
+    }
 }

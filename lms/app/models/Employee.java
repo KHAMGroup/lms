@@ -3,6 +3,8 @@ package models;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.persistence.criteria.*;
+
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.LinkedList;
@@ -49,7 +51,7 @@ public class Employee implements Serializable {
 
 	//bi-directional many-to-one association to UserRole
 	@OneToMany(mappedBy="employee")
-	private Set<UserRole> userRoles;
+	private List<UserRole> userRoles;
 
 	public Employee() {
 	}
@@ -118,11 +120,19 @@ public class Employee implements Serializable {
 		this.caseTestsPerformed = caseTestsPerformed;
 	}
 
-	public Set<UserRole> getUserRoles() {
+	public List<UserRole> getUserRoles() {
 		return this.userRoles;
 	}
 	
-	public void setUserRoles(Set<UserRole> userRoles) {
+	public Set<String> getUserRolesAsStrings() {
+		Set<String> roleStrings = new HashSet<String>();
+		for(UserRole ur : getUserRoles()){
+			roleStrings.add(ur.getRoleName());
+		}
+		return roleStrings;
+	}
+	
+	public void setUserRoles(List<UserRole> userRoles) {
 		this.userRoles = userRoles;
 	}
 

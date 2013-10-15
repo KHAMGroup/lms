@@ -3,6 +3,8 @@ package models;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import play.data.validation.Constraints.MaxLength;
+import play.data.validation.Constraints.Required;
 import play.db.jpa.JPA;
 
 import java.util.List;
@@ -26,9 +28,12 @@ public class Client implements Serializable {
 	private String cellPhone;
 
 	@Column(nullable=false, length=30)
+	@MaxLength(30)
+	@Required
 	private String city;
 
 	@Column(length=30)
+	@MaxLength(30)
 	private String company;
 
 	@Column(nullable=false)
@@ -44,15 +49,19 @@ public class Client implements Serializable {
 	private String first;
 
 	@Column(name="invoice_email", length=30)
+	@MaxLength(30)
 	private String invoiceEmail;
 
 	@Column(nullable=false, length=20)
 	private String last;
 
 	@Column(name="mailing_address", length=50)
+	@MaxLength(50)
+	@Required
 	private String mailingAddress;
 
 	@Column(length=1)
+	@MaxLength(1)
 	private String mi;
 
 	@Column(name="office_phone", nullable=false, length=10)
@@ -62,9 +71,11 @@ public class Client implements Serializable {
 	private boolean phone_report_OK;
 
 	@Column(name="reporting_email", length=30)
+	@MaxLength(30)
 	private String reportingEmail;
 
 	@Column(length=1)
+	@MaxLength(1)
 	private String sex;
 
 	@Column(length=2)

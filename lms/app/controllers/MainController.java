@@ -13,8 +13,14 @@ import models.*;
 @Security.Authenticated(Avocado.class)
 public class MainController extends Controller {
     
+	@Transactional
     public static Result returnToDashboard() {
-    	return ok(views.html.dashboard.render(null, null));
+    	Employee user = Avocado.getCurrentUser();
+    	if(user!=null){
+    		return ok(views.html.dashboard.render(user, user.getUserRolesAsStrings(), null, null));
+    	}else{
+    		return forbidden();
+    	}
     }
 
     public static Result createClient() {
@@ -31,6 +37,7 @@ public class MainController extends Controller {
     	}
     }
 
+    
     public static Result printWorksheet() {
 	return TODO;
     }

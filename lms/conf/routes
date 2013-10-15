@@ -3,13 +3,14 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index()
+GET     /                           controllers.MainController.returnToDashboard()
 GET	/login			    controllers.Application.login()
 POST	/login			    controllers.Application.authenticate()
 
 GET	/logout			    controllers.Application.logout()
 
-GET /main				controllers.MainController.returnToDashboard()
+
+
 
 POST	/clients/new	controllers.ClientController.createClient()
 POST	/clients/save	controllers.ClientController.saveClient()
