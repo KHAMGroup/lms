@@ -1,0 +1,6 @@
+@(clients: List[Client])
+<div>
+	@clients.map { client => 
+		@views.html.client.client_search_results(client)
+	}
+</div>

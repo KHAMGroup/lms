@@ -1,4 +1,4 @@
-@(emp: Employee, userRoles: Set[String], clientSearchResults: List[Client], caseSearchResults: List[CaseEntityObject])
+@(emp: Employee, userRoles: Set[String], clientSearchResults: List[Client], caseSearchResults: List[CaseEntityObject], searchForm: Form[MainController.SearchQuery])
 @import helper._
 
 @main("Dashboard"){
@@ -11,14 +11,23 @@
 	<div style="float:right; margin-right:10%;">
 	<fieldset>
 	<legend>Search</legend>
-	<input type="text"></input>
+	<!--<input type="text"></input>-->
+	@form(routes.MainController.search()){
+	@inputText(searchForm("data"))
+<!--
 	<select>
 		<option>Client</option>
 		<option>Case</option>
 	</select>
-	<button>Search</button>
+-->
+	@select(searchForm("clientOrCase"),
+		options = options(MainController.SearchQuery.options())
+	)
+	<button type="submit">Search</button>
+	}
 	<button>Adv. Search</button>
 	</fieldset>
+	
 	</div>
 </div>
 
@@ -37,11 +46,11 @@
 		</tr>
 	</table>
 </div>
-
+<!--
 <div style="float:left; background-color:#C0C0C0; height:25%; width:70%;">
 	<h2>Item Details</h2>
 </div>
-
+-->
 <nav class="button_area" style="clear:left; float:left; background-color:#C0C0C0; height:100%; width:10%;">
 	<center>
 	@if(emp!=null){
@@ -64,9 +73,9 @@
 	<h3>Client Search Results</h3>
 	<ul>
 		@if(clientSearchResults != null){
-		@for( client <- clientSearchResults){
-			<li>@client.toString()/li>
-		}
+			@for( client <- clientSearchResults){
+				<li>@client.toString()/li>
+			}
 		}
 	</ul>
 	</center>

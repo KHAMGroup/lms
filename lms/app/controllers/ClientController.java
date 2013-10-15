@@ -13,7 +13,6 @@ import models.*;
 @Security.Authenticated(Avocado.class)
 public class ClientController extends Controller {
 
-    @Transactional
     public static Result search(String searchString) {
 		if(Avocado.hasRole("manage_clients")){
 			String trimmed = searchString.trim();
@@ -59,7 +58,7 @@ public class ClientController extends Controller {
 			return badRequest(views.html.client.create_client.render(newClientForm.get(), newClientForm));
 		}else{
 			newClientForm.get().save();
-	    	return redirect(routes.MainController.returnToDashboard());
+	    		return redirect(routes.MainController.returnToDashboard());
 		}
     }
     
