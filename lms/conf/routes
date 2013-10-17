@@ -4,6 +4,7 @@
 
 # Home page
 GET     /                           controllers.MainController.returnToDashboard()
+POST	/			    controllers.MainController.showDashboard()
 GET	/login			    controllers.Application.login()
 POST	/login			    controllers.Application.authenticate()
 

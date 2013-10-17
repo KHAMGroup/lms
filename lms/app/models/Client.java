@@ -57,7 +57,6 @@ public class Client implements Serializable {
 
 	@Column(name="mailing_address", length=50)
 	@MaxLength(50)
-	@Required
 	private String mailingAddress;
 
 	@Column(length=1)

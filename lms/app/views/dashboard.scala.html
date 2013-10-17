@@ -13,16 +13,14 @@
 	<legend>Search</legend>
 	<!--<input type="text"></input>-->
 	@form(routes.MainController.search()){
-	@inputText(searchForm("data"))
-<!--
-	<select>
+		<input type="text" name="data" value="@searchForm("data").value"> 
+
+
+	<select name="clientOrCase">
 		<option>Client</option>
 		<option>Case</option>
 	</select>
--->
-	@select(searchForm("clientOrCase"),
-		options = options(MainController.SearchQuery.options())
-	)
+
 	<button type="submit">Search</button>
 	}
 	<button>Adv. Search</button>

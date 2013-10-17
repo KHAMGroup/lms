@@ -360,8 +360,8 @@ public class CaseEntityObject implements Serializable {
     
 	public static List<CaseEntityObject> findBySubjectFirstAndLastName(
 			String first, String last) {
-    	return JPA.em().createQuery("from CaseEntityObject where lower(first) LIKE ? " +
-    			"AND lower(last) LIKE ? ")
+    	return JPA.em().createQuery("from CaseEntityObject where lower(subjectFirstname) LIKE ? " +
+    			"AND lower(subjectLastname) LIKE ? ")
     		.setParameter(1, first.toLowerCase()+"%")
     		.setParameter(2, last.toLowerCase()+"%")
     		.getResultList(); 
@@ -370,8 +370,8 @@ public class CaseEntityObject implements Serializable {
 	public static List<CaseEntityObject> findBySubjectFirstOrLastName(
 			String firstOrLast) {
     	String asLowerCase = firstOrLast.toLowerCase() + "%";
-    	return JPA.em().createQuery("from CaseEntityObject where lower(first) LIKE ? " +
-    			"OR lower(last) LIKE ? ")
+    	return JPA.em().createQuery("from CaseEntityObject where lower(subjectFirstname) LIKE ? " +
+    			"OR lower(subjectLastname) LIKE ? ")
     		.setParameter(1, asLowerCase)
     		.setParameter(2, asLowerCase)
     		.getResultList();

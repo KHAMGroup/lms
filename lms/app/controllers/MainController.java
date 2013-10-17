@@ -19,31 +19,49 @@ public class MainController extends Controller {
     	if(user!=null){
     		return ok(views.html.dashboard.render(user, user.getUserRolesAsStrings(), null, null, form(SearchQuery.class)));
     	}else{
-    		return forbidden();
+    		return redirect(routes.Application.login());
     	}
     }
+
+    public static Result showDashboard() {
+    	Employee user = Avocado.getCurrentUser();
+    	if(user!=null){
+		Form<SearchResults> searchResultsForm = form(SearchResults.class).bindFromRequest();
+		String clientOrCase = searchResultsForm.get().clientOrCase;
+		if(clientOrCase.equals("Client")){
+	    		return ok(views.html.dashboard.render(user, user.getUserRolesAsStrings(), searchResultsForm.get().clientsFound, null, form(SearchQuery.class)));
+		}else if(clientOrCase.equals("Case")){
+			return ok(views.html.dashboard.render(user, user.getUserRolesAsStrings(), null, searchResultsForm.get().casesFound, form(SearchQuery.class)));
+		}else{
+			return ok(views.html.dashboard.render(user, user.getUserRolesAsStrings(), null, null, form(SearchQuery.class)));
+		}
+
+    	}else{
+    		return redirect(routes.Application.login());
+    	}
+    }
+
 
     public static Result createClient() {
     	return ClientController.createClient();
     }
 
-    @Transactional
-    public static Result search(String data, String clientOrCase) {
-    	if(clientOrCase.equals("Client")){
-    		return ClientController.search(data);
-    	}else if(clientOrCase.equals("Case")){
-    		return CaseController.search(data);
-    	}else{
-    		return returnToDashboard();
-    	}
-    }
+//    @Transactional
+//    public static Result search(String data, String clientOrCase) {
+//    	if(clientOrCase.equals("Client")){
+//    		return ClientController.search(data);
+//    	}else if(clientOrCase.equals("Case")){
+//    		return CaseController.search(data);
+//    	}else{
+//    		return returnToDashboard();
+//    	}
+//    }
 
     @Transactional
     public static Result search() {
 	Form<SearchQuery> searchForm = form(SearchQuery.class).bindFromRequest();
 	String data = searchForm.get().data;
 	String clientOrCase = searchForm.get().clientOrCase;
-
     	if(clientOrCase.equals("Client")){
     		return ClientController.search(data);
     	}else if(clientOrCase.equals("Case")){
@@ -70,4 +88,10 @@ public class MainController extends Controller {
 		options.add("Client");options.add("Case");return options;
 	}
     }  
+
+    public static class SearchResults {
+	public String clientOrCase;
+	public List<Client> clientsFound;
+	public List<CaseEntityObject> casesFound;
+    }
 }

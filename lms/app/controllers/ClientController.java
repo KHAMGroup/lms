@@ -13,8 +13,10 @@ import models.*;
 @Security.Authenticated(Avocado.class)
 public class ClientController extends Controller {
 
+    
     public static Result search(String searchString) {
-		if(Avocado.hasRole("manage_clients")){
+
+		if(Avocado.hasRole("manage clients")){
 			String trimmed = searchString.trim();
 			List<Client> clientsFound = new LinkedList<Client>();
 			if(SearchTools.isFirstThenLast(trimmed)){
@@ -32,9 +34,9 @@ public class ClientController extends Controller {
 				String last = lastAndFirst[0];
 				clientsFound.addAll(Client.findByFirstAndLastName(first, last));
 			}
-	//			return ok(views.html.dashboard.render(clientsFound));
-			
-			return ok();
+
+
+			return redirect(routes.MainController.showDashboard());
 		}
 		else{
 			return forbidden();
