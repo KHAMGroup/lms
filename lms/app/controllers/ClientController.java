@@ -36,7 +36,8 @@ public class ClientController extends Controller {
 			}
 
 
-			return redirect(routes.MainController.showDashboard());
+//			return redirect(routes.MainController.showDashboardWithClients(clientsFound));
+			return MainController.showDashboardWithClients(clientsFound);
 		}
 		else{
 			return forbidden();

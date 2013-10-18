@@ -32,7 +32,7 @@ public class CaseController extends Controller {
 			casesFound.addAll(CaseEntityObject.findBySubjectFirstAndLastName(first, last));
 		}
 //			return ok(views.html.dashboard.render(casesFound));
-		return TODO;
+		return MainController.showDashboardWithCases(casesFound);
     }
 
     public static Result createCase() {

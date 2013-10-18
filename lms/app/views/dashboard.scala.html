@@ -68,14 +68,15 @@
 
 <div class="search_results" style="float:left; background-color:#00FF00; height:100%; width:90%;">
 	<center>
-	<h3>Client Search Results</h3>
-	<ul>
-		@if(clientSearchResults != null){
-			@for( client <- clientSearchResults){
-				<li>@client.toString()/li>
-			}
-		}
-	</ul>
+	@if(clientSearchResults != null && clientSearchResults.size() > 0){
+		<h3>Client Search Results</h3>
+		@views.html.client.client_table(clientSearchResults)
+	}
+	
+	@if(caseSearchResults != null && caseSearchResults.size() > 0){
+		<h3>Case Search Results</h3>
+		@views.html.cases.case_table(caseSearchResults)
+	}
 	</center>
 	
 </div>

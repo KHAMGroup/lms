@@ -1,0 +1,8 @@
+@(cases: List[CaseEntityObject])
+<div>
+	<ul>
+	@cases.map { theCase => 
+		@views.html.cases.case_search_results(theCase)
+	}
+	</ul>
+</div>

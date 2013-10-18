@@ -23,6 +23,7 @@ public class SearchTools {
 	}
 	
 	public static String[] getLastAndFirst(String name){
-		return name.split(",");
+		String trimmed = name.replaceAll(" ", "");
+		return trimmed.split(",");
 	}
 }
