@@ -15,10 +15,19 @@
 	@form(routes.MainController.search()){
 		<input type="text" name="data" value="@searchForm("data").value"> 
 
-
 	<select name="clientOrCase">
-		<option>Client</option>
-		<option>Case</option>
+		@if(clientSearchResults != null){
+			<option selected="selected">Client</option>
+			<option>Case</option>
+		} else {
+			@if(caseSearchResults != null){
+			<option>Client</option>
+			<option selected="selected">Case</option>
+			} else {
+			<option>Client</option>
+			<option>Case</option>
+			}
+		}
 	</select>
 
 	<button type="submit">Search</button>

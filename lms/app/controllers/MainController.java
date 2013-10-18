@@ -102,6 +102,7 @@ public class MainController extends Controller {
     public static class SearchQuery {
     	public String clientOrCase;
 	public String data;
+
 	public static List<String> options(){
 		List<String> options = new ArrayList<String>();
 		options.add("Client");options.add("Case");return options;
