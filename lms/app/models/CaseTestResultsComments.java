@@ -15,6 +15,10 @@ public class CaseTestResultsComments implements Serializable {
 	@Column(name="case_test_FK", unique=true, nullable=false)
 	private long caseTestFK;
 
+	@OneToOne
+	@JoinColumn(name="case_test_FK")
+	private CaseTest caseTest;
+	
 	@Column(length = 8)
 	private String results;
 	

@@ -2,8 +2,12 @@
 
 <tr>
 	<td>@theCase.getCaseNumber()<td/>
-	<td><td/>
-	<td><td/>
-	<td><td/>
-	<td><td/>
+	<td>@theCase.getReceivedDate()<td/>
+	<td>@theCase.getTotalPaid()<td/>
+	<td>@theCase.getUnpaidBalance()<td/>
+	<td>
+	@theCase.getCaseTestsSparse().map { testSparse => 
+		testSparse, 
+	}
+	<td/>
 </tr>
