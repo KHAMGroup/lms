@@ -1,8 +1,14 @@
 @(cases: List[CaseEntityObject])
-<div>
-	<ul>
+<h3>Case Search Results</h3>
+<table>
+	<tr>
+		<th>Case Number<th/>
+		<th>Received Date<th/>
+		<th>Amount Paid<th/>
+		<th>Amount Owed<th/>
+		<th>Tests Ordered<th/>
+	</tr>
 	@cases.map { theCase => 
 		@views.html.cases.case_search_results(theCase)
 	}
-	</ul>
-</div>
+</table>
