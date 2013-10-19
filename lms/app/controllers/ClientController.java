@@ -48,7 +48,7 @@ public class ClientController extends Controller {
     @Transactional
     public static Result createClient() {
 		if (Avocado.hasRole("manage clients")) {
-			return ok(views.html.client.create_client.render(new Client(), form(Client.class)));
+			return ok(views.html.client.create_client.render(form(Client.class)));
 		} else {
 			return forbidden();
 		}
@@ -58,7 +58,7 @@ public class ClientController extends Controller {
     public static Result saveClient() {
 		Form<Client> newClientForm = form(Client.class).bindFromRequest();
 		if(newClientForm.hasErrors()){
-			return badRequest(views.html.client.create_client.render(newClientForm.get(), newClientForm));
+			return badRequest(views.html.client.create_client.render(newClientForm));
 		}else{
 			newClientForm.get().save();
 	    		return redirect(routes.MainController.returnToDashboard());

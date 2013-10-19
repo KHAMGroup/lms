@@ -1,10 +1,17 @@
-@(newCase: CaseEntityObject, createCaseForm: Form[CaseEntityObject])
+@(caseForm: Form[RequisitionPOJO])
 @import helper._
 
 
 @form(routes.CaseController.saveCase()){
 	
 	<fieldset>
+	<legend>Case Regarding</legend>
+	@inputText(caseForm("subjectFirstName"), 
+			'_label -> "First Name", 
+			'_showConstraints -> false)
+	@inputText(caseForm("subjectLastName"), 
+			'_label -> "First Name", 
+			'_showConstraints -> false)
 
 	</fieldset>
 	
