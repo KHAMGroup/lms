@@ -8,6 +8,7 @@ import play.mvc.*;
 import static play.data.Form.*;
 import play.data.*;
 import play.db.jpa.Transactional;
+import views.html.helper.form;
 import models.*;
 
 @Security.Authenticated(Avocado.class)
@@ -36,7 +37,7 @@ public class CaseController extends Controller {
     }
 
     public static Result createCase() {
-	return TODO;
+    	return ok(views.html.cases.create_case.render(form(RequisitionPOJO.class)));
     }
 
     public static Result saveCase() {
