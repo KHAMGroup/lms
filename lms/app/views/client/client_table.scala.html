@@ -1,9 +1,37 @@
-@(clients: List[Client])
+@(clients: List[Client], userRoles: Set[String])
 <h3>Client Search Results</h3>
-<div>
-	<ul>
+<table>
+	<tr>
+		<th>Client Name</th>
+		<th>Client #</th>
+		@if(userRoles.contains("manage clients")){
+			<th>Edit</th>
+		}
+		@if(userRoles.contains("manage cases")){
+			<th>View Open Cases</th>
+			<th>View All Cases</th>
+			<th>Enter Requisition</th>
+		}
+		@if(userRoles.contains("manage deposits")){
+			<th>Manage Deposits</th>
+		}
+		
+	</tr>
 	@clients.map { client => 
-		@views.html.client.client_search_results(client)
+		<tr>
+			<td>@client.getLast(), @client.getFirst()</td>
+			<td>@client.getClientId()</td>
+			@if(userRoles.contains("manage clients")){
+				<td>Edit</td>		
+			}
+			@if(userRoles.contains("manage cases")){
+				<td>View Open Cases</td>
+				<td>View All Cases</td>
+				<td>Enter Requisition</td>
+			}
+			@if(userRoles.contains("manage deposits")){
+				<td>Manage Deposits</td>
+			}
+		</tr>
 	}
-	</ul>
-</div>
+</table>
