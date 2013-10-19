@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.sql.Time;
 import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -331,6 +332,14 @@ public class CaseEntityObject implements Serializable {
 
 	public void setCaseTests(List<CaseTest> caseTests) {
 		this.caseTests = caseTests;
+	}
+	
+	public List<String> getCaseTestsSparse(){
+		List<String> sparseTests = new LinkedList<String>();
+		for(CaseTest caseTest : getCaseTests()){
+			sparseTests.add(caseTest.getTest().getTestNumber()+"");
+		}
+		return sparseTests;
 	}
 
     public void save(){

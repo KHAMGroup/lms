@@ -53,8 +53,8 @@ public class CaseTest implements Serializable {
 	//	})
 	//private CaseTestResultsComments resultsAndComments;
 
-	@OneToOne
-	@JoinColumn(referencedColumnName="case_test_FK", nullable=true, insertable=false, updatable=false)
+	@OneToOne(mappedBy = "caseTest")
+	//@JoinColumn(referencedColumnName="case_test_FK", nullable=true, insertable=false, updatable=false)
 	private CaseTestResultsComments resultsAndComments;
 
 	//bi-directional many-to-one association to Employee
