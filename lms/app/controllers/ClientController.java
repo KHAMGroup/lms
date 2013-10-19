@@ -48,7 +48,7 @@ public class ClientController extends Controller {
     @Transactional
     public static Result createClient() {
 		if (Avocado.hasRole("manage clients")) {
-			return ok(views.html.client.create_client.render(form(Client.class)));
+			return ok(views.html.client.client.render(form(Client.class)));
 		} else {
 			return forbidden();
 		}
@@ -58,13 +58,26 @@ public class ClientController extends Controller {
     public static Result saveClient() {
 		Form<Client> newClientForm = form(Client.class).bindFromRequest();
 		if(newClientForm.hasErrors()){
-			return badRequest(views.html.client.create_client.render(newClientForm));
+			return badRequest(views.html.client.client.render(newClientForm));
 		}else{
 			newClientForm.get().save();
 	    		return redirect(routes.MainController.returnToDashboard());
 		}
     }
     
+    @Transactional
+    public static Result viewClient(int id){
+    	Client theClient = Client.findByClientNumber(id);
+    	Form<Client> clientForm = form(Client.class).fill(theClient);
+    	return ok(views.html.client.client.render(clientForm));
+    }
+    
+    @Transactional
+    public static Result editClient(int id){
+    	Client theClient = Client.findByClientNumber(id);
+    	Form<Client> clientForm = form(Client.class).fill(theClient);
+    	return ok(views.html.client.client.render(clientForm));
+    }
 
     public static Result enterRequisition() {
 	return TODO;

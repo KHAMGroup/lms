@@ -4,6 +4,7 @@
 	<tr>
 		<th>Client Name</th>
 		<th>Client #</th>
+		<th>View Details</th>
 		@if(userRoles.contains("manage clients")){
 			<th>Edit</th>
 		}
@@ -21,8 +22,9 @@
 		<tr>
 			<td>@client.getLast(), @client.getFirst()</td>
 			<td>@client.getClientId()</td>
+			<td><a href="@routes.ClientController.viewClient(client.getClientId)">details</a></td>
 			@if(userRoles.contains("manage clients")){
-				<td>Edit</td>		
+				<td><a href="@routes.ClientController.editClient(client.getClientId)">Edit</a></td>	
 			}
 			@if(userRoles.contains("manage cases")){
 				<td>View Open Cases</td>

@@ -14,6 +14,8 @@ GET	/logout			    controllers.Application.logout()
 # POST	/search/:clientsOrCases		controllers.MainController.search(clientsOrCases: String)
 #POST	/search/			controllers.MainController.search()
 
+GET		/clients/:id		controllers.ClientController.viewClient(id: Int)
+GET		/clients/:id/edit		controllers.ClientController.editClient(id: Int)
 POST	/clients/new	controllers.ClientController.createClient()
 POST	/clients/save	controllers.ClientController.saveClient()
 

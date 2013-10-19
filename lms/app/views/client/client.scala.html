@@ -2,8 +2,8 @@
 @import helper._
 
 
-@form(routes.ClientController.saveClient()){
-	
+<!-- @form(routes.ClientController.saveClient()){ -->
+	<form method="post">
 	<fieldset>
 		@inputText(createClientForm("first"), 
 			'_label -> "First Name", 
@@ -62,6 +62,8 @@
 	
 	
 	<div>
-		<input type="submit" value="Save" />
+		<!-- <input type="submit" value="Save" /> -->
+		<button type="submit" formaction="@routes.ClientController.saveClient()">Save</button>
 	</div>
-}
+	</form>
+<!-- } -->
