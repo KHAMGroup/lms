@@ -2,13 +2,25 @@
 <h3>Case Search Results</h3>
 <table>
 	<tr>
-		<th>Case Number<th/>
-		<th>Received Date<th/>
-		<th>Amount Paid<th/>
-		<th>Amount Owed<th/>
-		<th>Tests Ordered<th/>
+		<th>Case Number</th>
+		<th>Case Subject's Name</th>
+		<th>Received Date</th>
+		<th>Amount Paid</th>
+		<th>Amount Owed</th>
+		<th>Tests Ordered</th>
 	</tr>
 	@cases.map { theCase => 
-		@views.html.cases.case_search_results(theCase)
+		<tr>
+			<td>@theCase.getCaseNumber()</td>
+			<td>@theCase.getSubjectLastname(), @theCase.getSubjectFirstname()</td>
+			<td>@theCase.getReceivedDate()</td>
+			<td>@theCase.getTotalPaid()</td>
+			<td>@theCase.getUnpaidBalance()</td>
+			<td>
+			@theCase.getCaseTestsSparse().map { testSparse => 
+				testSparse, 
+			}
+			</td>
+		</tr>
 	}
 </table>

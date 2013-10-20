@@ -66,10 +66,10 @@
 				<button type="submit">Create Client</button><br/>
 			}
 		}
-		<button>btn 01</button><br/>
-		<button>btn 02</button><br/>
-		<button>btn 03</button><br/>
-		<button>btn 04</button><br/>
+		<button>Print Worksheet</button><br/>
+		<button>Enter Results</button><br/>
+		<button>Create Batch Reports</button><br/>
+		<button>Create Batch Invoices</button><br/>
 	}
 
 	</center>
@@ -78,7 +78,7 @@
 <div class="search_results" style="float:left; background-color:#00FF00; height:100%; width:90%;">
 	<center>
 	@if(clientSearchResults != null && clientSearchResults.size() > 0) {
-		@views.html.client.client_table(clientSearchResults)
+		@views.html.client.client_table(clientSearchResults, userRoles)
 	}
 	
 	@if(caseSearchResults != null && caseSearchResults.size() > 0) {
