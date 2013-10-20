@@ -37,10 +37,19 @@ public class CaseController extends Controller {
     }
 
     public static Result createCase() {
-    	return ok(views.html.cases.create_case.render(form(RequisitionPOJO.class)));
+    	return ok(views.html.cases.create_case.render(form(RequisitionPOJO.class), null));
     }
 
     public static Result saveCase() {
-	return TODO;
+    	
+    	Form<RequisitionPOJO> theForm = form(RequisitionPOJO.class);
+    	RequisitionPOJO req = theForm.bindFromRequest().get();
+    	
+    	//Lets see how array submission works, shall we?
+    	String res = "Results are: ";
+    	for(int i = 0; i < req.testNumber.length; i++){
+    		res += "!! " + req.testNumber[i];
+    	}
+    	return ok(res);
     }
 }

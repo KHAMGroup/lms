@@ -1,4 +1,4 @@
-@(caseForm: Form[RequisitionPOJO])
+@(caseForm: Form[RequisitionPOJO], tests: List[TestEntityObject])
 @import helper._
 
 
@@ -12,9 +12,9 @@
 	@inputText(caseForm("subjectLastName"), 
 			'_label -> "First Name", 
 			'_showConstraints -> false)
-	@checkbox(caseForm("sampleBlood"), 
-			'_label -> "Blood", 
-			'_showConstraints -> false)
+	<input type="checkbox" name="testNumber[0]" value="55">I am checked 55</input>
+	<input type="checkbox" name="testNumber[1]" value="57">I am checked 57</input>
+	<input type="checkbox" name="testNumber[6]" value="59">I am checked 59</input>
 
 	</fieldset>
 	
@@ -22,4 +22,5 @@
 	<div>
 		<input type="submit" value="Save" />
 	</div>
+	
 }
