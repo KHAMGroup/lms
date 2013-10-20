@@ -3,7 +3,8 @@
 
 
 <!-- @form(routes.ClientController.saveClient()){ -->
-	<form method="post">
+
+	<form>
 	<fieldset>
 		@inputText(createClientForm("first"), 
 			'_label -> "First Name", 
@@ -63,7 +64,9 @@
 	
 	<div>
 		<!-- <input type="submit" value="Save" /> -->
-		<button type="submit" formaction="@routes.ClientController.saveClient()">Save</button>
+		<button type="submit" formmethod="post" formaction="@routes.ClientController.saveClient()">Save</button>
+		<button type="submit" formmethod="post" formaction="@routes.ClientController.updateClient()">Save</button>
+		<button type="submit" formmethod="post" formaction="@routes.MainController.returnToDashboard()">Back</button>
 	</div>
 	</form>
 <!-- } -->

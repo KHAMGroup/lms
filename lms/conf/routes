@@ -18,6 +18,7 @@ GET		/clients/:id		controllers.ClientController.viewClient(id: Int)
 GET		/clients/:id/edit		controllers.ClientController.editClient(id: Int)
 POST	/clients/new	controllers.ClientController.createClient()
 POST	/clients/save	controllers.ClientController.saveClient()
+POST	/clients/update	controllers.ClientController.updateClient()
 
 GET		/cases/new	controllers.CaseController.createCase()
 POST	/cases/save	controllers.CaseController.saveCase()

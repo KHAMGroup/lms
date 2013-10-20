@@ -66,6 +66,18 @@ public class ClientController extends Controller {
     }
     
     @Transactional
+    public static Result updateClient() {
+		Form<Client> newClientForm = form(Client.class).bindFromRequest();
+		if(newClientForm.hasErrors()){
+			return badRequest(views.html.client.client.render(newClientForm));
+		}else{
+			newClientForm.get().update();
+	    	return redirect(routes.MainController.returnToDashboard());
+		}
+    }
+    
+    
+    @Transactional
     public static Result viewClient(int id){
     	Client theClient = Client.findByClientNumber(id);
     	Form<Client> clientForm = form(Client.class).fill(theClient);
