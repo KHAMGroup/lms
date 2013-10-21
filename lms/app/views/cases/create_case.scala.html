@@ -12,10 +12,29 @@
 	@inputText(caseForm("subjectLastName"), 
 			'_label -> "First Name", 
 			'_showConstraints -> false)
-	<input type="checkbox" name="testNumber[0]" value="55">I am checked 55</input>
-	<input type="checkbox" name="testNumber[1]" value="57">I am checked 57</input>
-	<input type="checkbox" name="testNumber[6]" value="59">I am checked 59</input>
+	@inputText(caseForm("otherIdNumber"),
+			'_label -> "Other Id",
+			'_showConstraints -> false)
+	@inputText(caseForm("dateCollected"),
+			'_label -> "Date Collected",
+			'_showConstraints -> true)
 
+	</fieldset>
+	
+	<fieldset>
+	<legend>DDL Data</legend>
+	@inputText(caseForm("caseNumber"),
+			'_label -> "Case #:")
+	@inputText(caseForm("dateReceived"),
+			'_label -> "Date Received:")
+	@inputText(caseForm("receivedByEmployee"),
+			'_label -> "Received by employee id#:",
+			'_showConstraints -> true)
+	@textarea(caseForm("caseNote"),
+			'_label -> "Case Notes:",
+			'_showConstraints -> true)
+	
+	
 	</fieldset>
 	
 	

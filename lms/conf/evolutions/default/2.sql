@@ -26,6 +26,12 @@ INSERT INTO CASE_DEPOSIT(case_FK, deposit_FK, amount) VALUES(2,1,300);
 
 INSERT INTO CASE_DEPOSIT(case_FK, deposit_FK, amount) VALUES(2,1,200); 
 
+INSERT INTO TEST(test_number, price, price_type, test_name, test_type)
+VALUES(100, 25.30, 'f', 'mary-j', 't');
+
+INSERT INTO TEST(test_number, price, price_type, test_name, test_type)
+VALUES(101, 55.69, 'f', 'mary-j', 't');
+
 --alter table EMPLOYEES ENGINE=InnoDB;
 --alter table USER_ROLES ENGINE=InnoDB;
 --alter table COMMENTS ENGINE=InnoDB;

@@ -58,7 +58,7 @@ public class EmployeeTest extends WithApplication {
 
 				Employee jeff = Employee.findByUserName("labman");
 				List<UserRole> userRoles = jeff.getUserRoles();
-				assertEquals(3, userRoles.size());
+				assertEquals(5, userRoles.size());
 				assertEquals(true, jeff.hasUserRole("admin"));
 				assertEquals(true, jeff.hasUserRole("produce quarterly reports"));
 				assertEquals(false, jeff.hasUserRole("manage some stuff"));

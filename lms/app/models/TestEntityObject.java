@@ -2,6 +2,13 @@ package models;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
+import play.db.jpa.JPA;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -165,6 +172,25 @@ public class TestEntityObject implements Serializable {
 
 	public void setDefaultComment(Comment defaultComment) {
 		this.defaultComment = defaultComment;
+	}
+	
+	public static List<TestEntityObject> getAllTests(){
+		//get all tests from the database;
+		CriteriaBuilder builder = JPA.em().getCriteriaBuilder();
+		CriteriaQuery<TestEntityObject> query = builder.createQuery(TestEntityObject.class);
+		Root<TestEntityObject> tests = query.from(TestEntityObject.class);
+		query.select(tests);
+	
+		List<TestEntityObject> resultList = JPA.em().createQuery(query).getResultList();
+		return resultList;
+	}
+	
+	public void save(){
+        JPA.em().persist(this);
+    }
+	
+	public void merge(){
+		JPA.em().merge(this);
 	}
 
 }
