@@ -1,7 +1,16 @@
-@(caseForm: Form[RequisitionPOJO], tests: List[TestEntityObject])
+@(caseForm: Form[RequisitionPOJO], tests: List[TestEntityObject], formErrors: List[String])
 @import helper._
 
-
+<h1>Enter a Requisition</h1>
+@if(formErrors != null){
+<div id="errors">
+	<ul>
+		@formErrors.map{ err =>
+			<li>Error: @err</li>
+		}
+	</ul>
+</div>
+}
 @form(routes.CaseController.saveCase()){
 	
 	<fieldset>
@@ -28,11 +37,47 @@
 	@inputText(caseForm("dateReceived"),
 			'_label -> "Date Received:")
 	@inputText(caseForm("receivedByEmployee"),
-			'_label -> "Received by employee id#:",
-			'_showConstraints -> true)
+			'_label -> "Received By Employee id#:")
 	@textarea(caseForm("caseNote"),
 			'_label -> "Case Notes:",
 			'_showConstraints -> true)
+			
+	<label for="test1">Test 1: &nbsp;</label>
+	<select id="test1" name="testNumber[0]">
+			<option value="-1">Select Test</option>
+		@tests.map{ test =>
+			<option value="@test.getTestNumber()" > @test.getTestName() </option>
+		}
+	</select><br/>
+	<label for="test2">Test 2: &nbsp;</label>
+	<select id="test2" name="testNumber[1]">
+			<option value="-1">Select Test</option>
+		@tests.map{ test =>
+			<option value="@test.getTestNumber()" > @test.getTestName() </option>
+		}
+	</select><br/>
+	<label for="test3">Test 3: &nbsp;</label>
+	<select id="test3" name="testNumber[2]">
+			<option value="-1">Select Test</option>
+		@tests.map{ test =>
+			<option value="@test.getTestNumber()" > @test.getTestName() </option>
+		}
+	</select><br/>
+	<label for="test4">Test 4: &nbsp;</label>
+	<select id="test4" name="testNumber[3]">
+			<option value="-1">Select Test</option>
+		@tests.map{ test =>
+			<option value="@test.getTestNumber()" > @test.getTestName() </option>
+		}
+	</select><br/>
+	<label for="test5">Test 5: &nbsp;</label>
+	<select id="test5" name="testNumber[4]">
+			<option value="-1">Select Test</option>
+		@tests.map{ test =>
+			<option value="@test.getTestNumber()" > @test.getTestName() </option>
+		}
+	</select>
+	
 	
 	
 	</fieldset>

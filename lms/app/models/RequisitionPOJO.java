@@ -2,6 +2,8 @@ package models;
 
 import java.util.Date;
 
+import play.data.validation.Constraints.*;
+
 public class RequisitionPOJO {
 	
 	//case data
@@ -13,14 +15,22 @@ public class RequisitionPOJO {
 //	public boolean sampleOther;
 //	public String sampleOtherText;
 	public Date dateCollected;
+	
+	@Required
 	public String caseNumber;
 	public Date dateReceived;
 	public String caseNote;
-	public int receivedByEmployee; //employee id#
+	
+	
+	public String receivedByEmployee; //employee id#
 	
 	
 	//services
-	public String[]	testNumber = new String[15];
+	public int[] testNumber = new int[15];
+	
+	public RequisitionPOJO(){
+		
+	}
 	
 	
 	

@@ -36,26 +36,48 @@ public class CaseController extends Controller {
 		return MainController.showDashboardWithCases(casesFound);
     }
 
+    @Transactional
     public static Result createCase() {
-    	return ok(views.html.cases.create_case.render(form(RequisitionPOJO.class), null));
+    	List<TestEntityObject> tests = TestEntityObject.getAllTests();
+    	Form<RequisitionPOJO> theForm = form(RequisitionPOJO.class);
+    	theForm.fill(new RequisitionPOJO());
+    	return ok(views.html.cases.create_case.render(theForm, tests, null));
     }
 
+    @Transactional
     public static Result saveCase() {
-    	
+    	List<TestEntityObject> tests = TestEntityObject.getAllTests();
     	Form<RequisitionPOJO> theForm = form(RequisitionPOJO.class).bindFromRequest();
     	
     	//make sure everything is peachy with the form.
     	if(theForm.hasErrors()){
-    		return badRequest(views.html.cases.create_case.render(theForm, null));
+    		List<String> err = new LinkedList<String>();
+    		err.add("Error#1");
+    		err.add("err#2");
+    		return badRequest(views.html.cases.create_case.render(theForm, tests, err));
     	}else{
-	    	//everything's peachy. lets create a reqpojo
+	    	
 	    	RequisitionPOJO req = theForm.get();
+	    	//check if caseNumber is unique
+	    	
+	    	//check if receivedByEmployee is valid #
+	    	
+	    	//create case entity object, and fill in fields
+	    	
+	    	//for each testNumber[] > 0
+	    		//create caseTest object
+	    		//link caseTest objects to TestEntity objects
+	    		//link caseTest object to case object
+	    	
+	    	
+	    	
 	    	//Lets see how array submission works, shall we?
 	    	String res = "Results are: ";
 	    	for(int i = 0; i < req.testNumber.length; i++){
 	    		res += "!! " + req.testNumber[i];
 	    	}
-	    	return ok(res + "\n\n" + req.dateCollected);
+	    	return ok(res + "\n\n" + req.dateCollected +
+	    			"\nEmployee#: " + req.receivedByEmployee);
     	}
     }
 }
