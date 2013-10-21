@@ -45,6 +45,7 @@ public class TestEntityObject implements Serializable {
 	@Column(name="test_name", nullable=false, length=30)
 	private String testName;
 
+	//Acceptable values = L or C
 	@Column(name="test_type", nullable=false, length=1)
 	private String testType;
 

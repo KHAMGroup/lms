@@ -319,9 +319,6 @@ public class Client implements Serializable {
     	JPA.em().merge(this);
     }
 
-    public void update() {
-    	update(getClientId());
-    }
 
     
     public static Client findByClientNumber(int clientNumber){

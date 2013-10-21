@@ -6,6 +6,7 @@
 GET     /                           controllers.MainController.returnToDashboard()
 #POST	/			    controllers.MainController.showDashboard()
 POST	/			    controllers.MainController.search()
+GET		/search/:clientOrCase/$data<.*>		controllers.MainController.searchResults(clientOrCase: String, data: String)
 GET	/login			    controllers.Application.login()
 POST	/login			    controllers.Application.authenticate()
 
@@ -18,7 +19,7 @@ GET		/clients/:id		controllers.ClientController.viewClient(id: Int)
 GET		/clients/:id/edit		controllers.ClientController.editClient(id: Int)
 POST	/clients/new	controllers.ClientController.createClient()
 POST	/clients/save	controllers.ClientController.saveClient()
-POST	/clients/update	controllers.ClientController.updateClient()
+POST	/clients/:id/update		controllers.ClientController.updateClient(id: Int)
 
 GET		/cases/new	controllers.CaseController.createCase()
 POST	/cases/save	controllers.CaseController.saveCase()

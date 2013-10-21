@@ -3,6 +3,8 @@ package controllers;
 import java.util.LinkedList;
 import java.util.List;
 
+
+
 import play.*;
 import play.mvc.*;
 import static play.data.Form.*;
@@ -13,34 +15,23 @@ import models.*;
 @Security.Authenticated(Avocado.class)
 public class ClientController extends Controller {
 
-    
     public static Result search(String searchString) {
 
 		if(Avocado.hasRole("manage clients")){
-			String trimmed = searchString.trim();
 			List<Client> clientsFound = new LinkedList<Client>();
-			if(SearchTools.isFirstThenLast(trimmed)){
-				String[] firstAndLast = SearchTools.getFirstAndLast(trimmed);
+			if(SearchTools.isFormattedFirstAndLast(searchString)){
+				String[] firstAndLast = SearchTools.getFormattedFirstAndLast(searchString);
 				String first = firstAndLast[0];
 				String last = firstAndLast[1];
 				clientsFound.addAll(Client.findByFirstAndLastName(first, last));
 			}
-			else if(SearchTools.isFirstOrLast(trimmed)){
-				clientsFound.addAll(Client.findByFirstOrLastName(trimmed));
+			else if(SearchTools.isFirstOrLast(searchString)){
+				clientsFound.addAll(Client.findByFirstOrLastName(searchString));
 			}
-			else if(SearchTools.isLastThenFirst(trimmed)){
-				String[] lastAndFirst = SearchTools.getLastAndFirst(trimmed);
-				String first = lastAndFirst[1];
-				String last = lastAndFirst[0];
-				clientsFound.addAll(Client.findByFirstAndLastName(first, last));
-			}
-
-
-//			return redirect(routes.MainController.showDashboardWithClients(clientsFound));
 			return MainController.showDashboardWithClients(clientsFound);
 		}
 		else{
-			return forbidden();
+			return redirect(routes.MainController.returnToDashboard());
 		}
     }
     
@@ -48,9 +39,9 @@ public class ClientController extends Controller {
     @Transactional
     public static Result createClient() {
 		if (Avocado.hasRole("manage clients")) {
-			return ok(views.html.client.client.render(form(Client.class)));
+			return ok(views.html.client.client.render("Create",form(Client.class)));
 		} else {
-			return forbidden();
+			return redirect(routes.MainController.returnToDashboard());
 		}
     }
     
@@ -58,21 +49,22 @@ public class ClientController extends Controller {
     public static Result saveClient() {
 		Form<Client> newClientForm = form(Client.class).bindFromRequest();
 		if(newClientForm.hasErrors()){
-			return badRequest(views.html.client.client.render(newClientForm));
+			return badRequest(views.html.client.client.render("Create",newClientForm));
 		}else{
 			newClientForm.get().save();
-	    		return redirect(routes.MainController.returnToDashboard());
+	    	return redirect(routes.MainController.returnToDashboard());
 		}
     }
     
     @Transactional
-    public static Result updateClient() {
-		Form<Client> newClientForm = form(Client.class).bindFromRequest();
-		if(newClientForm.hasErrors()){
-			return badRequest(views.html.client.client.render(newClientForm));
+    public static Result updateClient(int id) {
+		Form<Client> updateClientForm = form(Client.class).bindFromRequest();
+		if(updateClientForm.hasErrors()){
+			return badRequest(views.html.client.client.render("Edit", updateClientForm));
 		}else{
-			newClientForm.get().update();
-	    	return redirect(routes.MainController.returnToDashboard());
+			Client theClient = updateClientForm.get();
+			theClient.update(id);
+	    	return redirect(routes.MainController.searchResults("client",theClient.getFirst()+"+"+theClient.getLast()));
 		}
     }
     
@@ -81,14 +73,19 @@ public class ClientController extends Controller {
     public static Result viewClient(int id){
     	Client theClient = Client.findByClientNumber(id);
     	Form<Client> clientForm = form(Client.class).fill(theClient);
-    	return ok(views.html.client.client.render(clientForm));
+    	return ok(views.html.client.client.render("View", clientForm));
     }
     
     @Transactional
     public static Result editClient(int id){
-    	Client theClient = Client.findByClientNumber(id);
-    	Form<Client> clientForm = form(Client.class).fill(theClient);
-    	return ok(views.html.client.client.render(clientForm));
+		if (Avocado.hasRole("manage clients")) {
+	    	Client theClient = Client.findByClientNumber(id);
+	    	Form<Client> clientForm = form(Client.class).fill(theClient);
+	    	return ok(views.html.client.client.render("Edit", clientForm));
+		}
+		else{
+			return forbidden();
+		}
     }
 
     public static Result enterRequisition() {

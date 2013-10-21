@@ -1,61 +1,58 @@
-@(createClientForm: Form[Client])
+@(goal: String, clientForm: Form[Client])
 @import helper._
-
-
-<!-- @form(routes.ClientController.saveClient()){ -->
 
 	<form>
 	<fieldset>
-		@inputText(createClientForm("first"), 
+		@inputText(clientForm("first"), 
 			'_label -> "First Name", 
 			'_showConstraints -> false)
-		@inputText(createClientForm("mi"), 
+		@inputText(clientForm("mi"), 
 			'_label -> "M.I.",  
 			'size -> 1, 
 			'cols -> 1)
-		@inputText(createClientForm("last"), 
+		@inputText(clientForm("last"), 
 			'_label -> "Last Name", 
 			'_showConstraints -> false)
-		@inputText(createClientForm("sex"), 
+		@inputText(clientForm("sex"), 
 			'_label -> "Sex",  
 			'size -> 1, 
 			'cols -> 1)
-		@inputText(createClientForm("company"),
+		@inputText(clientForm("company"),
 			'_label -> "Company")
-		@inputText(createClientForm("mailingAddress"), 
+		@inputText(clientForm("mailingAddress"), 
 			'_label -> "Mailing Address")
-		@inputText(createClientForm("city"), 
+		@inputText(clientForm("city"), 
 			'_label -> "City")
-		@inputText(createClientForm("state"), 
+		@inputText(clientForm("state"), 
 			'size -> 2, 
 			'cols -> 2, 
 			'_label -> "State", 
 			'_showConstraints -> false)
-		@inputText(createClientForm("zip"),
+		@inputText(clientForm("zip"),
 			'size -> 5, 
 			'cols -> 5,  
 			'_label -> "ZIP", 
 			'_showConstraints -> false)
-		@inputText(createClientForm("officePhone"), 
+		@inputText(clientForm("officePhone"), 
 			'_label -> "Office Phone Number", 
 			'_showConstraints -> false)
-		@inputText(createClientForm("cellPhone"), 
+		@inputText(clientForm("cellPhone"), 
 			'_label -> "Cell Phone Number", 
 			'_showConstraints -> false)
-		@inputText(createClientForm("fax"), 
+		@inputText(clientForm("fax"), 
 			'_label -> "Fax Number", 
 			'_showConstraints -> false)
-		@checkbox(createClientForm("emailInvoiceOk"), 
+		@checkbox(clientForm("emailInvoiceOk"), 
 			'_label -> "Receive Invoices via Email?", 
 			'_showConstraints -> false)
-		@inputText(createClientForm("invoiceEmail"), 
+		@inputText(clientForm("invoiceEmail"), 
 			'_label -> "Invoice Email")
-		@checkbox(createClientForm("emailReportOk"), 
+		@checkbox(clientForm("emailReportOk"), 
 			'_label -> "Receive Case Reports via Email?", 
 			'_showConstraints -> false)
-		@inputText(createClientForm("reportingEmail"), 
+		@inputText(clientForm("reportingEmail"), 
 			'_label -> "Reporting Email")
-		@checkbox(createClientForm("phoneReportOk"), 
+		@checkbox(clientForm("phoneReportOk"), 
 			'_label -> "Phone Reports OK?", 
 			'_showConstraints -> false)
 	
@@ -63,10 +60,15 @@
 	
 	
 	<div>
-		<!-- <input type="submit" value="Save" /> -->
-		<button type="submit" formmethod="post" formaction="@routes.ClientController.saveClient()">Save</button>
-		<button type="submit" formmethod="post" formaction="@routes.ClientController.updateClient()">Save</button>
-		<button type="submit" formmethod="post" formaction="@routes.MainController.returnToDashboard()">Back</button>
+		@if(goal == "Create"){
+			<button type="submit" formmethod="post" formaction="@routes.ClientController.saveClient()">Save</button>
+			<a href="@routes.MainController.returnToDashboard()"><button type="button">Cancel</button></a>
+		}
+		@if(goal == "Edit"){
+			<button type="submit" formmethod="post" formaction="@routes.ClientController.updateClient(clientForm.get().getClientId())">Save</button>
+		}
+		@if(goal != "Create"){
+			<a href="@routes.MainController.searchResults("client",clientForm.get().getFirst()+"+"+clientForm.get().getLast())"><button type="button">Back</button></a>
+		}
 	</div>
 	</form>
-<!-- } -->

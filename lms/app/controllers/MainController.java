@@ -64,30 +64,40 @@ public class MainController extends Controller {
     public static Result createClient() {
     	return ClientController.createClient();
     }
-
-//    @Transactional
-//    public static Result search(String data, String clientOrCase) {
-//    	if(clientOrCase.equals("Client")){
-//    		return ClientController.search(data);
-//    	}else if(clientOrCase.equals("Case")){
-//    		return CaseController.search(data);
-//    	}else{
-//    		return returnToDashboard();
-//    	}
-//    }
-
-    @Transactional
-    public static Result search() {
-	Form<SearchQuery> searchForm = form(SearchQuery.class).bindFromRequest();
-	String data = searchForm.get().data;
-	String clientOrCase = searchForm.get().clientOrCase;
-    	if(clientOrCase.equals("Client")){
+    
+	@Transactional
+    public static Result searchResults(String clientOrCase, String data) {
+    	if(clientOrCase.equals("client")){
     		return ClientController.search(data);
-    	}else if(clientOrCase.equals("Case")){
+    	}else if(clientOrCase.equals("case")){
     		return CaseController.search(data);
     	}else{
     		return returnToDashboard();
     	}
+    }
+
+    public static Result search() {
+		Form<SearchQuery> searchForm = form(SearchQuery.class).bindFromRequest();
+		String clientOrCase = searchForm.get().clientOrCase.toLowerCase();
+		String trimmed = searchForm.get().data.trim();
+		String searchQueryData = " ";
+		System.out.println(trimmed);
+		if(SearchTools.isFirstThenLast(trimmed)){
+			String[] firstAndLast = SearchTools.getFirstAndLast(trimmed);
+			String first = firstAndLast[0];
+			String last = firstAndLast[1];
+			searchQueryData = first+"+"+last;
+		}
+		else if(SearchTools.isFirstOrLast(trimmed)){
+			searchQueryData = trimmed;
+		}
+		else if(SearchTools.isLastThenFirst(trimmed)){
+			String[] lastAndFirst = SearchTools.getLastAndFirst(trimmed);
+			String first = lastAndFirst[1];
+			String last = lastAndFirst[0];
+			searchQueryData = first+"+"+last;
+		}
+		return redirect(routes.MainController.searchResults(clientOrCase,searchQueryData));
     }    
 
 
@@ -105,7 +115,7 @@ public class MainController extends Controller {
 
 	public static List<String> options(){
 		List<String> options = new ArrayList<String>();
-		options.add("Client");options.add("Case");return options;
+		options.add("client");options.add("case");return options;
 	}
     }  
 

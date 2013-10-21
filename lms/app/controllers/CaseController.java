@@ -13,26 +13,18 @@ import models.*;
 
 @Security.Authenticated(Avocado.class)
 public class CaseController extends Controller {
-
+	
     public static Result search(String searchString) {
-		String trimmed = searchString.trim();
 		List<CaseEntityObject> casesFound = new LinkedList<CaseEntityObject>();
-		if(SearchTools.isFirstThenLast(trimmed)){
-			String[] firstAndLast = SearchTools.getFirstAndLast(trimmed);
+		if(SearchTools.isFormattedFirstAndLast(searchString)){
+			String[] firstAndLast = SearchTools.getFormattedFirstAndLast(searchString);
 			String first = firstAndLast[0];
 			String last = firstAndLast[1];
 			casesFound.addAll(CaseEntityObject.findBySubjectFirstAndLastName(first, last));
 		}
-		else if(SearchTools.isFirstOrLast(trimmed)){
-			casesFound.addAll(CaseEntityObject.findBySubjectFirstOrLastName(trimmed));
+		else if(SearchTools.isFirstOrLast(searchString)){
+			casesFound.addAll(CaseEntityObject.findBySubjectFirstOrLastName(searchString));
 		}
-		else if(SearchTools.isLastThenFirst(trimmed)){
-			String[] lastAndFirst = SearchTools.getLastAndFirst(trimmed);
-			String first = lastAndFirst[1];
-			String last = lastAndFirst[0];
-			casesFound.addAll(CaseEntityObject.findBySubjectFirstAndLastName(first, last));
-		}
-//			return ok(views.html.dashboard.render(casesFound));
 		return MainController.showDashboardWithCases(casesFound);
     }
 
