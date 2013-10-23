@@ -186,6 +186,10 @@ public class TestEntityObject implements Serializable {
 		return resultList;
 	}
 	
+	public static TestEntityObject findByTestNumber(int tnum){
+		return JPA.em().find(TestEntityObject.class, tnum);
+	}
+	
 	public void save(){
         JPA.em().persist(this);
     }

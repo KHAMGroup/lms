@@ -21,7 +21,7 @@ POST	/clients/new	controllers.ClientController.createClient()
 POST	/clients/save	controllers.ClientController.saveClient()
 POST	/clients/:id/update		controllers.ClientController.updateClient(id: Int)
 
-GET		/cases/new	controllers.CaseController.createCase()
+GET		/cases/:clientID/new	controllers.CaseController.createCase(clientID: Int)
 POST	/cases/save	controllers.CaseController.saveCase()
 
 # Map static resources from the /public folder to the /assets URL path

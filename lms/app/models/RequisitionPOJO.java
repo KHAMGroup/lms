@@ -1,19 +1,20 @@
 package models;
 
+import java.util.Arrays;
 import java.util.Date;
+
+//import java.sql.Date;
 
 import play.data.validation.Constraints.*;
 
 public class RequisitionPOJO {
 	
 	//case data
+	public String clientID; //client id#
 	public String subjectFirstName;
 	public String subjectLastName;
 	public String otherIdNumber;
-//	public boolean sampleBlood;
-//	public boolean sampleUrine;
-//	public boolean sampleOther;
-//	public String sampleOtherText;
+	public String sampleType;
 	public Date dateCollected;
 	
 	@Required
@@ -28,8 +29,9 @@ public class RequisitionPOJO {
 	//services
 	public int[] testNumber = new int[15];
 	
+	
 	public RequisitionPOJO(){
-		
+		Arrays.fill(testNumber, -1);
 	}
 	
 	
