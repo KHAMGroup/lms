@@ -99,7 +99,7 @@ public class CaseEntityObject implements Serializable {
 	private Client cctoClient;
 
 	//bi-directional many-to-one association to Comment
-	@ManyToOne
+	@ManyToOne(cascade={CascadeType.ALL})
 	@JoinColumn(name="note_code")
 	private Comment caseNote;
 

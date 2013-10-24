@@ -1,5 +1,7 @@
 package controllers;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -7,6 +9,7 @@ import play.*;
 import play.mvc.*;
 import static play.data.Form.*;
 import play.data.*;
+import play.db.jpa.JPA;
 import play.db.jpa.Transactional;
 import views.html.helper.form;
 import models.*;
@@ -53,7 +56,7 @@ public class CaseController extends Controller {
     public static Result saveCase() {
     	boolean errorsFound = false;
     	Employee emp;
-    	int empID = -1;
+    	int empID;
     	
     	Client cli;
     	int cliID = -1;
@@ -74,6 +77,7 @@ public class CaseController extends Controller {
 	    		//a case with this case# already exists
 	    		err.add("Case#: " + req.caseNumber + " already exists.");
 	    		errorsFound = true;
+	    		return badRequest(views.html.cases.create_case.render(theForm, tests, err));
 	    	}else{
 	    		//good to proceed.
 	    		newCase.setCaseNumber(req.caseNumber);
@@ -82,7 +86,7 @@ public class CaseController extends Controller {
 	    	if(req.receivedByEmployee.length() > 0){
 	    		//check if it's a valid #
 	    		try{
-	    			Integer.parseInt(req.receivedByEmployee);
+	    			empID = Integer.parseInt(req.receivedByEmployee);
 	    		}catch (Exception ex){
 	    			err.add("Receieved by employee id# can only contain digits");
 	    			errorsFound = true;
@@ -90,16 +94,22 @@ public class CaseController extends Controller {
 	    		}
 	    		
 	    		//check if receivedByEmployee is valid #
+	    		
 	    		emp = Employee.findById(empID);
-	    		if(!((emp != null) && (emp.getEmployeeNumber() == empID))){
+	    		if((emp != null) && (emp.getEmployeeNumber() == empID)){
+	    			
+	    		}else{
 	    			err.add("Employee: " + empID + " was not found.");
 	    			errorsFound = true;
+	    			return badRequest(views.html.cases.create_case.render(theForm, tests, err));
 	    		}
+	    	}else{
+	    		emp = null;
 	    	}
 	    	
 	    	
 	    	
-	    	
+	    	//parse clientID from form.
 	    	try{
 	    		cliID = Integer.parseInt(req.clientID);
 	    	}catch (Exception ex){
@@ -111,29 +121,60 @@ public class CaseController extends Controller {
 	    	//link client to case.
 	    	cli = Client.findByClientNumber(cliID);
 	    	newCase.setClient(cli);
-	    	
-	    	List<CaseTest> reqTests = new LinkedList<CaseTest>();
+	    	List<CaseTest> theTests = new LinkedList<CaseTest>();
 	    	for(int testNum : req.testNumber){
 	    		if(testNum != -1){
 	    			TestEntityObject t = TestEntityObject.findByTestNumber(testNum);
-	    			//TODO: create CaseTest object.
-	    			//link TestEO to CaseTest
-	    			//caseTest.setCaseEntity(newCase)???;
+	    			CaseTest theTest = new CaseTest();
+	    			theTest.setBilled(false); //mark this new caseTest as not billed
+	    			theTest.setTest(t); //link the test to the caseTest
+	    			theTests.add(theTest);
+	    			theTest.setCaseEntity(newCase);//add the caseTest to the case
+	    			
+	    			
 	    		}
 	    	}
-	    	//newCase.setCaseTests(reqTests)???;
-	    	
-	    	//TODO: fill in other standard fields for the case.
+	    	newCase.setCaseTests(theTests);
 	    	
 	    	
-	    	//Lets see how array submission works, shall we?
-	    	String res = "Results are: ";
-	    	for(int i = 0; i < req.testNumber.length; i++){
-	    		res += "!! " + req.testNumber[i];
+	    	//fill in other standard fields for the case from the form.
+			newCase.setSubjectFirstname(req.subjectFirstName);
+			newCase.setSubjectLastname(req.subjectLastName);
+			newCase.setReceivedDate(req.dateReceived);
+			newCase.setDateCollected(req.dateCollected);
+			newCase.setReceivedByEmployee(emp);
+			newCase.setSampleType(req.sampleType);
+			newCase.setEmailInvoiceOk(cli.getEmailInvoiceOk());
+			newCase.setEmailResultsOk(cli.getEmailReportOk());
+			newCase.setAllTasksCompleted(false);
+			
+			if(req.otherIdNumber != null && (req.otherIdNumber.length() > 0)){
+				newCase.setOtherIdNumber(req.otherIdNumber);
+			}
+			
+			if(req.caseNote != null && (req.caseNote.length() > 0)){
+				Comment comment = new Comment();
+				comment.setCommentText(req.caseNote);
+				newCase.setCaseNote(comment);
+			}
+			
+			newCase.save();
+	    	
+	    	//TODO: remove this test stuff, and actually redirect to a confirmation page or dashboard.
+	    	CaseEntityObject theCase = CaseEntityObject.findByCaseNumber(req.caseNumber);
+	    	if(theCase != null){
+		    	if(theCase.getCaseNumber() != null){
+		    		String testList = "";
+		    		for(CaseTest ct : theCase.getCaseTests()){
+		    			testList += " " + ct.getTest().getTestName();
+		    		}
+		    		return ok("Case #:" + theCase.getCaseNumber() +
+		    				"\n# of tests: " + theCase.getCaseTests().size() +
+		    				"\n the tests: " + testList +
+		    				"\n Case Comment: " + theCase.getCaseNote().getCommentText());
+		    	}
 	    	}
-	    	return ok(res + "\n\n" + req.dateCollected +
-	    			"\nEmployee#: " + req.receivedByEmployee +
-	    			"\nClient id: " + req.clientID);
+	    	return ok("newly created case wasn't persisted");
     	}
     }
 }
