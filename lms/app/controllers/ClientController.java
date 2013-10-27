@@ -59,6 +59,7 @@ public class ClientController extends Controller {
     @Transactional
     public static Result updateClient(int id) {
 		Form<Client> updateClientForm = form(Client.class).bindFromRequest();
+		System.out.println(updateClientForm.toString());
 		if(updateClientForm.hasErrors()){
 			return badRequest(views.html.client.client.render("Edit", updateClientForm));
 		}else{

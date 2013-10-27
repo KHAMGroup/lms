@@ -1,3 +1,4 @@
+body { font-family: Helvetica, Arial, sans-serif; }
 table { border-collapse: collapse; }
 td, th { padding: .3em; border: 1px #000000 solid; }
 th { background: #00CCFF; font-weight: bold; }

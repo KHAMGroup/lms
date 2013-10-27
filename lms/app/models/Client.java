@@ -111,8 +111,8 @@ public class Client implements Serializable {
 	}
 
 	private String trimPhoneNumber(String phoneNumber){
-		if(phoneNumber.matches(".*[^0-9].*")){
-			return phoneNumber.replaceAll("[^0-9]", "");
+		if(!(phoneNumber.matches("[0-9a-zA-Z]"))){
+			return phoneNumber.replaceAll("[^0-9a-zA-Z]", "");
 		}else{
 			return phoneNumber;
 		}
