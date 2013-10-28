@@ -46,6 +46,8 @@ public class Client implements Serializable {
 	private String fax;
 
 	@Column(nullable=false, length=20)
+	@Required
+	@MaxLength(20)
 	private String first;
 
 	@Column(name="invoice_email", length=30)
@@ -53,6 +55,8 @@ public class Client implements Serializable {
 	private String invoiceEmail;
 
 	@Column(nullable=false, length=20)
+	@Required
+	@MaxLength(20)
 	private String last;
 
 	@Column(name="mailing_address", length=50)

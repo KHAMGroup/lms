@@ -1,18 +1,16 @@
 @(goal: String, clientForm: Form[Client])
 @import helper._
-
+@main("Client Information"){
 	<form>
 	<fieldset>
 		@inputText(clientForm("first"), 
-			'_label -> "First Name", 
-			'_showConstraints -> false)
+			'_label -> "First Name")
 		@inputText(clientForm("mi"), 
 			'_label -> "M.I.",  
 			'size -> 1, 
 			'cols -> 1)
 		@inputText(clientForm("last"), 
-			'_label -> "Last Name", 
-			'_showConstraints -> false)
+			'_label -> "Last Name")
 		@inputText(clientForm("sex"), 
 			'_label -> "Sex",  
 			'size -> 1, 
@@ -72,3 +70,4 @@
 		}
 	</div>
 	</form>
+}

@@ -2,7 +2,10 @@
 @import helper._
 
 @main("Dashboard"){
-<div class="search_area" style="">
+	<header style="margin-bottom: 20px;" >
+		<a href="@routes.Application.logout()">Logout</a>
+	</header>
+	<div class="search_area" style="">
 	<div style="float:left;">
 		@if(emp != null){
 		<h1>Welcome, @emp.getFirst()</h1>

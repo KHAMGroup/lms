@@ -1,6 +1,6 @@
 @(caseForm: Form[RequisitionPOJO], tests: List[TestEntityObject], formErrors: List[String])
 @import helper._
-
+@main("Enter Requisition"){
 <h1>Enter a Requisition</h1>
 @if(formErrors != null){
 <div id="errors">
@@ -96,4 +96,5 @@
 		<input type="submit" value="Save" />
 	</div>
 	
+}
 }

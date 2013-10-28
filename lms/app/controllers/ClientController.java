@@ -59,7 +59,6 @@ public class ClientController extends Controller {
     @Transactional
     public static Result updateClient(int id) {
 		Form<Client> updateClientForm = form(Client.class).bindFromRequest();
-		System.out.println(updateClientForm.toString());
 		if(updateClientForm.hasErrors()){
 			return badRequest(views.html.client.client.render("Edit", updateClientForm));
 		}else{
@@ -85,7 +84,7 @@ public class ClientController extends Controller {
 	    	return ok(views.html.client.client.render("Edit", clientForm));
 		}
 		else{
-			return forbidden();
+			return redirect(routes.MainController.returnToDashboard());
 		}
     }
 

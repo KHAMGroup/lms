@@ -18,6 +18,7 @@ public class RequisitionPOJO {
 	public Date dateCollected;
 	
 	@Required
+	@MaxLength(7)
 	public String caseNumber;
 	public Date dateReceived;
 	public String caseNote;

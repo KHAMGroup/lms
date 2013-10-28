@@ -3,8 +3,10 @@ package models;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import play.data.validation.Constraints.MaxLength;
+import play.data.validation.Constraints.Required;
 import play.db.jpa.JPA;
-
+import play.data.format.*;
 import java.math.BigDecimal;
 import java.sql.Time;
 import java.util.Collection;
@@ -31,6 +33,8 @@ public class CaseEntityObject implements Serializable {
 	private boolean allTasksCompleted;
 
 	@Column(name="case_number", length=7, unique=true)
+	@MaxLength(7)
+	@Required
 	private String caseNumber;
 
 	@Temporal(TemporalType.DATE)
@@ -59,6 +63,7 @@ public class CaseEntityObject implements Serializable {
 	@Temporal(TemporalType.DATE)
 	@Column(name = "received_date", 
 			columnDefinition = "received_date DATE DEFAULT CURRENT_DATE")
+	@Formats.DateTime(pattern="yyyy-MM-dd")
 	private Date receivedDate;
 
 	@Column(name="received_from")
