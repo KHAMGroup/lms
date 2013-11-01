@@ -21,6 +21,12 @@ POST	/clients/new	controllers.ClientController.createClient()
 POST	/clients/save	controllers.ClientController.saveClient()
 POST	/clients/:id/update		controllers.ClientController.updateClient(id: Int)
 
+GET	/deposits/:id				controllers.DepositController.viewDeposit(id: Int)
+POST	/clients/:clientId/deposit/new		controllers.DepositController.createDeposit(clientId: Int)
+POST	/clients/:clientId/deposit/save		controllers.DepositController.saveDeposit(clientId: Int)
+GET	/clients/:clientId/deposit/:id/refund	controllers.DepositController.refundDeposit(clientId: Int, id: Int)
+POST	/clients/:clientId/deposit/:id/update	controllers.DepositController.commitDepositRefund(clientId: Int, id: Int)
+
 GET		/cases/:clientID/new	controllers.CaseController.createCase(clientID: Int)
 POST	/cases/save	controllers.CaseController.saveCase()
 
