@@ -138,4 +138,12 @@ public class Deposit implements Serializable {
 		this.refunds = refunds;
 	}
 
+   	public static Deposit findByDepositNumber(int depositNumber){
+    		return JPA.em().find(Deposit.class, depositNumber);
+   	}
+
+	public void save(){
+		JPA.em().persist(this);
+	}
+
 }
