@@ -5,6 +5,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import play.db.jpa.JPA;
 
 import play.data.format.*;
 
@@ -145,5 +146,9 @@ public class Deposit implements Serializable {
 	public void save(){
 		JPA.em().persist(this);
 	}
-
+    public void update(int depositId) {
+      //  this.setClient(Client.findByClientNumber(getClient().getClientId()));
+        setDepositNumber(depositId);
+    	JPA.em().merge(this);
+    }
 }
