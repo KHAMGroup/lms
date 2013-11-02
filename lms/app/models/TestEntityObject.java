@@ -33,11 +33,11 @@ public class TestEntityObject implements Serializable {
 	@Column(name="control_text", length=300)
 	private String controlText;
 
-	@Column(nullable=false, precision=9, scale=2)
-	private BigDecimal price;
-
-	@Column(name="price_type", nullable=false, length=1)
-	private String priceType;
+//	@Column(nullable=false, precision=9, scale=2)
+//	private BigDecimal price;
+//
+//	@Column(name="price_type", nullable=false, length=1)
+//	private String priceType;
 
 	@Column(length=8)
 	private String respicture;
@@ -95,21 +95,21 @@ public class TestEntityObject implements Serializable {
 		this.controlText = controlText;
 	}
 
-	public BigDecimal getPrice() {
-		return this.price;
-	}
-
-	public void setPrice(BigDecimal price) {
-		this.price = price;
-	}
-
-	public String getPriceType() {
-		return this.priceType;
-	}
-
-	public void setPriceType(String priceType) {
-		this.priceType = priceType;
-	}
+//	public BigDecimal getPrice() {
+//		return this.price;
+//	}
+//
+//	public void setPrice(BigDecimal price) {
+//		this.price = price;
+//	}
+//
+//	public String getPriceType() {
+//		return this.priceType;
+//	}
+//
+//	public void setPriceType(String priceType) {
+//		this.priceType = priceType;
+//	}
 
 	public String getRespicture() {
 		return this.respicture;

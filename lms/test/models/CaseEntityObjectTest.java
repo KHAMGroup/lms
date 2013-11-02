@@ -35,7 +35,7 @@ public class CaseEntityObjectTest extends WithApplication {
 						newCase.setReceivedDate(new Date(Calendar.getInstance().getTimeInMillis()));
 						newCase.setReceivedByEmployee(jeff);
 						newCase.setSampleType("blood");
-						newCase.setEmailInvoiceOk(saul.getEmailInvoiceOk());
+//						newCase.setEmailInvoiceOk(saul.getEmailInvoiceOk());
 						newCase.setEmailResultsOk(saul.getEmailReportOk());
 						newCase.save();
 						

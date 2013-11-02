@@ -19,15 +19,15 @@ public class CaseTest implements Serializable {
 	@Column(name="case_test_PK", unique=true, nullable=false)
 	private long caseTestPK;
 
-	@Column(name="amount_billed", precision=9, scale=2)
-	private BigDecimal amountBilled;
-
-	@Column(nullable=false)
-	private boolean billed;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name="billed_date")
-	private Date billedDate;
+//	@Column(name="amount_billed", precision=9, scale=2)
+//	private BigDecimal amountBilled;
+//
+//	@Column(nullable=false)
+//	private boolean billed;
+//
+//	@Temporal(TemporalType.DATE)
+//	@Column(name="billed_date")
+//	private Date billedDate;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="date_completed")
@@ -82,30 +82,30 @@ public class CaseTest implements Serializable {
 //	public void setId(CaseTestPK id) {
 //		this.id = id;
 //	}
-
-	public BigDecimal getAmountBilled() {
-		return this.amountBilled;
-	}
-
-	public void setAmountBilled(BigDecimal amountBilled) {
-		this.amountBilled = amountBilled;
-	}
-
-	public boolean getBilled() {
-		return this.billed;
-	}
-
-	public void setBilled(boolean billed) {
-		this.billed = billed;
-	}
-
-	public Date getBilledDate() {
-		return this.billedDate;
-	}
-
-	public void setBilledDate(Date billedDate) {
-		this.billedDate = billedDate;
-	}
+//
+//	public BigDecimal getAmountBilled() {
+//		return this.amountBilled;
+//	}
+//
+//	public void setAmountBilled(BigDecimal amountBilled) {
+//		this.amountBilled = amountBilled;
+//	}
+//
+//	public boolean getBilled() {
+//		return this.billed;
+//	}
+//
+//	public void setBilled(boolean billed) {
+//		this.billed = billed;
+//	}
+//
+//	public Date getBilledDate() {
+//		return this.billedDate;
+//	}
+//
+//	public void setBilledDate(Date billedDate) {
+//		this.billedDate = billedDate;
+//	}
 
 	public Date getDateCompleted() {
 		return this.dateCompleted;

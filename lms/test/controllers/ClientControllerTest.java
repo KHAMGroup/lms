@@ -49,7 +49,7 @@ public class ClientControllerTest extends WithApplication {
 		        	    clientToSave.put("city", "San Bernardino");
 		        	    clientToSave.put("zip", "95670");
 		        	    clientToSave.put("officePhone", "(909) 566-9342");
-		        	    clientToSave.put("emailInvoiceOk", "true");
+//		        	    clientToSave.put("emailInvoiceOk", "true");
 		        	    clientToSave.put("emailReportOk", "false");
 		        	    clientToSave.put("phoneReportOk", "true");
 		        	    
@@ -64,7 +64,7 @@ public class ClientControllerTest extends WithApplication {
 						assertEquals(1,found1.size());
 						Client bud1 = found1.get(0);
 						assertEquals("Bud",bud1.getFirst());
-						assertEquals(true,bud1.getEmailInvoiceOk());
+//						assertEquals(true,bud1.getEmailInvoiceOk());
 						assertEquals("9095669342",bud1.getOfficePhone());
 						
 						List<Client> found2 = Client.findByFirstOrLastName("Weiser");

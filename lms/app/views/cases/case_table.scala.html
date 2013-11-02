@@ -5,8 +5,8 @@
 		<th>Case Number</th>
 		<th>Case Subject's Name</th>
 		<th>Received Date</th>
-		<th>Amount Paid</th>
-		<th>Amount Owed</th>
+		<!-- <th>Amount Paid</th> -->
+		<!-- <th>Amount Owed</th> -->
 		<th>Tests Ordered</th>
 	</tr>
 	@cases.map { theCase => 
@@ -14,8 +14,6 @@
 			<td>@theCase.getCaseNumber()</td>
 			<td>@theCase.getSubjectLastname(), @theCase.getSubjectFirstname()</td>
 			<td>@theCase.getReceivedDate()</td>
-			<td>@theCase.getTotalPaid()</td>
-			<td>@theCase.getUnpaidBalance()</td>
 			<td>
 			@theCase.getCaseTestsSparse().map { testSparse => 
 				testSparse, 

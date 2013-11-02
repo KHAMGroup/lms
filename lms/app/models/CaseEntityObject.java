@@ -45,14 +45,14 @@ public class CaseEntityObject implements Serializable {
 	@Column(name="date_tasks_completed")
 	private Date dateTasksCompleted;
 
-	@Column(nullable=false)
-	private boolean email_invoice_OK;
+//	@Column(nullable=false)
+//	private boolean email_invoice_OK;
 
 	@Column(nullable=false)
 	private boolean email_results_OK;
 
-	@Column(name="invoice_number")
-	private int invoiceNumber;
+//	@Column(name="invoice_number")
+//	private int invoiceNumber;
 
 	@Column(name="medical_history_notes", length=100)
 	private String medicalHistoryNotes;
@@ -81,17 +81,17 @@ public class CaseEntityObject implements Serializable {
 	@Column(name="time_collected")
 	private Time timeCollected;
 
-	@Column(columnDefinition="total_cost DECIMAL(9,2) NOT NULL DEFAULT 0", 
-			name="total_cost", precision=9, scale=2)
-	private BigDecimal totalCost;
-
-	@Column(columnDefinition="total_paid DECIMAL(9,2) NOT NULL DEFAULT 0", 
-			name="total_paid", precision=9, scale=2)
-	private BigDecimal totalPaid;
-
-	@Column(columnDefinition="unpaid_balance DECIMAL(9,2) NOT NULL DEFAULT 0",
-			name="unpaid_balance", precision=9, scale=2)
-	private BigDecimal unpaidBalance;
+//	@Column(columnDefinition="total_cost DECIMAL(9,2) NOT NULL DEFAULT 0", 
+//			name="total_cost", precision=9, scale=2)
+//	private BigDecimal totalCost;
+//
+//	@Column(columnDefinition="total_paid DECIMAL(9,2) NOT NULL DEFAULT 0", 
+//			name="total_paid", precision=9, scale=2)
+//	private BigDecimal totalPaid;
+//
+//	@Column(columnDefinition="unpaid_balance DECIMAL(9,2) NOT NULL DEFAULT 0",
+//			name="unpaid_balance", precision=9, scale=2)
+//	private BigDecimal unpaidBalance;
 
 	//bi-directional many-to-one association to Client
 	@ManyToOne
@@ -114,25 +114,25 @@ public class CaseEntityObject implements Serializable {
 	private Employee receivedByEmployee;
 
 	//bi-directional many-to-one association to CaseDeposit
-	@OneToMany(mappedBy="caseEntity")
-	private List<CaseDeposit> caseDeposits;
+//	@OneToMany(mappedBy="caseEntity")
+//	private List<CaseDeposit> caseDeposits;
 
 	//bi-directional many-to-one association to CaseTest
 	@OneToMany(mappedBy="caseEntity")
 	private List<CaseTest> caseTests;
 
 	public CaseEntityObject() {
-		setUnpaidBalance(new BigDecimal(0.0));
-		setTotalCost(new BigDecimal(0.0));
-		setTotalPaid(new BigDecimal(0.0));
+//		setUnpaidBalance(new BigDecimal(0.0));
+//		setTotalCost(new BigDecimal(0.0));
+//		setTotalPaid(new BigDecimal(0.0));
 	}
 
-	public int getCase_PK() {
+	public int getCasePK() {
 		return this.case_PK;
 	}
 
-	public void setCase_PK(int case_PK) {
-		this.case_PK = case_PK;
+	public void setCasePK(int casePK) {
+		this.case_PK = casePK;
 	}
 
 	public boolean getAllTasksCompleted() {
@@ -167,13 +167,13 @@ public class CaseEntityObject implements Serializable {
 		this.dateTasksCompleted = dateTasksCompleted;
 	}
 
-	public boolean getEmailInvoiceOk() {
-		return this.email_invoice_OK;
-	}
-
-	public void setEmailInvoiceOk(boolean email_invoice_OK) {
-		this.email_invoice_OK = email_invoice_OK;
-	}
+//	public boolean getEmailInvoiceOk() {
+//		return this.email_invoice_OK;
+//	}
+//
+//	public void setEmailInvoiceOk(boolean email_invoice_OK) {
+//		this.email_invoice_OK = email_invoice_OK;
+//	}
 
 	public boolean getEmailResultsOk() {
 		return this.email_results_OK;
@@ -183,13 +183,13 @@ public class CaseEntityObject implements Serializable {
 		this.email_results_OK = email_results_OK;
 	}
 
-	public int getInvoiceNumber() {
-		return this.invoiceNumber;
-	}
-
-	public void setInvoiceNumber(int invoiceNumber) {
-		this.invoiceNumber = invoiceNumber;
-	}
+//	public int getInvoiceNumber() {
+//		return this.invoiceNumber;
+//	}
+//
+//	public void setInvoiceNumber(int invoiceNumber) {
+//		this.invoiceNumber = invoiceNumber;
+//	}
 
 	public String getMedicalHistoryNotes() {
 		return this.medicalHistoryNotes;
@@ -255,41 +255,41 @@ public class CaseEntityObject implements Serializable {
 		this.timeCollected = timeCollected;
 	}
 
-	public BigDecimal getTotalCost() {
-		return this.totalCost;
-	}
-
-	public void setTotalCost(BigDecimal totalCost) {
-		this.totalCost = totalCost;
-	}
-	
-	public void setTotalCost(double totalCost) {
-		setTotalCost(new BigDecimal(totalCost));
-	}
-
-	public BigDecimal getTotalPaid() {
-		return this.totalPaid;
-	}
-
-	public void setTotalPaid(BigDecimal totalPaid) {
-		this.totalPaid = totalPaid;
-	}
-	
-	public void setTotalPaid(double totalPaid){
-		setTotalPaid(new BigDecimal(totalPaid));
-	}
-
-	public BigDecimal getUnpaidBalance() {
-		return this.unpaidBalance;
-	}
-
-	public void setUnpaidBalance(BigDecimal unpaidBalance) {
-		this.unpaidBalance = unpaidBalance;
-	}
-	
-	public void setUnpaidBalance(double unpaidBalance) {
-		setUnpaidBalance(new BigDecimal(unpaidBalance));
-	}
+//	public BigDecimal getTotalCost() {
+//		return this.totalCost;
+//	}
+//
+//	public void setTotalCost(BigDecimal totalCost) {
+//		this.totalCost = totalCost;
+//	}
+//	
+//	public void setTotalCost(double totalCost) {
+//		setTotalCost(new BigDecimal(totalCost));
+//	}
+//
+//	public BigDecimal getTotalPaid() {
+//		return this.totalPaid;
+//	}
+//
+//	public void setTotalPaid(BigDecimal totalPaid) {
+//		this.totalPaid = totalPaid;
+//	}
+//	
+//	public void setTotalPaid(double totalPaid){
+//		setTotalPaid(new BigDecimal(totalPaid));
+//	}
+//
+//	public BigDecimal getUnpaidBalance() {
+//		return this.unpaidBalance;
+//	}
+//
+//	public void setUnpaidBalance(BigDecimal unpaidBalance) {
+//		this.unpaidBalance = unpaidBalance;
+//	}
+//	
+//	public void setUnpaidBalance(double unpaidBalance) {
+//		setUnpaidBalance(new BigDecimal(unpaidBalance));
+//	}
 
 	public Client getClient() {
 		return this.client;
@@ -323,13 +323,13 @@ public class CaseEntityObject implements Serializable {
 		this.receivedByEmployee = receivedByEmployee;
 	}
 
-	public List<CaseDeposit> getCaseDeposits() {
-		return this.caseDeposits;
-	}
-
-	public void setCaseDeposits(List<CaseDeposit> caseDeposits) {
-		this.caseDeposits = caseDeposits;
-	}
+//	public List<CaseDeposit> getCaseDeposits() {
+//		return this.caseDeposits;
+//	}
+//
+//	public void setCaseDeposits(List<CaseDeposit> caseDeposits) {
+//		this.caseDeposits = caseDeposits;
+//	}
 
 	public List<CaseTest> getCaseTests() {
 		return this.caseTests;
@@ -352,7 +352,7 @@ public class CaseEntityObject implements Serializable {
     }
     
     public void update(int casePK) {
-    	setCase_PK(casePK);
+    	setCasePK(casePK);
     	JPA.em().merge(this);
     }
     

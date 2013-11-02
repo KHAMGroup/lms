@@ -126,7 +126,7 @@ public class CaseController extends Controller {
 	    		if(testNum != -1){
 	    			TestEntityObject t = TestEntityObject.findByTestNumber(testNum);
 	    			CaseTest theTest = new CaseTest();
-	    			theTest.setBilled(false); //mark this new caseTest as not billed
+//	    			theTest.setBilled(false); //mark this new caseTest as not billed
 	    			theTest.setTest(t); //link the test to the caseTest
 	    			theTests.add(theTest);
 	    			theTest.setCaseEntity(newCase);//add the caseTest to the case

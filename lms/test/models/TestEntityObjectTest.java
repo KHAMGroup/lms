@@ -29,16 +29,16 @@ public class TestEntityObjectTest extends WithApplication{
 					t1.setTestNumber(201);
 					t1.setTestName("alcohol");
 					t1.setTestType("t");
-					t1.setPrice(new BigDecimal(25.5));
-					t1.setPriceType("f");
+//					t1.setPrice(new BigDecimal(25.5));
+//					t1.setPriceType("f");
 					t1.merge();
 					
 					TestEntityObject t2 = new TestEntityObject();
 					t2.setTestNumber(202);
 					t2.setTestName("alcohol");
 					t2.setTestType("t");
-					t2.setPrice(new BigDecimal(30.5));
-					t2.setPriceType("f");
+//					t2.setPrice(new BigDecimal(30.5));
+//					t2.setPriceType("f");
 					t2.merge();
 
 					List<TestEntityObject> tests = TestEntityObject.getAllTests();

@@ -32,7 +32,7 @@ public class ClientTest extends WithApplication {
 						rick.setState("CA");
 						rick.setZip("92525");
 						rick.setOfficePhone("(916) 925-9292");
-						rick.setEmailInvoiceOk(true);
+//						rick.setEmailInvoiceOk(true);
 						rick.setEmailReportOk(true);
 						rick.setPhoneReportOk(true);
 						rick.save();

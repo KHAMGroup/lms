@@ -60,7 +60,7 @@ public class EmployeeTest extends WithApplication {
 				List<UserRole> userRoles = jeff.getUserRoles();
 				assertEquals(5, userRoles.size());
 				assertEquals(true, jeff.hasUserRole("admin"));
-				assertEquals(true, jeff.hasUserRole("produce quarterly reports"));
+//				assertEquals(true, jeff.hasUserRole("produce quarterly reports"));
 				assertEquals(false, jeff.hasUserRole("manage some stuff"));
 		           }
 		       });
