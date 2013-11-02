@@ -2,6 +2,9 @@ package models;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import play.db.jpa.JPA;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -170,6 +173,8 @@ public class CaseTest implements Serializable {
 	public void setTest(TestEntityObject test) {
 		this.test = test;
 	}
+	
+	
 	
 /*	@Embeddable
 	public class CaseTestPK implements Serializable {

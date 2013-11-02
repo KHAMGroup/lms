@@ -170,8 +170,7 @@ public class CaseController extends Controller {
 		    		}
 		    		return ok("Case #:" + theCase.getCaseNumber() +
 		    				"\n# of tests: " + theCase.getCaseTests().size() +
-		    				"\n the tests: " + testList +
-		    				"\n Case Comment: " + theCase.getCaseNote().getCommentText());
+		    				"\n the tests: " + testList);
 		    	}
 	    	}
 	    	return ok("newly created case wasn't persisted");

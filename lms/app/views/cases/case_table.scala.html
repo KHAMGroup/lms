@@ -8,6 +8,7 @@
 		<!-- <th>Amount Paid</th> -->
 		<!-- <th>Amount Owed</th> -->
 		<th>Tests Ordered</th>
+		<th>Comment</th>
 	</tr>
 	@cases.map { theCase => 
 		<tr>
@@ -15,10 +16,9 @@
 			<td>@theCase.getSubjectLastname(), @theCase.getSubjectFirstname()</td>
 			<td>@theCase.getReceivedDate()</td>
 			<td>
-			@theCase.getCaseTestsSparse().map { testSparse => 
-				testSparse, 
-			}
+			@theCase.getCaseTestsSparse().size()
 			</td>
+			<td>@theCase.getCaseNote().getCommentText()</td>
 		</tr>
 	}
 </table>

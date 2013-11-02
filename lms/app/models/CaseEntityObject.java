@@ -341,13 +341,14 @@ public class CaseEntityObject implements Serializable {
 	
 	public List<String> getCaseTestsSparse(){
 		List<String> sparseTests = new LinkedList<String>();
-		for(CaseTest caseTest : getCaseTests()){
+		for(CaseTest caseTest : this.getCaseTests()){
 			sparseTests.add(caseTest.getTest().getTestNumber()+"");
 		}
 		return sparseTests;
 	}
 
     public void save(){
+    	
         JPA.em().persist(this);
     }
     
