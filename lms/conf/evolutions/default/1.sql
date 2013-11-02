@@ -35,8 +35,8 @@ CREATE TABLE IF NOT EXISTS TEST (
 	test_number SMALLINT NOT NULL AUTO_INCREMENT, 
 	test_name VARCHAR(30) NOT NULL, 
 	test_type CHAR(1) NOT NULL, 
-	price DECIMAL(9,2) NOT NULL, 
-	price_type CHAR(1) NOT NULL, 
+--	price DECIMAL(9,2) NOT NULL, 
+--	price_type CHAR(1) NOT NULL, 
 	units VARCHAR(10), 
 	default_comment INT, 
 	type_of_sample VARCHAR(10), 
@@ -69,40 +69,40 @@ CREATE TABLE IF NOT EXISTS CLIENT
 	sex CHAR(1), 
 	fax CHAR(10), 
 	reporting_email VARCHAR(30), 
-	invoice_email VARCHAR(30), 
+--	invoice_email VARCHAR(30), 
 	phone_report_OK BIT NOT NULL, 
 	email_report_OK BIT NOT NULL, 
-	email_invoice_OK BIT NOT NULL, 
-	bill_to_client INT, 
+--	email_invoice_OK BIT NOT NULL, 
+--	bill_to_client INT, 
 	PRIMARY KEY(client_id), 
 	UNIQUE(first, last, mailing_address, city, state, zip), 
-	FOREIGN KEY (bill_to_client) REFERENCES CLIENT(client_id) 
+--	FOREIGN KEY (bill_to_client) REFERENCES CLIENT(client_id) 
 );
 
-CREATE TABLE IF NOT EXISTS DEPOSIT 
-(
-	deposit_number INT NOT NULL AUTO_INCREMENT, 
-	client_number INT NOT NULL, 
-	amount DECIMAL(9,2) NOT NULL, 
-	amount_remaining DECIMAL(9,2) NOT NULL, 
-	amount_refunded DECIMAL(9,2) NOT NULL DEFAULT 0, 
-	date DATE NOT NULL, 
-	check_number VARCHAR(8), 
-	posted BIT NOT NULL DEFAULT 0, 
-	PRIMARY KEY(deposit_number), 
+--CREATE TABLE IF NOT EXISTS DEPOSIT 
+--(
+--	deposit_number INT NOT NULL AUTO_INCREMENT, 
+--	client_number INT NOT NULL, 
+--	amount DECIMAL(9,2) NOT NULL, 
+--	amount_remaining DECIMAL(9,2) NOT NULL, 
+--	amount_refunded DECIMAL(9,2) NOT NULL DEFAULT 0, 
+--	date DATE NOT NULL, 
+--	check_number VARCHAR(8), 
+--	posted BIT NOT NULL DEFAULT 0, 
+--	PRIMARY KEY(deposit_number), 
 	--INDEX (client_number), 
-	FOREIGN KEY (client_number) REFERENCES CLIENT(client_id) 
-);
+--	FOREIGN KEY (client_number) REFERENCES CLIENT(client_id) 
+--);
 
-CREATE TABLE IF NOT EXISTS DEPOSIT_REFUND 
-(
-	refund_PK INT NOT NULL AUTO_INCREMENT, 
-	deposit_number INT NOT NULL, 
-	refund_amount DECIMAL(9,2) NOT NULL, 
-	refund_date DATE NOT NULL, 
-	PRIMARY KEY(refund_PK), 
-	FOREIGN KEY (deposit_number) REFERENCES DEPOSIT(deposit_number) 
-);
+--CREATE TABLE IF NOT EXISTS DEPOSIT_REFUND 
+--(
+--	refund_PK INT NOT NULL AUTO_INCREMENT, 
+--	deposit_number INT NOT NULL, 
+--	refund_amount DECIMAL(9,2) NOT NULL, 
+--	refund_date DATE NOT NULL, 
+--	PRIMARY KEY(refund_PK), 
+--	FOREIGN KEY (deposit_number) REFERENCES DEPOSIT(deposit_number) 
+--);
 
 
 CREATE TABLE IF NOT EXISTS CASES
@@ -119,14 +119,14 @@ CREATE TABLE IF NOT EXISTS CASES
 	date_collected DATE, 
 	time_collected TIME, 
 	other_id_number VARCHAR(10), 
-	total_cost DECIMAL(9,2) NOT NULL DEFAULT 0, 
-	total_paid DECIMAL(9,2) NOT NULL DEFAULT 0, 
-	unpaid_balance DECIMAL(9,2) NOT NULL DEFAULT 0, 
-	invoice_number INT DEFAULT 0, 
+--	total_cost DECIMAL(9,2) NOT NULL DEFAULT 0, 
+--	total_paid DECIMAL(9,2) NOT NULL DEFAULT 0, 
+--	unpaid_balance DECIMAL(9,2) NOT NULL DEFAULT 0, 
+--	invoice_number INT DEFAULT 0, 
 	sample_type VARCHAR(10) NOT NULL, 
 	medical_history_notes VARCHAR(100), 
 	note_code INT, 
-	email_invoice_OK BIT NOT NULL,  
+--	email_invoice_OK BIT NOT NULL,  
 	email_results_OK BIT NOT NULL, 
 	all_tasks_completed BIT NOT NULL DEFAULT 0, 
 	date_tasks_completed DATE, 
@@ -139,27 +139,27 @@ CREATE TABLE IF NOT EXISTS CASES
 	FOREIGN KEY (received_by) REFERENCES EMPLOYEES(employee_number) 
 );
 
-CREATE TABLE IF NOT EXISTS CASE_DEPOSIT 
-(
-	case_dep_PK INT NOT NULL AUTO_INCREMENT, 	
-	case_FK INT NOT NULL, 
-	deposit_FK INT NOT NULL, 
-	amount DECIMAL(9,2) NOT NULL, 
-	PRIMARY KEY(case_dep_PK), 
+--CREATE TABLE IF NOT EXISTS CASE_DEPOSIT 
+--(
+--	case_dep_PK INT NOT NULL AUTO_INCREMENT, 	
+--	case_FK INT NOT NULL, 
+--	deposit_FK INT NOT NULL, 
+--	amount DECIMAL(9,2) NOT NULL, 
+--	PRIMARY KEY(case_dep_PK), 
 	--INDEX (deposit_FK), 
 	--INDEX (case_FK), 
-	FOREIGN KEY (deposit_FK) REFERENCES DEPOSIT(deposit_number), 
-	FOREIGN KEY (case_FK) REFERENCES CASES(case_PK) 
-);
+--	FOREIGN KEY (deposit_FK) REFERENCES DEPOSIT(deposit_number), 
+--	FOREIGN KEY (case_FK) REFERENCES CASES(case_PK) 
+--);
 
 CREATE TABLE IF NOT EXISTS CASE_TEST 
 (
 	case_test_PK BIGINT NOT NULL AUTO_INCREMENT, 	
 	case_FK INT NOT NULL, 
 	test_FK SMALLINT NOT NULL, 
-	billed BIT NOT NULL DEFAULT 0, 
-	billed_date DATE DEFAULT NULL, 
-	amount_billed DECIMAL(9,2), 
+--	billed BIT NOT NULL DEFAULT 0, 
+--	billed_date DATE DEFAULT NULL, 
+--	amount_billed DECIMAL(9,2), 
 	reported BIT NOT NULL DEFAULT 0, 
 	reported_date DATE DEFAULT NULL, 
 	date_completed DATE, 
@@ -202,13 +202,13 @@ DROP TABLE IF EXISTS TEST;
 
 DROP TABLE IF EXISTS CLIENT; 
 
-DROP TABLE IF EXISTS DEPOSIT; 
+--DROP TABLE IF EXISTS DEPOSIT; 
 
-DROP TABLE IF EXISTS DEPOSIT_REFUND;
+--DROP TABLE IF EXISTS DEPOSIT_REFUND;
 
 DROP TABLE IF EXISTS CASES;
 
-DROP TABLE IF EXISTS CASE_DEPOSIT;
+--DROP TABLE IF EXISTS CASE_DEPOSIT;
 
 DROP TABLE IF EXISTS CASE_TEST; 
 
