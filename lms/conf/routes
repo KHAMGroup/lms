@@ -24,5 +24,12 @@ POST	/clients/:id/update		controllers.ClientController.updateClient(id: Int)
 GET		/cases/:clientID/new	controllers.CaseController.createCase(clientID: Int)
 POST	/cases/save	controllers.CaseController.saveCase()
 
+GET		/employees					controllers.EmployeeController.employees()
+GET		/employees/:id				controllers.EmployeeController.employee(id: Int) 
+#POST	/employees/:id/update		controllers.EmployeeController.update(id: Int) 
+#POST	/employees/new				controllers.EmployeeController.newEmployee()
+#POST	/employees/save				controllers.EmployeeController.save()
+#POST	/employees/:id/delete		controllers.EmployeeController.deleteEmployee(id: Int)
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

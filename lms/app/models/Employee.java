@@ -219,5 +219,7 @@ public class Employee implements Serializable {
     public void delete() {
         JPA.em().remove(this);
     }
-    
+    public static List<Employee> all(){
+    	return JPA.em().createQuery("from Employee").getResultList();
+    }
 }
