@@ -5,7 +5,7 @@ INSERT INTO EMPLOYEES(first,last,username) VALUES('Jeff','Zehnder','labman');
 INSERT INTO USER_ROLES(employee_number,role_name) VALUES((SELECT employee_number FROM EMPLOYEES WHERE username = 'labman') ,'admin');
 INSERT INTO USER_ROLES(employee_number,role_name) VALUES((SELECT employee_number FROM EMPLOYEES WHERE username = 'labman') ,'manage clients');
 INSERT INTO USER_ROLES(employee_number,role_name) VALUES((SELECT employee_number FROM EMPLOYEES WHERE username = 'labman') ,'manage cases');
-INSERT INTO USER_ROLES(employee_number,role_name) VALUES((SELECT employee_number FROM EMPLOYEES WHERE username = 'labman') ,'manage deposits');
+INSERT INTO USER_ROLES(employee_number,role_name) VALUES((SELECT employee_number FROM EMPLOYEES WHERE username = 'labman') ,'manage results');
 INSERT INTO CLIENT(last,first,city,zip, office_phone,phone_report_OK, email_report_OK) 
 VALUES('goodman','saul','Riverside','92005','9098675309',1,1);
 
