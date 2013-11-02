@@ -2,6 +2,7 @@ package models;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 //import java.sql.Date;
 
@@ -28,11 +29,11 @@ public class RequisitionPOJO {
 	
 	
 	//services
-	public int[] testNumber = new int[15];
+	public List<Integer> testNumber;
 	
 	
 	public RequisitionPOJO(){
-		Arrays.fill(testNumber, -1);
+		
 	}
 	
 	
