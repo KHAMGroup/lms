@@ -1,0 +1,21 @@
+@(employeeForm: Form[EmployeePOJO])
+@import helper._
+
+@main("Employee") {
+    <h1>@employeeForm("first").value @employeeForm("last").value</h1>
+
+         
+        <fieldset>
+        	<div>Employee Number: @employeeForm("employeeNumber").value</div>
+            @inputText(employeeForm("first"), '_label -> "First Name")
+            @inputText(employeeForm("last"), '_label -> "Last Name")
+            @inputText(employeeForm("userName"), '_label -> "User name")
+        </fieldset>
+
+        <div>
+            <input type="submit" value="Update" />
+        </div>
+        
+    
+	
+}
