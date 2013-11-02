@@ -144,7 +144,7 @@ public class CaseController extends Controller {
 			newCase.setDateCollected(req.dateCollected);
 			newCase.setReceivedByEmployee(emp);
 			newCase.setSampleType(req.sampleType);
-			newCase.setEmailInvoiceOk(cli.getEmailInvoiceOk());
+			//newCase.setEmailInvoiceOk(cli.getEmailInvoiceOk());
 			newCase.setEmailResultsOk(cli.getEmailReportOk());
 			newCase.setAllTasksCompleted(false);
 			
@@ -161,23 +161,23 @@ public class CaseController extends Controller {
 			newCase.save();
 	    	
 	    	//TODO: remove this test stuff, and actually redirect to a confirmation page or dashboard.
-//	    	CaseEntityObject theCase = CaseEntityObject.findByCaseNumber(req.caseNumber);
-//	    	if(theCase != null){
-//		    	if(theCase.getCaseNumber() != null){
-//		    		String testList = "";
-//		    		for(CaseTest ct : theCase.getCaseTests()){
-//		    			testList += " " + ct.getTest().getTestName();
-//		    		}
-//		    		return ok("Case #:" + theCase.getCaseNumber() +
-//		    				"\n# of tests: " + theCase.getCaseTests().size() +
-//		    				"\n the tests: " + testList +
-//		    				"\n Case Comment: " + theCase.getCaseNote().getCommentText());
-//		    	}
-//	    	}
-//	    	return ok("newly created case wasn't persisted");
+	    	CaseEntityObject theCase = CaseEntityObject.findByCaseNumber(req.caseNumber);
+	    	if(theCase != null){
+		    	if(theCase.getCaseNumber() != null){
+		    		String testList = "";
+		    		for(CaseTest ct : theCase.getCaseTests()){
+		    			testList += " " + ct.getTest().getTestName();
+		    		}
+		    		return ok("Case #:" + theCase.getCaseNumber() +
+		    				"\n# of tests: " + theCase.getCaseTests().size() +
+		    				"\n the tests: " + testList +
+		    				"\n Case Comment: " + theCase.getCaseNote().getCommentText());
+		    	}
+	    	}
+	    	return ok("newly created case wasn't persisted");
 	    	
 	    	
-	    	return redirect(routes.MainController.returnToDashboard());
+	    	//return redirect(routes.MainController.returnToDashboard());
     	}
     }
 }
