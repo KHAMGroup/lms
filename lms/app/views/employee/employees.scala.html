@@ -6,6 +6,7 @@
     
     <table>
     	<tr>
+    		<th></th>
     		<th>Number</th>
     		<th>First</th>
     		<th>Last</th>
@@ -17,7 +18,12 @@
     	</tr>
 	    @for(employee <- employees){
 	    	<tr>
-	    		<td><a href="@routes.EmployeeController.employee(employee.getEmployeeNumber)">@employee.getEmployeeNumber()</a></td>
+	    		<td>
+	    			<a href="@routes.EmployeeController.editEmployee(employee.getEmployeeNumber())">
+	    				<button type="button">Edit</button>
+	    			</a>
+	    		</td>
+	    		<td>@employee.getEmployeeNumber()</td>
 	    		<td>@employee.getFirst()</td>
 	    		<td>@employee.getLast()</td>
 	    		<td>@employee.getUserName()</td>
@@ -28,5 +34,8 @@
 	    	</tr>
 	    }
     </table>
-
+    
+	@form(routes.EmployeeController.newEmployee()){
+	     <input type="submit" value="Create" />
+	}
 }

@@ -1,21 +1,18 @@
-@(employeeForm: Form[EmployeePOJO])
+@(goal: String, employeeForm: Form[EmployeePOJO])
 @import helper._
 
 @main("Employee") {
-    <h1>@employeeForm("first").value @employeeForm("last").value</h1>
-
-         
-        <fieldset>
-        	<div>Employee Number: @employeeForm("employeeNumber").value</div>
-            @inputText(employeeForm("first"), '_label -> "First Name")
-            @inputText(employeeForm("last"), '_label -> "Last Name")
-            @inputText(employeeForm("userName"), '_label -> "User name")
-        </fieldset>
-
-        <div>
-            <input type="submit" value="Update" />
-        </div>
-        
-    
+     @form(routes.EmployeeController.update(employeeForm("employeeNumber").value.toInt)){ 
+	     <fieldset>
+	     	<div>Employee Number: @employeeForm("employeeNumber").value</div>
+	         @inputText(employeeForm("first"), '_label -> "First Name")
+	         @inputText(employeeForm("last"), '_label -> "Last Name")
+	         @inputText(employeeForm("userName"), '_label -> "User name")
+	     </fieldset>
 	
+	     <div>
+	        <input type="submit" value="Update" />
+	     	<a href="@routes.EmployeeController.employees()"><button type="button">Cancel</button></a>
+	     </div>
+     }
 }
