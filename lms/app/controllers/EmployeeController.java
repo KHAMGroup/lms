@@ -74,7 +74,7 @@ public class EmployeeController extends Controller {
         	flash("userexists", "User Name already exists");
         	return badRequest(views.html.employee.employee.render(employeeForm));
         }
-        EmployeeHelper.update(employeeForm.get());
+        EmployeeHelper.update(employeeNumber, employeeForm.get());
         return redirect(routes.EmployeeController.employees());
     }
 //    

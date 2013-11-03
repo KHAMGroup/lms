@@ -47,23 +47,32 @@ public class EmployeeHelper {
 	
 	
 	public static void save(EmployeePOJO employeePOJO) {
-		Employee toSave = pojoToEmployee(employeePOJO);
+		Employee toSave = new Employee();
+		toSave.setFirst(employeePOJO.getFirst());
+		toSave.setLast(employeePOJO.getLast());
+		toSave.setUserName(employeePOJO.getUserName());
 		toSave.setPassword(DEFAULT_PASSWORD);
+		toSave.setUserRoles(booleansToUserRoles(employeePOJO));
 		toSave.save();
 	}
 	
-	public static void update(EmployeePOJO employeePOJO) {
-		Employee toSave = pojoToEmployee(employeePOJO);
-		toSave.setEmployeeNumber(employeePOJO.getEmployeeNumber());
-		toSave.setPassword(employeePOJO.getPassword());
-		toSave.update(employeePOJO.getEmployeeNumber());
+	public static void update(int employeeNumber, EmployeePOJO employeePOJO) {
+		Employee toUpdate = Employee.findById(employeeNumber);
+
+		toUpdate.setFirst(employeePOJO.getFirst());
+		toUpdate.setLast(employeePOJO.getLast());
+		toUpdate.setUserName(employeePOJO.getUserName());
+		//toSave.setPassword(employeePOJO.getPassword());
+		List<UserRole> oldRoles = toUpdate.getUserRoles();
+		List<UserRole> newRoles = booleansToUserRoles(employeePOJO);
+		for(UserRole role : newRoles){
+			
+		}
+		
+		toUpdate.update(employeeNumber);
 	}
 	
-	private static Employee pojoToEmployee(EmployeePOJO employeePOJO){
-		Employee emp = new Employee();
-		emp.setFirst(employeePOJO.getFirst());
-		emp.setLast(employeePOJO.getLast());
-		emp.setUserName(employeePOJO.getUserName());
+	private static List<UserRole> booleansToUserRoles(EmployeePOJO employeePOJO){
 		List<UserRole> userRoles = new LinkedList<UserRole>();
 		if(employeePOJO.isAdmin()){
 			UserRole admin = new UserRole();
@@ -85,7 +94,6 @@ public class EmployeeHelper {
 			results.setRoleName(RESULTS_ROLE);
 			userRoles.add(results);
 		}
-		emp.setUserRoles(userRoles);
-		return emp;
+		return userRoles;
 	}
 }

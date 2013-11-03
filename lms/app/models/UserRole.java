@@ -3,8 +3,6 @@ package models;
 import java.io.Serializable;
 import javax.persistence.*;
 
-import play.db.jpa.JPA;
-
 
 /**
  * The persistent class for the USER_ROLES database table.
