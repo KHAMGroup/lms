@@ -5,9 +5,18 @@
      @form(routes.EmployeeController.update(employeeForm("employeeNumber").value.toInt)){ 
 	     <fieldset>
 	     	<div>Employee Number: @employeeForm("employeeNumber").value</div>
-	         @inputText(employeeForm("first"), '_label -> "First Name")
-	         @inputText(employeeForm("last"), '_label -> "Last Name")
-	         @inputText(employeeForm("userName"), '_label -> "User name")
+            @inputText(employeeForm("first"), '_label -> "First Name", '_showConstraints -> false)
+            @inputText(employeeForm("last"), '_label -> "Last Name", '_showConstraints -> false)
+            @inputText(employeeForm("userName"), '_label -> "User Name", '_showConstraints -> false)
+            <div>User Roles</div>
+			@checkbox(employeeForm("admin"), 
+			'_label -> "Administrator")
+			@checkbox(employeeForm("manageClients"),
+			'_label -> "Manage Clients")
+			@checkbox(employeeForm("manageCases"),
+			'_label -> "Manage Cases")
+			@checkbox(employeeForm("manageCaseResults"),
+			'_label -> "Manage CaseResults")
 	     </fieldset>
 	
 	     <div>

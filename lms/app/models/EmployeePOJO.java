@@ -1,14 +1,19 @@
 package models;
 
+import play.data.validation.Constraints.*;
+
 
 
 public class EmployeePOJO {
 
 	private int employeeNumber;
+	@Required
 	private String first;
+	@Required
 	private String last;
 	private String password;
-	private String username;
+	@Required
+	private String userName;
 	
 	private boolean admin;
 	private boolean manageClients;
@@ -50,11 +55,11 @@ public class EmployeePOJO {
 	}
 
 	public String getUserName() {
-		return username;
+		return userName;
 	}
 
 	public void setUserName(String username) {
-		this.username = username;
+		this.userName = username;
 	}
 
 	public boolean isAdmin() {

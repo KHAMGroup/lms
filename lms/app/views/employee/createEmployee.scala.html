@@ -6,9 +6,9 @@
 
     @form(routes.EmployeeController.save()) {      
         <fieldset>
-            @inputText(employeeForm("first"), '_label -> "First Name")
-            @inputText(employeeForm("last"), '_label -> "Last Name")
-            @inputText(employeeForm("userName"), '_label -> "User Name")
+            @inputText(employeeForm("first"), '_label -> "First Name", '_showConstraints -> false)
+            @inputText(employeeForm("last"), '_label -> "Last Name", '_showConstraints -> false)
+            @inputText(employeeForm("userName"), '_label -> "User Name", '_showConstraints -> false)
             <div>User Roles</div>
 			@checkbox(employeeForm("admin"), 
 			'_label -> "Administrator")
