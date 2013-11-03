@@ -28,6 +28,7 @@ public class Application extends Controller {
     @Transactional
     public static Result authenticate() {
 	Form<Login> loginForm = form(Login.class).bindFromRequest();
+
 	if(loginForm.hasErrors()) {
 		flash("error",loginForm.errorsAsJson().toString().replaceAll("[^0-9a-zA-Z ]", ""));
 //		return badRequest(views.html.login.render(loginForm));

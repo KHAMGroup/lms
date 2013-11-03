@@ -63,12 +63,11 @@ public class EmployeeHelper {
 		toUpdate.setLast(employeePOJO.getLast());
 		toUpdate.setUserName(employeePOJO.getUserName());
 		//toSave.setPassword(employeePOJO.getPassword());
-		List<UserRole> oldRoles = toUpdate.getUserRoles();
 		List<UserRole> newRoles = booleansToUserRoles(employeePOJO);
 		for(UserRole role : newRoles){
-			
+			role.setEmployee(toUpdate);
 		}
-		
+		toUpdate.setUserRoles(newRoles);
 		toUpdate.update(employeeNumber);
 	}
 	

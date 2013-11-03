@@ -50,10 +50,11 @@ public class Employee implements Serializable {
 	private List<CaseTest> caseTestsPerformed;
 
 	//bi-directional many-to-one association to UserRole
-	@OneToMany(mappedBy="employee")
+	@OneToMany(mappedBy="employee", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<UserRole> userRoles;
 
 	public Employee() {
+		userRoles = new LinkedList<UserRole>();
 	}
 
 	public int getEmployeeNumber() {
@@ -133,7 +134,9 @@ public class Employee implements Serializable {
 	}
 	
 	public void setUserRoles(List<UserRole> userRoles) {
-		this.userRoles = userRoles;
+		this.userRoles.clear();
+		this.userRoles.addAll(userRoles);
+//		this.userRoles = userRoles;
 	}
 
 	public boolean hasUserRole(String roleName) {
@@ -149,7 +152,7 @@ public class Employee implements Serializable {
 	
 	public void addUserRole(String roleName){
 		UserRole added = new UserRole(this,roleName);
-		this.getUserRoles().add(added);
+		userRoles.add(added);
 	}
 
 	public static Employee authenticate(String username, String password) {
@@ -182,7 +185,13 @@ public class Employee implements Serializable {
 		//predicateList.add(userNamePredicate);
 	
 		query.where(predicate);
-		return JPA.em().createQuery(query).getSingleResult();
+		
+		try{
+			return JPA.em().createQuery(query).getSingleResult();
+		}catch(NoResultException e){
+			return null;
+		}
+		
 		
 //		List<Employee> resultList = JPA.em().createQuery(query).getResultList();
 //		Employee found = null;
@@ -212,6 +221,7 @@ public class Employee implements Serializable {
     public void update(int employeeNumber) {
     	setEmployeeNumber(employeeNumber);
     	JPA.em().merge(this);
+
         if(userRoles!=null){
 			for(UserRole role : userRoles){
 				role.setEmployee(this);
@@ -231,6 +241,7 @@ public class Employee implements Serializable {
     }
     
     public void delete() {
+    	userRoles.clear();
         JPA.em().remove(this);
     }
     public static List<Employee> all(){

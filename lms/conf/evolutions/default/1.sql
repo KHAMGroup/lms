@@ -15,11 +15,11 @@ CREATE TABLE IF NOT EXISTS EMPLOYEES
 
 CREATE TABLE IF NOT EXISTS USER_ROLES 
 (
-	role_PK INT NOT NULL AUTO_INCREMENT, 
+	 
 	employee_number TINYINT NOT NULL, 
 	role_name VARCHAR(64) NOT NULL, 
-	UNIQUE(employee_number, role_name),  
-	PRIMARY KEY(role_PK), 
+	PRIMARY KEY(employee_number, role_name),  
+	 
 	FOREIGN KEY(employee_number) REFERENCES EMPLOYEES(employee_number) 
 ); 
  
