@@ -34,7 +34,7 @@ public class Employee implements Serializable {
 	@Column(length=20)
 	private String password;
 
-	@Column(unique=true, nullable=false, length=20)
+	@Column(nullable=false, length=20)
 	private String username;
 
 	//bi-directional many-to-one association to CaseEntityObject
@@ -182,12 +182,14 @@ public class Employee implements Serializable {
 		//predicateList.add(userNamePredicate);
 	
 		query.where(predicate);
-		List<Employee> resultList = JPA.em().createQuery(query).getResultList();
-		Employee found = null;
-		if(resultList.size()>0){
-			found = resultList.get(0);
-		}
-		return found;
+		return JPA.em().createQuery(query).getSingleResult();
+		
+//		List<Employee> resultList = JPA.em().createQuery(query).getResultList();
+//		Employee found = null;
+//		if(resultList.size()>0){
+//			found = resultList.get(0);
+//		}
+//		return found;
 	/*
 	return JPA.em().createQuery("from Employee where username = ? ")
 		.setParameter(1, user)
@@ -210,6 +212,12 @@ public class Employee implements Serializable {
     public void update(int employeeNumber) {
     	setEmployeeNumber(employeeNumber);
     	JPA.em().merge(this);
+        if(userRoles!=null){
+			for(UserRole role : userRoles){
+				role.setEmployee(this);
+				JPA.em().merge(role);
+			}
+        } 	
     }
     
     public void save(){

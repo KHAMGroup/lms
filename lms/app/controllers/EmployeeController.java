@@ -29,7 +29,7 @@ public class EmployeeController extends Controller {
 	      			EmployeeHelper.getEmployeePOJO(id)
 	    );
 	    return ok(
-	        views.html.employee.employee.render("E", employeeForm)
+	        views.html.employee.employee.render(employeeForm)
 	    );
 	}
 	
@@ -54,17 +54,27 @@ public class EmployeeController extends Controller {
         if(employeeForm.hasErrors()) {
             return badRequest(views.html.employee.createEmployee.render(employeeForm));
         }
+        if(Employee.findByUserName(employeeForm.get().getUserName()) != null){
+        	flash("userexists", "User Name already exists");
+        	return badRequest(views.html.employee.createEmployee.render(employeeForm));
+        }
         EmployeeHelper.save(employeeForm.get());
         return redirect(routes.EmployeeController.employees());
     }
     
     @Transactional
     public static Result update(Integer employeeNumber){
-//        Form<Employee> employeeForm = form(Employee.class).bindFromRequest();
-//        if(employeeForm.hasErrors()) {
-//            return badRequest(views.html.employee.employee.render(employeeForm));
-//        }
-//        employeeForm.get().update(employeeNumber);
+        Form<EmployeePOJO> employeeForm = form(EmployeePOJO.class).bindFromRequest();
+        if(employeeForm.hasErrors()) {
+            return badRequest(views.html.employee.employee.render(employeeForm));
+        }
+        Employee existing = Employee.findByUserName(employeeForm.get().getUserName());
+        
+        if(existing != null && existing.getEmployeeNumber() != employeeNumber){
+        	flash("userexists", "User Name already exists");
+        	return badRequest(views.html.employee.employee.render(employeeForm));
+        }
+        EmployeeHelper.update(employeeForm.get());
         return redirect(routes.EmployeeController.employees());
     }
 //    

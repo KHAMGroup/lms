@@ -47,11 +47,23 @@ public class EmployeeHelper {
 	
 	
 	public static void save(EmployeePOJO employeePOJO) {
-		Employee toSave = new Employee();
-		toSave.setFirst(employeePOJO.getFirst());
-		toSave.setLast(employeePOJO.getLast());
-		toSave.setUserName(employeePOJO.getUserName());
+		Employee toSave = pojoToEmployee(employeePOJO);
 		toSave.setPassword(DEFAULT_PASSWORD);
+		toSave.save();
+	}
+	
+	public static void update(EmployeePOJO employeePOJO) {
+		Employee toSave = pojoToEmployee(employeePOJO);
+		toSave.setEmployeeNumber(employeePOJO.getEmployeeNumber());
+		toSave.setPassword(employeePOJO.getPassword());
+		toSave.update(employeePOJO.getEmployeeNumber());
+	}
+	
+	private static Employee pojoToEmployee(EmployeePOJO employeePOJO){
+		Employee emp = new Employee();
+		emp.setFirst(employeePOJO.getFirst());
+		emp.setLast(employeePOJO.getLast());
+		emp.setUserName(employeePOJO.getUserName());
 		List<UserRole> userRoles = new LinkedList<UserRole>();
 		if(employeePOJO.isAdmin()){
 			UserRole admin = new UserRole();
@@ -73,10 +85,7 @@ public class EmployeeHelper {
 			results.setRoleName(RESULTS_ROLE);
 			userRoles.add(results);
 		}
-		toSave.setUserRoles(userRoles);
-		toSave.save();
-
-
+		emp.setUserRoles(userRoles);
+		return emp;
 	}
-
 }

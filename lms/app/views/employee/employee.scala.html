@@ -1,14 +1,28 @@
-@(goal: String, employeeForm: Form[EmployeePOJO])
+@(employeeForm: Form[EmployeePOJO])
 @import helper._
 
 @main("Employee") {
-     @form(routes.EmployeeController.update(employeeForm("employeeNumber").value.toInt)){ 
+     <form>
 	     <fieldset>
-	     	<div>Employee Number: @employeeForm("employeeNumber").value</div>
-            @inputText(employeeForm("first"), '_label -> "First Name", '_showConstraints -> false)
-            @inputText(employeeForm("last"), '_label -> "Last Name", '_showConstraints -> false)
-            @inputText(employeeForm("userName"), '_label -> "User Name", '_showConstraints -> false)
-            <div>User Roles</div>
+	        @if(flash.contains("userexists")){
+	  			<p class="error">
+	  			@flash.get("userexists")
+	  			</p>
+	  		}
+	     	<dl>
+	     		<dt>Employee Number</dt> 
+	     		<dd>@employeeForm("employeeNumber").value</dd>
+	     	</dl>
+            @inputText(employeeForm("first"), 
+            '_label -> "First Name", 
+            '_showConstraints -> false)
+            @inputText(employeeForm("last"), 
+            '_label -> "Last Name", 
+            '_showConstraints -> false)
+            @inputText(employeeForm("userName"), 
+            '_label -> "User Name", 
+            '_showConstraints -> false)
+            <h3>User Roles</h3>
 			@checkbox(employeeForm("admin"), 
 			'_label -> "Administrator")
 			@checkbox(employeeForm("manageClients"),
@@ -16,12 +30,15 @@
 			@checkbox(employeeForm("manageCases"),
 			'_label -> "Manage Cases")
 			@checkbox(employeeForm("manageCaseResults"),
-			'_label -> "Manage CaseResults")
+			'_label -> "Manage Case Results")
 	     </fieldset>
 	
 	     <div>
-	        <input type="submit" value="Update" />
+	     	<button type="submit" formmethod="post" 
+	     	formaction="@routes.EmployeeController.update(employeeForm("employeeNumber").value.toInt)">
+	     	Update</button>
 	     	<a href="@routes.EmployeeController.employees()"><button type="button">Cancel</button></a>
 	     </div>
-     }
+	 </form>
+     
 }
