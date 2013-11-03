@@ -18,7 +18,12 @@
 			<td>
 			@theCase.getCaseTestsSparse().size()
 			</td>
-			<td>@theCase.getCaseNote().getCommentText()</td>
+			<td>@if(theCase.getCaseNote() != null){
+				@theCase.getCaseNote().getCommentText()
+			}else{
+				No comment.
+			}
+			</td>
 		</tr>
 	}
 </table>

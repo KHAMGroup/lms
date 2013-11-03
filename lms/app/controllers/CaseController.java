@@ -122,14 +122,15 @@ public class CaseController extends Controller {
 	    	cli = Client.findByClientNumber(cliID);
 	    	newCase.setClient(cli);
 	    	List<CaseTest> theTests = new LinkedList<CaseTest>();
+	    	CaseTest theTest;
 	    	for(int testNum : req.testNumber){
 	    		if(testNum != -1){
 	    			TestEntityObject t = TestEntityObject.findByTestNumber(testNum);
-	    			CaseTest theTest = new CaseTest();
+	    			theTest = new CaseTest();
 //	    			theTest.setBilled(false); //mark this new caseTest as not billed
 	    			theTest.setTest(t); //link the test to the caseTest
 	    			theTests.add(theTest);
-	    			theTest.setCaseEntity(newCase);//add the caseTest to the case
+	    			//theTest.setCaseEntity(newCase);//add the caseTest to the case
 	    			
 	    			
 	    		}
@@ -159,6 +160,10 @@ public class CaseController extends Controller {
 			}
 			
 			newCase.save();
+			for(CaseTest t : theTests){
+				t.setCaseEntity(newCase);
+				JPA.em().persist(t);
+			}
 	    	
 	    	//TODO: remove this test stuff, and actually redirect to a confirmation page or dashboard.
 	    	CaseEntityObject theCase = CaseEntityObject.findByCaseNumber(req.caseNumber);

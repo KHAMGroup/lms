@@ -118,7 +118,7 @@ public class CaseEntityObject implements Serializable {
 //	private List<CaseDeposit> caseDeposits;
 
 	//bi-directional many-to-one association to CaseTest
-	@OneToMany(mappedBy="caseEntity")
+	@OneToMany(mappedBy="caseEntity", fetch=FetchType.EAGER, cascade={CascadeType.MERGE})//mappedBy="caseEntity",
 	private List<CaseTest> caseTests;
 
 	public CaseEntityObject() {
@@ -348,6 +348,13 @@ public class CaseEntityObject implements Serializable {
 	}
 
     public void save(){
+    	if(this.getCaseNote() != null){ //this one works
+    		JPA.em().persist(this.getCaseNote());
+    	}
+    	
+    	/*for(CaseTest t : this.getCaseTests()){ //this one doesn't
+    		JPA.em().merge(t);
+    	}*/
     	
         JPA.em().persist(this);
     }
