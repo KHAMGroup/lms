@@ -1,0 +1,29 @@
+@(employeeForm: Form[EmployeePOJO])
+@import helper._
+
+@main("Employee") {
+    <h1>New Employee</h1>
+
+    @form(routes.EmployeeController.save()) {      
+        <fieldset>
+            @inputText(employeeForm("first"), '_label -> "First Name")
+            @inputText(employeeForm("last"), '_label -> "Last Name")
+            @inputText(employeeForm("userName"), '_label -> "User Name")
+            <div>User Roles</div>
+			@checkbox(employeeForm("admin"), 
+			'_label -> "Administrator")
+			@checkbox(employeeForm("manageClients"),
+			'_label -> "Manage Clients")
+			@checkbox(employeeForm("manageCases"),
+			'_label -> "Manage Cases")
+			@checkbox(employeeForm("manageCaseResults"),
+			'_label -> "Manage CaseResults")
+        </fieldset>
+
+        <div>
+            <input type="submit" value="Save" />
+        </div>
+        
+    }
+	
+}

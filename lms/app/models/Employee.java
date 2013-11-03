@@ -214,6 +214,12 @@ public class Employee implements Serializable {
     
     public void save(){
         JPA.em().persist(this);
+        if(userRoles!=null){
+			for(UserRole role : userRoles){
+				role.setEmployee(this);
+				JPA.em().persist(role);
+			}
+        }
     }
     
     public void delete() {

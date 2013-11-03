@@ -3,6 +3,8 @@ package models;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import play.db.jpa.JPA;
+
 
 /**
  * The persistent class for the USER_ROLES database table.
@@ -17,7 +19,8 @@ public class UserRole implements Serializable {
 	private String roleName;
 
 	@Id
-	@Column(name="role_PK")
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="role_PK", unique=true, nullable=false)
 	private int role_PK;
 
 	//bi-directional many-to-one association to Employee
@@ -47,5 +50,4 @@ public class UserRole implements Serializable {
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
 	}
-
 }
