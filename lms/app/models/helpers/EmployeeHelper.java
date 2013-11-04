@@ -6,6 +6,7 @@ import java.util.Set;
 
 import models.Employee;
 import models.EmployeePOJO;
+import models.PasswordChangePOJO;
 import models.UserRole;
 
 public class EmployeeHelper {
@@ -62,7 +63,6 @@ public class EmployeeHelper {
 		toUpdate.setFirst(employeePOJO.getFirst());
 		toUpdate.setLast(employeePOJO.getLast());
 		toUpdate.setUserName(employeePOJO.getUserName());
-		//toSave.setPassword(employeePOJO.getPassword());
 		List<UserRole> newRoles = booleansToUserRoles(employeePOJO);
 		for(UserRole role : newRoles){
 			role.setEmployee(toUpdate);
@@ -94,5 +94,25 @@ public class EmployeeHelper {
 			userRoles.add(results);
 		}
 		return userRoles;
+	}
+
+	public static PasswordChangePOJO getPasswordChangePOJO(int id) {
+		Employee user = Employee.findById(id);
+		PasswordChangePOJO passwordPojo = new PasswordChangePOJO();
+		passwordPojo.setEmployeeNumber(user.getEmployeeNumber());
+		passwordPojo.setUserName(user.getUserName());
+		passwordPojo.setNewPassword("");
+		passwordPojo.setOldPassword(null);
+		return passwordPojo;
+	}
+
+	public static void updatePassword(PasswordChangePOJO change) {
+		Employee userToChange = Employee.findById(change.getEmployeeNumber());
+		String newPassword = change.getNewPassword();
+		if(newPassword.equals("null") && userToChange.getUserRolesAsStrings().contains(ADMIN_ROLE)){
+			newPassword = null;
+		}
+		userToChange.setPassword(newPassword);
+		userToChange.update(change.getEmployeeNumber());
 	}
 }

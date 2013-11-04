@@ -24,6 +24,11 @@
 	     @flash.get("success")
 	  </p>
       }
+      @if(flash.contains("pwChange")){
+      <p class="success">
+	     @flash.get("pwChange")
+	  </p>
+      }
       <p>
         <input type="username" name="username" placeholder="User Name" value="@form("username").value">
       </p>

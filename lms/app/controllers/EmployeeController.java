@@ -3,6 +3,7 @@ package controllers;
 import static play.data.Form.*;
 import models.Employee;
 import models.EmployeePOJO;
+import models.PasswordChangePOJO;
 import models.helpers.EmployeeHelper;
 import play.*;
 import play.data.Form;
@@ -11,6 +12,7 @@ import play.mvc.*;
 
 import views.html.*;
 
+@Security.Authenticated(Avocado.class)
 public class EmployeeController extends Controller {
   
 
@@ -29,7 +31,7 @@ public class EmployeeController extends Controller {
 	      			EmployeeHelper.getEmployeePOJO(id)
 	    );
 	    return ok(
-	        views.html.employee.employee.render(employeeForm)
+	        views.html.employee.employee.render(id, employeeForm)
 	    );
 	}
 	
@@ -66,19 +68,55 @@ public class EmployeeController extends Controller {
     public static Result update(Integer employeeNumber){
         Form<EmployeePOJO> employeeForm = form(EmployeePOJO.class).bindFromRequest();
         if(employeeForm.hasErrors()) {
-            return badRequest(views.html.employee.employee.render(employeeForm));
+            return badRequest(views.html.employee.employee.render(employeeNumber, employeeForm));
         }
         Employee existing = Employee.findByUserName(employeeForm.get().getUserName());
         
         if(existing != null && existing.getEmployeeNumber() != employeeNumber){
         	flash("userexists", "User Name already exists");
-        	return badRequest(views.html.employee.employee.render(employeeForm));
+        	return badRequest(views.html.employee.employee.render(employeeNumber, employeeForm));
         }
         EmployeeHelper.update(employeeNumber, employeeForm.get());
         return redirect(routes.EmployeeController.employees());
+    }
+    
+    @Transactional
+    public static Result editPassword(){
+    	int id = Avocado.getCurrentUser().getEmployeeNumber();
+	    Form<PasswordChangePOJO> passwordForm = form(PasswordChangePOJO.class).fill(
+      			EmployeeHelper.getPasswordChangePOJO(id)
+	    );
+	    return ok(
+	        views.html.employee.changePassword.render(passwordForm)
+	    );
+    }
+    
+    @Transactional
+    	public static Result changePassword(){
+    	Form<PasswordChangePOJO> passwordForm = form(PasswordChangePOJO.class).bindFromRequest();
+        if(passwordForm.hasErrors()) {
+            return badRequest(views.html.employee.changePassword.render(passwordForm));
+        }
+        PasswordChangePOJO change = passwordForm.get();
+        Employee current = Avocado.getCurrentUser(); 
+        change.setEmployeeNumber(current.getEmployeeNumber());
+        String currentPassword = current.getPassword();
+        if(currentPassword != null && !((change.getOldPassword()).equals(currentPassword))){
+        	change.setUserName(current.getUserName());
+        	change.setNewPassword("");
+        	change.setOldPassword("");
+        	passwordForm.fill(change);
+        	flash("wrongPw", "Incorrect password entered!");
+            return badRequest(views.html.employee.changePassword.render(passwordForm));
+        }
+        EmployeeHelper.updatePassword(change);
+        flash("pwChange", "Password changed!");
+    	return redirect(routes.Application.logout());
     }
 //    
 //    public static Result deleteEmployee(Integer id){
 //    	return TODO;
 //    }
+    
+    
 }
