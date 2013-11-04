@@ -56,11 +56,11 @@ public class TestEntityObject implements Serializable {
 	private String units;
 
 	//bi-directional many-to-one association to CaseTest
-	@OneToMany(mappedBy="test")
+	@OneToMany(mappedBy="test", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<CaseTest> caseTests;
 
 	//bi-directional many-to-one association to Comment
-	@OneToMany(mappedBy="associatedTest")
+	@OneToMany(mappedBy="associatedTest", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Comment> associatedComments;
 
 	//bi-directional many-to-one association to Comment
@@ -177,13 +177,14 @@ public class TestEntityObject implements Serializable {
 	
 	public static List<TestEntityObject> getAllTests(){
 		//get all tests from the database;
-		CriteriaBuilder builder = JPA.em().getCriteriaBuilder();
-		CriteriaQuery<TestEntityObject> query = builder.createQuery(TestEntityObject.class);
-		Root<TestEntityObject> tests = query.from(TestEntityObject.class);
-		query.select(tests);
-	
-		List<TestEntityObject> resultList = JPA.em().createQuery(query).getResultList();
-		return resultList;
+//		CriteriaBuilder builder = JPA.em().getCriteriaBuilder();
+//		CriteriaQuery<TestEntityObject> query = builder.createQuery(TestEntityObject.class);
+//		Root<TestEntityObject> tests = query.from(TestEntityObject.class);
+//		query.select(tests);
+//	
+//		List<TestEntityObject> resultList = JPA.em().createQuery(query).getResultList();
+//		return resultList;
+    	return JPA.em().createQuery("from Test").getResultList();
 	}
 	
 	public static TestEntityObject findByTestNumber(int tnum){

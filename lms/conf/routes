@@ -35,5 +35,12 @@ GET		/employees/new				controllers.EmployeeController.newEmployee()
 POST	/employees/save				controllers.EmployeeController.save()
 #POST	/employees/:id/delete		controllers.EmployeeController.deleteEmployee(id: Int)
 
+GET		/tests						controllers.TestController.tests()
+GET		/tests/new					controllers.TestController.newTest()
+POST	/tests/save					controllers.TestController.save()
+GET		/tests/:id/edit				controllers.TestController.edit(id: Int)
+POST	/tests/:id/update			controllers.TestController.update(id: Int)
+
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
