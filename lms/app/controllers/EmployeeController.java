@@ -27,27 +27,42 @@ public class EmployeeController extends Controller {
 //    }
 	@Transactional
 	public static Result editEmployee(Integer id){
-	    Form<EmployeePOJO> employeeForm = form(EmployeePOJO.class).fill(
-	      			EmployeeHelper.getEmployeePOJO(id)
-	    );
-	    return ok(
-	        views.html.employee.employee.render(id, employeeForm)
-	    );
+    	if(Avocado.hasRole("admin")){	
+		    Form<EmployeePOJO> employeeForm = form(EmployeePOJO.class).fill(
+		      			EmployeeHelper.getEmployeePOJO(id)
+		    );
+		    return ok(
+		        views.html.employee.employee.render(id, employeeForm)
+		    );
+    	}
+		else{
+			return redirect(routes.MainController.returnToDashboard());
+		}
 	}
 	
     @Transactional(readOnly=true)
     public static Result employees(){
-        return ok(
-        	views.html.employee.employees.render(EmployeeHelper.getAll())
-        );
+    	if(Avocado.hasRole("admin")){
+	        return ok(
+	        	views.html.employee.employees.render(EmployeeHelper.getAll())
+	        );
+    	}
+		else{
+			return redirect(routes.MainController.returnToDashboard());
+		}
     }
     
     @Transactional
     public static Result newEmployee(){
-        Form<EmployeePOJO> employeeForm = form(EmployeePOJO.class);
-        return ok(
-            views.html.employee.createEmployee.render(employeeForm)
-        );
+    	if(Avocado.hasRole("admin")){
+    		Form<EmployeePOJO> employeeForm = form(EmployeePOJO.class);
+	        return ok(
+	            views.html.employee.createEmployee.render(employeeForm)
+	        );
+    	}
+		else{
+			return redirect(routes.MainController.returnToDashboard());
+		}
     }
     
     @Transactional
@@ -70,13 +85,20 @@ public class EmployeeController extends Controller {
         if(employeeForm.hasErrors()) {
             return badRequest(views.html.employee.employee.render(employeeNumber, employeeForm));
         }
-        Employee existing = Employee.findByUserName(employeeForm.get().getUserName());
+        EmployeePOJO toUpdate = employeeForm.get();
+        Employee existingUserName = Employee.findByUserName(toUpdate.getUserName());
         
-        if(existing != null && existing.getEmployeeNumber() != employeeNumber){
+        if(existingUserName != null 
+        		&& existingUserName.getEmployeeNumber() != employeeNumber){
         	flash("userexists", "User Name already exists");
         	return badRequest(views.html.employee.employee.render(employeeNumber, employeeForm));
         }
-        EmployeeHelper.update(employeeNumber, employeeForm.get());
+        if(Avocado.getCurrentUser().getEmployeeNumber() == employeeNumber 
+        		&& !(toUpdate.isAdmin())){
+        	flash("adminIssue", "Admin cannot remove their own Admin role!");
+        	return badRequest(views.html.employee.employee.render(employeeNumber, employeeForm));  	
+        }
+        EmployeeHelper.update(employeeNumber, toUpdate);
         return redirect(routes.EmployeeController.employees());
     }
     
@@ -89,6 +111,13 @@ public class EmployeeController extends Controller {
 	    return ok(
 	        views.html.employee.changePassword.render(passwordForm)
 	    );
+    }
+    
+    @Transactional
+    public static Result resetPassword(int id){
+    	EmployeeHelper.resetEmployeePassword(id);
+    	flash("pwReset", "Password for Employee "+id+" was reset to the default password!");
+    	return redirect(routes.EmployeeController.employees());
     }
     
     @Transactional

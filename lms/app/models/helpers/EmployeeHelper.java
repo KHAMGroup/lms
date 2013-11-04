@@ -115,4 +115,10 @@ public class EmployeeHelper {
 		userToChange.setPassword(newPassword);
 		userToChange.update(change.getEmployeeNumber());
 	}
+
+	public static void resetEmployeePassword(int id) {
+		Employee toReset = Employee.findById(id);
+		toReset.setPassword(DEFAULT_PASSWORD);
+		toReset.update(id);
+	}
 }

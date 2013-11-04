@@ -4,14 +4,15 @@
 @main("Employee") {
      <form>
 	     <fieldset>
-	        @if(flash.contains("userexists")){
-	  			<p class="error">
+	  		<p class="error">
 	  			@flash.get("userexists")
-	  			</p>
-	  		}
+	  		</p>
+	  		<p class="error">
+	  			@flash.get("adminIssue")
+	  		</p>
 	     	<dl>
 	     		<dt>Employee Number</dt> 
-	     		<dd>@employeeForm("employeeNumber").value</dd>
+	     		<dd>eNumber</dd>
 	     	</dl>
             @inputText(employeeForm("first"), 
             '_label -> "First Name", 
