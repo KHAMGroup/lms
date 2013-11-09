@@ -1,6 +1,22 @@
 @(caseForm: Form[RequisitionPOJO], tests: List[TestEntityObject], formErrors: List[String])
 @import helper._
 @main("Enter Requisition"){
+<script type="text/javascript">
+	var testCount = 5;
+	
+	function addInputMethod() {
+	//document.getElementById('caseTests').innerHTML += "<input type='text' value='' /><br />";
+		testCount++;
+		$("#caseTests").append(
+			      "<select name='select'>" +
+			          "<option>" + testCount + "</option>" +
+			        "</select>");
+	}
+
+</script>
+
+	
+	
 <h1>Enter a Requisition</h1>
 @if(formErrors != null){
 <div id="errors">
@@ -51,6 +67,7 @@
 			'_label -> "Case Notes:",
 			'_showConstraints -> true)
 			
+	<div id="caseTests">
 	<label for="test1">Test 1: &nbsp;</label>
 	<select id="test1" name="testNumber[0]">
 			<option value="-1">Select Test</option>
@@ -86,6 +103,7 @@
 			<option value="@test.getTestNumber()" > @test.getTestName() </option>
 		}
 	</select>
+	</div>
 	
 	
 	
@@ -93,8 +111,12 @@
 	
 	
 	<div>
+		<a href="javascript:addInputMethod()">Add input field</a>
 		<input type="submit" value="Save" />
 	</div>
 	
+	
+	
 }
+
 }
