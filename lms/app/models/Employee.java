@@ -225,7 +225,7 @@ public class Employee implements Serializable {
         if(userRoles!=null){
 			for(UserRole role : userRoles){
 				role.setEmployee(this);
-				JPA.em().merge(role);
+//				JPA.em().merge(role);
 			}
         } 	
     }
@@ -235,7 +235,7 @@ public class Employee implements Serializable {
         if(userRoles!=null){
 			for(UserRole role : userRoles){
 				role.setEmployee(this);
-				JPA.em().persist(role);
+//				JPA.em().persist(role);
 			}
         }
     }

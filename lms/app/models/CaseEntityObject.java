@@ -62,7 +62,7 @@ public class CaseEntityObject implements Serializable {
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "received_date", 
-			columnDefinition = "received_date DATE DEFAULT CURRENT_DATE")
+			columnDefinition = "received_date DATE")
 	@Formats.DateTime(pattern="yyyy-MM-dd")
 	private Date receivedDate;
 
