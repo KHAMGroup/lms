@@ -177,14 +177,14 @@ public class TestEntityObject implements Serializable {
 	
 	public static List<TestEntityObject> getAllTests(){
 		//get all tests from the database;
-//		CriteriaBuilder builder = JPA.em().getCriteriaBuilder();
-//		CriteriaQuery<TestEntityObject> query = builder.createQuery(TestEntityObject.class);
-//		Root<TestEntityObject> tests = query.from(TestEntityObject.class);
-//		query.select(tests);
-//	
-//		List<TestEntityObject> resultList = JPA.em().createQuery(query).getResultList();
-//		return resultList;
-    	return JPA.em().createQuery("from Test").getResultList();
+		CriteriaBuilder builder = JPA.em().getCriteriaBuilder();
+		CriteriaQuery<TestEntityObject> query = builder.createQuery(TestEntityObject.class);
+		Root<TestEntityObject> tests = query.from(TestEntityObject.class);
+		query.select(tests);
+	
+		List<TestEntityObject> resultList = JPA.em().createQuery(query).getResultList();
+		return resultList;
+    	//return JPA.em().createQuery("from Test").getResultList();
 	}
 	
 	public static TestEntityObject findByTestNumber(int tnum){

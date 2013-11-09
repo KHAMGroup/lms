@@ -19,6 +19,7 @@ public class CaseTest implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	//@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="case_test_PK", unique=true, nullable=false)
 	private long caseTestPK;
 
