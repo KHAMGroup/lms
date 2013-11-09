@@ -74,8 +74,8 @@ CREATE TABLE IF NOT EXISTS CLIENT
 	email_report_OK BIT NOT NULL, 
 --	email_invoice_OK BIT NOT NULL, 
 --	bill_to_client INT, 
-	PRIMARY KEY(client_id), 
-	UNIQUE(first, last, mailing_address, city, state, zip), 
+	PRIMARY KEY(client_id)
+--	UNIQUE(first, last, mailing_address, city, state, zip), 
 --	FOREIGN KEY (bill_to_client) REFERENCES CLIENT(client_id) 
 );
 

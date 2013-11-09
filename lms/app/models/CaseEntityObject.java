@@ -62,7 +62,7 @@ public class CaseEntityObject implements Serializable {
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "received_date", 
-			columnDefinition = "received_date DATE DEFAULT CURRENT_DATE")
+			columnDefinition = "received_date DATE")
 	@Formats.DateTime(pattern="yyyy-MM-dd")
 	private Date receivedDate;
 
@@ -118,7 +118,9 @@ public class CaseEntityObject implements Serializable {
 //	private List<CaseDeposit> caseDeposits;
 
 	//bi-directional many-to-one association to CaseTest
-	@OneToMany(mappedBy="caseEntity", fetch=FetchType.EAGER, cascade={CascadeType.MERGE})//mappedBy="caseEntity",
+	//@OneToMany(mappedBy="caseEntity", fetch=FetchType.EAGER, cascade={CascadeType.MERGE})//mappedBy="caseEntity",
+	@OneToMany(mappedBy="caseEntity", cascade=CascadeType.ALL, orphanRemoval = true)
+//	@JoinColumn(name="case_FK")
 	private List<CaseTest> caseTests;
 
 	public CaseEntityObject() {

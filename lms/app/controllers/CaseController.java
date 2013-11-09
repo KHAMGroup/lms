@@ -159,12 +159,12 @@ public class CaseController extends Controller {
 				newCase.setCaseNote(comment);
 			}
 			
-			newCase.save();
+
 			for(CaseTest t : theTests){
 				t.setCaseEntity(newCase);
-				JPA.em().persist(t);
+//				JPA.em().persist(t);
 			}
-	    	
+			newCase.save();
 	    	//TODO: remove this test stuff, and actually redirect to a confirmation page or dashboard.
 	    	CaseEntityObject theCase = CaseEntityObject.findByCaseNumber(req.caseNumber);
 	    	if(theCase != null){

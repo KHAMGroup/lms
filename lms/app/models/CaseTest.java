@@ -46,7 +46,7 @@ public class CaseTest implements Serializable {
 
 	//bi-directional many-to-one association to CaseEntityObject
 	@ManyToOne
-	@JoinColumn(name="case_FK", nullable=false, insertable=false, updatable=false)
+	@JoinColumn(name="case_FK")
 	private CaseEntityObject caseEntity;
 
 	//bi-directional one-to-one association to CaseTestResultsComment
@@ -73,7 +73,7 @@ public class CaseTest implements Serializable {
 
 	//bi-directional many-to-one association to Test
 	@ManyToOne
-	@JoinColumn(name="test_FK", nullable=false, insertable=false, updatable=false)
+	@JoinColumn(name="test_FK")
 	private TestEntityObject test;
 
 	public CaseTest() {
