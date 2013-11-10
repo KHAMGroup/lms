@@ -1,10 +1,15 @@
 package controllers;
 
 public class SearchTools {
-	private static String firstOrLastRegex = "[a-zA-Z0-9]*";
-	private static String firstThenLastRegex = "[a-zA-Z0-9]* +[a-zA-Z0-9]*";
-	private static String lastThenFirstRegex = "[a-zA-Z0-9]* *, *[a-zA-Z0-9]*";
-	private static String firstAndLastRegex = "[a-zA-Z0-9]+[+][a-zA-Z0-9]+";
+	private static String firstOrLastRegex = "[a-zA-Z]*";
+	private static String firstThenLastRegex = "[a-zA-Z]* +[a-zA-Z]*";
+	private static String lastThenFirstRegex = "[a-zA-Z]* *, *[a-zA-Z]*";
+	private static String firstAndLastRegex = "[a-zA-Z]+[+][a-zA-Z]+";
+	private static String numberRegex = "[0-9]+";
+	
+	public static boolean isNumber(String name){
+		return name.matches(numberRegex);
+	}
 	
 	public static boolean isFirstOrLast(String name){
 		return name.matches(firstOrLastRegex);

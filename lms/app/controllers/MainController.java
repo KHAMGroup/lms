@@ -81,7 +81,10 @@ public class MainController extends Controller {
 		String clientOrCase = searchForm.get().clientOrCase.toLowerCase();
 		String trimmed = searchForm.get().data.trim();
 		String searchQueryData = " ";
-		if(SearchTools.isFirstThenLast(trimmed)){
+		if(SearchTools.isNumber(trimmed)){
+			searchQueryData = trimmed;
+		}
+		else if(SearchTools.isFirstThenLast(trimmed)){
 			String[] firstAndLast = SearchTools.getFirstAndLast(trimmed);
 			String first = firstAndLast[0];
 			String last = firstAndLast[1];
