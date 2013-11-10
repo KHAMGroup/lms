@@ -30,7 +30,7 @@ public class TestController extends Controller {
     	if(Avocado.hasRole("admin")){	
     		Form<TestEntityObject> newTestForm = form(TestEntityObject.class);
 	        return ok(
-		        	views.html.test.test.render(newTestForm)
+		        	views.html.test.test.render("C", newTestForm)
 		    );
     	}
 		else{
@@ -42,7 +42,7 @@ public class TestController extends Controller {
 	public static Result save() {
 		Form<TestEntityObject> toSaveForm = form(TestEntityObject.class).bindFromRequest();
 		if(toSaveForm.hasErrors()){
-			return badRequest(views.html.test.test.render(toSaveForm));
+			return badRequest(views.html.test.test.render("C", toSaveForm));
 		}
 		toSaveForm.get().save();
         return redirect(routes.TestController.tests());
@@ -54,7 +54,7 @@ public class TestController extends Controller {
     		Form<TestEntityObject> testForm = form(TestEntityObject.class)
     				.fill(TestEntityObject.findByTestNumber(id));
 	        return ok(
-		        	views.html.test.test.render(testForm)
+		        	views.html.test.test.render("E", testForm)
 		    );
     	}
 		else{

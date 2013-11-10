@@ -1,6 +1,31 @@
-@(testForm: Form[TestEntityObject])
+@(goal: String, testForm: Form[TestEntityObject])
 @import helper._
 
 @main("Test") {
-
+	<form>
+	<fieldset>
+		@inputText(testForm("testNumber"), 
+		'_label -> "Test Number")
+		@inputText(testForm("testName"),
+		'_label -> "Test Name")
+		@inputText(testForm("testType"),
+		'_label -> "Test Type")
+		@inputText(testForm("sampleType"),
+		'_label -> "Sample Type")	
+	</fieldset>
+	
+	<div>
+	@if(goal == "C"){
+       	<button type="submit" formmethod="post" 
+    	formaction="@routes.TestController.save()">
+    	Save</button>
+    }
+    @if(goal == "E"){
+       	<button type="submit" formmethod="post" 
+    	formaction="@routes.TestController.update(testForm.get().getTestNumber())">
+    	Update</button>
+    }
+	<a href="@routes.TestController.tests()"><button type="button">Cancel</button></a>
+	</div>
+	</form>
 }
