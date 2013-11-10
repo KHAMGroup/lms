@@ -19,7 +19,14 @@ public class ClientController extends Controller {
 
 		if(Avocado.hasRole("manage clients")){
 			List<Client> clientsFound = new LinkedList<Client>();
-			if(SearchTools.isFormattedFirstAndLast(searchString)){
+			if(SearchTools.isNumber(searchString)){
+				int clientNumber = Integer.parseInt(searchString);
+				Client client = Client.findByClientNumber(clientNumber);
+				if(client!=null){
+					clientsFound.add(client);
+				}
+			}
+			else if(SearchTools.isFormattedFirstAndLast(searchString)){
 				String[] firstAndLast = SearchTools.getFormattedFirstAndLast(searchString);
 				String first = firstAndLast[0];
 				String last = firstAndLast[1];
@@ -64,7 +71,7 @@ public class ClientController extends Controller {
 		}else{
 			Client theClient = updateClientForm.get();
 			theClient.update(id);
-	    	return redirect(routes.MainController.searchResults("client",theClient.getFirst()+"+"+theClient.getLast()));
+	    	return redirect(routes.MainController.searchResults("client",theClient.getClientId()+""));
 		}
     }
     

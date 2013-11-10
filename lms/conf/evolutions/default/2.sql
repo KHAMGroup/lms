@@ -19,11 +19,11 @@ INSERT INTO CASES(clt_no, case_number, subject_lastname, subject_firstname, rece
 VALUES((SELECT c.client_id FROM CLIENT AS c WHERE c.last = 'goodman'), '008','Heisenberg', 'Walter', CURDATE(), (SELECT employee_number FROM EMPLOYEES WHERE username = 'labman'), 
 'blood', 1); 
 
-INSERT INTO TEST(test_number, test_name, test_type)
-VALUES(100, 'mary-j blood', 't');
+INSERT INTO TEST(test_number, test_name, test_type, type_of_sample)
+VALUES(100, 'mary-j blood', 't', 'blood');
 
-INSERT INTO TEST(test_number, test_name, test_type)
-VALUES(101, 'mary-j urine', 't');
+INSERT INTO TEST(test_number, test_name, test_type, type_of_sample)
+VALUES(101, 'mary-j urine', 't', 'urine');
 
 --alter table EMPLOYEES ENGINE=InnoDB;
 --alter table USER_ROLES ENGINE=InnoDB;

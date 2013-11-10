@@ -8,12 +8,14 @@ import play.data.Form;
 import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.Security;
 
+@Security.Authenticated(Avocado.class)
 public class TestController extends Controller {
 
 	@Transactional
 	public static Result tests() {
-    	if(Avocado.hasRole("admin")){	
+    	if(Avocado.hasRole("admin")){
 	        return ok(
 		        	views.html.test.tests.render(TestEntityObject.getAllTests())
 		    );
