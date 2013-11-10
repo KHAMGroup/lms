@@ -58,6 +58,8 @@ public class CaseController extends Controller {
     	Employee emp;
     	int empID;
     	
+    	
+    	
     	Client cli;
     	int cliID = -1;
     	List<TestEntityObject> tests = TestEntityObject.getAllTests();
@@ -123,9 +125,13 @@ public class CaseController extends Controller {
 	    	newCase.setClient(cli);
 	    	List<CaseTest> theTests = new LinkedList<CaseTest>();
 	    	CaseTest theTest;
-	    	for(int testNum : req.testNumber){
-	    		if(testNum != -1){
-	    			TestEntityObject t = TestEntityObject.findByTestNumber(testNum);
+	    	for(Integer testNum : req.testNumber){
+	    		if(testNum != null && testNum != -1){
+	    			
+	    			TestEntityObject t = TestEntityObject.findByTestNumber((int)testNum);
+	    			if(t == null){
+	    				return ok("Test number not valid");
+	    			}
 	    			theTest = new CaseTest();
 //	    			theTest.setBilled(false); //mark this new caseTest as not billed
 	    			theTest.setTest(t); //link the test to the caseTest
@@ -160,28 +166,25 @@ public class CaseController extends Controller {
 			}
 			
 
-			for(CaseTest t : theTests){
-				t.setCaseEntity(newCase);
-//				JPA.em().persist(t);
-			}
+			
 			newCase.save();
 	    	//TODO: remove this test stuff, and actually redirect to a confirmation page or dashboard.
-	    	CaseEntityObject theCase = CaseEntityObject.findByCaseNumber(req.caseNumber);
-	    	if(theCase != null){
-		    	if(theCase.getCaseNumber() != null){
-		    		String testList = "";
-		    		for(CaseTest ct : theCase.getCaseTests()){
-		    			testList += " " + ct.getTest().getTestName();
-		    		}
-		    		return ok("Case #:" + theCase.getCaseNumber() +
-		    				"\n# of tests: " + theCase.getCaseTests().size() +
-		    				"\n the tests: " + testList);
-		    	}
-	    	}
-	    	return ok("newly created case wasn't persisted");
+//	    	CaseEntityObject theCase = CaseEntityObject.findByCaseNumber(req.caseNumber);
+//	    	if(theCase != null){
+//		    	if(theCase.getCaseNumber() != null){
+//		    		String testList = "";
+//		    		for(CaseTest ct : theCase.getCaseTests()){
+//		    			testList += " " + ct.getTest().getTestName();
+//		    		}
+//		    		return ok("Case #:" + theCase.getCaseNumber() +
+//		    				"\n# of tests: " + theCase.getCaseTests().size() +
+//		    				"\n the tests: " + testList);
+//		    	}
+//	    	}
+//	    	return ok("newly created case wasn't persisted");
 	    	
 	    	
-	    	//return redirect(routes.MainController.returnToDashboard());
+	    	return redirect(routes.MainController.returnToDashboard());
     	}
     }
 }

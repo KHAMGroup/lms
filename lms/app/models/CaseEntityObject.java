@@ -350,13 +350,13 @@ public class CaseEntityObject implements Serializable {
 	}
 
     public void save(){
-    	if(this.getCaseNote() != null){ //this one works
+    	if(this.getCaseNote() != null){ //save the comment if they entered one.
     		JPA.em().persist(this.getCaseNote());
     	}
     	
-    	/*for(CaseTest t : this.getCaseTests()){ //this one doesn't
-    		JPA.em().merge(t);
-    	}*/
+    	for(CaseTest t : caseTests){
+			t.setCaseEntity(this);
+		}
     	
         JPA.em().persist(this);
     }
