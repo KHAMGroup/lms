@@ -1,11 +1,11 @@
-@(caseForm: Form[RequisitionPOJO], tests: List[TestEntityObject], formErrors: List[String])
+@(caseForm: Form[RequisitionPOJO], formErrors: List[String])
 @import helper._
 @main("Enter Requisition"){
 <script type="text/javascript">
 	var testCount = 1;
 	
 	function addInputMethod() {
-	//document.getElementById('caseTests').innerHTML += "<input type='text' value='' /><br />";
+	
 		
 		$("#caseTests").append(
 				  "<label for='test" + testCount + "'>Test " + (testCount+1) + ": &nbsp;</label>" +
@@ -74,8 +74,6 @@
 	<label for="test0">Test 1: &nbsp;</label>
 	<input id="test0" type=text name="testNumber[0]"/><br/>
 	</div>
-	
-	
 	
 	</fieldset>
 	
