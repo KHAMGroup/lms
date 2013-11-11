@@ -11,6 +11,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import play.libs.F.*;
@@ -55,6 +56,38 @@ public class CaseEntityObjectTest extends WithApplication {
 			       JPA.withTransaction(new play.libs.F.Callback0() {
 			           public void invoke() {
 
+			           }
+			       });
+			   }
+			});
+	}
+	
+	@Test
+	public void newCaseFromReqPOJO() {
+		running(fakeApplication(), new Runnable() {
+			   public void run() {
+			       JPA.withTransaction(new play.libs.F.Callback0() {
+			           public void invoke() {
+			        	   	List<String> err = new LinkedList<String>();
+			        	   	RequisitionPOJO req = new RequisitionPOJO();
+			        	   	req.caseNote = "test note";
+			        	   	req.caseNumber = "57ab0U8";
+			        	   	req.clientID = "1"; //client 1 exists due to 2.sql evolution
+			        	   	req.dateReceived = new Date();
+			        	   	req.receivedByEmployee = "1"; //employee 1 is labman
+			        	   	req.subjectFirstName = "john";
+			        	   	req.subjectLastName = "doe";
+			        	   	req.sampleType = "Blood";
+			        	   	
+			        	   	List<Integer> tests = new LinkedList<Integer>();
+			        	   	tests.add(100);//mary j test
+			        	   	tests.add(101);//mary j test
+			        	   	
+			        	   	req.testNumber = tests;
+			        	   	
+			        	   	RequisitionPOJO.persistRequisition(req, err);
+			        	   	assert(err.size() == 0);
+			        	   	
 			           }
 			       });
 			   }
