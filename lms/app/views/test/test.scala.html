@@ -4,14 +4,36 @@
 @main("Test") {
 	<form>
 	<fieldset>
-		@inputText(testForm("testNumber"), 
-		'_label -> "Test Number")
+		@if(goal == "C"){
+			@inputText(testForm("testNumber"), 
+			'_label -> "Test Number")
+		}
+		@if(goal == "E"){
+	     	<dl>
+	     		<dt>Test Number</dt> 
+	     		<dd>@testForm("testNumber").value</dd>
+	     	</dl>
+		}
 		@inputText(testForm("testName"),
 		'_label -> "Test Name")
 		@inputText(testForm("testType"),
-		'_label -> "Test Type")
-		@inputText(testForm("sampleType"),
-		'_label -> "Sample Type")	
+		'_label -> "Test Type", 
+			'size -> 1, 
+			'cols -> 1)
+		@inputText(testForm("typeOfSample"),
+		'_label -> "Sample Type",
+		'size -> 10, 
+		'cols -> 10)
+		@inputText(testForm("units"),
+		'_label -> "Units")
+		@inputText(testForm("respicture"),
+		'_label -> "Respicture")
+		@textarea(testForm("controlText"),
+		'_label -> "Control Text", 
+		'cols -> 70, 
+		'rows -> 4)
+		@inputText(testForm("controlResultLine"),
+		'_label -> "Control Result Line")				
 	</fieldset>
 	
 	<div>

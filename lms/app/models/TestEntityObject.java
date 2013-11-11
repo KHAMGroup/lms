@@ -7,6 +7,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import play.data.validation.Constraints.*;
 import play.db.jpa.JPA;
 
 import java.math.BigDecimal;
@@ -24,13 +25,16 @@ public class TestEntityObject implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Required
 	@Column(name="test_number", unique=true, nullable=false)
 	private int testNumber;
 
 	@Column(name="control_result_line", length=10)
+	@MaxLength(10)
 	private String controlResultLine;
 
 	@Column(name="control_text", length=300)
+	@MaxLength(300)
 	private String controlText;
 
 //	@Column(nullable=false, precision=9, scale=2)
@@ -40,27 +44,34 @@ public class TestEntityObject implements Serializable {
 //	private String priceType;
 
 	@Column(length=8)
+	@MaxLength(8)
 	private String respicture;
 
 	@Column(name="test_name", nullable=false, length=30)
+	@MaxLength(30)
+	@Required
 	private String testName;
 
 	//Acceptable values = L or C
 	@Column(name="test_type", nullable=false, length=1)
+	@MaxLength(1)
+	@Required
 	private String testType;
 
 	@Column(name="type_of_sample", length=10)
+	@MaxLength(10)
 	private String typeOfSample;
 
 	@Column(length=10)
+	@MaxLength(10)
 	private String units;
 
 	//bi-directional many-to-one association to CaseTest
-	@OneToMany(mappedBy="test", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy="test", cascade = CascadeType.ALL)
 	private List<CaseTest> caseTests;
 
 	//bi-directional many-to-one association to Comment
-	@OneToMany(mappedBy="associatedTest", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy="associatedTest", cascade = CascadeType.ALL)
 	private List<Comment> associatedComments;
 
 	//bi-directional many-to-one association to Comment
@@ -192,10 +203,15 @@ public class TestEntityObject implements Serializable {
 	}
 	
 	public void save(){
-        JPA.em().persist(this);
+		merge();
     }
 	
 	public void merge(){
+        JPA.em().merge(this);
+	}
+	
+	public void update(int testNumber){
+		setTestNumber(testNumber);
 		JPA.em().merge(this);
 	}
 

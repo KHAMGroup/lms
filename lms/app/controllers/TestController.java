@@ -64,6 +64,11 @@ public class TestController extends Controller {
 	
 	@Transactional
 	public static Result update(int id) {
-    	return null;
+		Form<TestEntityObject> toUpdateForm = form(TestEntityObject.class).bindFromRequest();
+		if(toUpdateForm.hasErrors()){
+			return badRequest(views.html.test.test.render("E", toUpdateForm));
+		}
+		toUpdateForm.get().update(id);
+        return redirect(routes.TestController.tests());
 	}
 }
