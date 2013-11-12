@@ -1,9 +1,14 @@
-@(goal: String, testForm: Form[TestEntityObject])
+@(goal: String, testForm: Form[TestPOJO])
 @import helper._
 
 @main("Test") {
 	<form>
 	<fieldset>
+		@if(flash.contains("testexists")){
+		  <p class="error">
+		  	@flash.get("testexists")
+		  </p>
+		}
 		@if(goal == "C"){
 			@inputText(testForm("testNumber"), 
 			'_label -> "Test Number")
@@ -16,24 +21,48 @@
 		}
 		@inputText(testForm("testName"),
 		'_label -> "Test Name")
-		@inputText(testForm("testType"),
-		'_label -> "Test Type", 
-			'size -> 1, 
-			'cols -> 1)
+		<dl>
+		<dt>Test Type</dt>
+		<dd>
+		<select name="testType">
+			@if(testForm("testType").value == "T"){
+				<option selected="selected">T</option>
+				<option>C</option>
+			}
+			@if(testForm("testType").value == "C"){
+				<option>T</option>
+				<option selected="selected">C</option>
+			}
+			@if(testForm("testType").value != "C" && 
+			testForm("testType").value != "T"){
+				<option>T</option>
+				<option>C</option>
+			}
+		</select>
+		</dd>
+		</dl>
 		@inputText(testForm("typeOfSample"),
 		'_label -> "Sample Type",
 		'size -> 10, 
 		'cols -> 10)
 		@inputText(testForm("units"),
-		'_label -> "Units")
+		'_label -> "Units",
+		'size -> 10, 
+		'cols -> 10)
 		@inputText(testForm("respicture"),
-		'_label -> "Respicture")
+		'_label -> "Respicture",
+		'size -> 10, 
+		'cols -> 10)
 		@textarea(testForm("controlText"),
 		'_label -> "Control Text", 
 		'cols -> 70, 
 		'rows -> 4)
 		@inputText(testForm("controlResultLine"),
-		'_label -> "Control Result Line")				
+		'_label -> "Control Result Line")	
+		@textarea(testForm("defaultComment"),
+		'_label -> "Default Comment",
+		'cols -> 70, 
+		'rows -> 4)			
 	</fieldset>
 	
 	<div>

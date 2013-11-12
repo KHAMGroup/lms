@@ -75,7 +75,7 @@ public class TestEntityObject implements Serializable {
 	private List<Comment> associatedComments;
 
 	//bi-directional many-to-one association to Comment
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="default_comment")
 	private Comment defaultComment;
 
@@ -207,7 +207,13 @@ public class TestEntityObject implements Serializable {
     }
 	
 	public void merge(){
-        JPA.em().merge(this);
+//        if(defaultComment != null){
+//        	
+//        	JPA.em().merge(defaultComment);
+//        	
+//        }
+		JPA.em().merge(this);
+        
 	}
 	
 	public void update(int testNumber){
