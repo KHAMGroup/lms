@@ -20,7 +20,7 @@ public class TestController extends Controller {
 	public static Result tests() {
     	if(Avocado.hasRole("admin")){
 	        return ok(
-		        	views.html.test.tests.render(TestEntityObject.getAllTests())
+		        	views.html.test.tests.render(TestHelper.getAllTests())
 		    );
     	}
 		else{
@@ -86,4 +86,5 @@ public class TestController extends Controller {
 		TestHelper.update(id, toUpdateForm.get());
         return redirect(routes.TestController.tests());
 	}
+
 }

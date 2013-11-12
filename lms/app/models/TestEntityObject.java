@@ -207,13 +207,7 @@ public class TestEntityObject implements Serializable {
     }
 	
 	public void merge(){
-//        if(defaultComment != null){
-//        	
-//        	JPA.em().merge(defaultComment);
-//        	
-//        }
 		JPA.em().merge(this);
-        
 	}
 	
 	public void update(int testNumber){

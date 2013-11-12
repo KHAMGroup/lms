@@ -1,9 +1,12 @@
 package models.helpers;
+import java.util.LinkedList;
+import java.util.List;
+
 import models.*;
 
 public class TestHelper {
 
-	public static TestPOJO entityToPojo(TestEntityObject from){
+	private static TestPOJO entityToPojo(TestEntityObject from){
 		TestPOJO to = new TestPOJO();
 		to.setTestNumber(from.getTestNumber());
 		to.setTestName(from.getTestName());
@@ -22,7 +25,7 @@ public class TestHelper {
 		return to;
 	}
 	
-	public static TestEntityObject pojoToEntity(TestPOJO from){
+	private static TestEntityObject pojoToEntity(TestPOJO from){
 		TestEntityObject to = new TestEntityObject();
 		to.setTestNumber(from.getTestNumber());
 		to.setTestName(from.getTestName());
@@ -53,5 +56,14 @@ public class TestHelper {
 	public static void update(int id, TestPOJO testPOJO) {
 		TestEntityObject toUpdate = pojoToEntity(testPOJO);
 		toUpdate.update(id);
+	}
+
+	public static List<TestPOJO> getAllTests() {
+		List<TestPOJO> tests = new LinkedList<TestPOJO>();
+		List<TestEntityObject> entities = TestEntityObject.getAllTests();
+		for(TestEntityObject test : entities){
+			tests.add(entityToPojo(test));
+		}
+		return tests;
 	}
 }
