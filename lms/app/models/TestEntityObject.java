@@ -24,7 +24,7 @@ public class TestEntityObject implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+//	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Required
 	@Column(name="test_number", unique=true, nullable=false)
 	private int testNumber;

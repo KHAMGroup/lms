@@ -36,7 +36,7 @@ public class TestEntityObjectTest extends WithApplication{
 					TestEntityObject t2 = new TestEntityObject();
 					t2.setTestNumber(202);
 					t2.setTestName("alcohol");
-					t2.setTestType("t");
+					t2.setTestType("T");
 //					t2.setPrice(new BigDecimal(30.5));
 //					t2.setPriceType("f");
 					t2.merge();
@@ -52,4 +52,28 @@ public class TestEntityObjectTest extends WithApplication{
 			});
 	}
 
+	@Test
+	public void createTestWithDefaultComment(){
+		running(fakeApplication(), new Runnable() {
+			   public void run() {
+			       JPA.withTransaction(new play.libs.F.Callback0() {
+			           public void invoke() {
+							TestEntityObject t1 = new TestEntityObject();
+							t1.setTestNumber(203);
+							t1.setTestName("hydrocodone");
+							t1.setTestType("T");
+//							Comment newComment = new Comment();
+//							newComment.setCommentText("This is a comment");
+//							t1.setDefaultComment(newComment);
+							t1.save();
+							
+							TestEntityObject t1f = TestEntityObject.findByTestNumber(203);
+							System.out.println(t1f);
+							assertNotNull(t1f.getDefaultComment());
+							
+			           }
+			       });
+			   }
+			});
+	}
 }
