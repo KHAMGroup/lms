@@ -45,7 +45,6 @@ public class TestEntityObjectTest extends WithApplication{
 
 					//tests.size == 4 because there are already 2 tests in the table.
 					assertEquals(tests.size(), 4);
-
 			           }
 			       });
 			   }
@@ -62,15 +61,14 @@ public class TestEntityObjectTest extends WithApplication{
 							t1.setTestNumber(203);
 							t1.setTestName("hydrocodone");
 							t1.setTestType("T");
-//							Comment newComment = new Comment();
-//							newComment.setCommentText("This is a comment");
-//							t1.setDefaultComment(newComment);
+							Comment newComment = new Comment();
+							newComment.setCommentText("This is a comment");
+							t1.setDefaultComment(newComment);
 							t1.save();
 							
 							TestEntityObject t1f = TestEntityObject.findByTestNumber(203);
-							System.out.println(t1f);
 							assertNotNull(t1f.getDefaultComment());
-							
+							assertEquals(t1f.getDefaultComment().getCommentText(),"This is a comment");
 			           }
 			       });
 			   }
