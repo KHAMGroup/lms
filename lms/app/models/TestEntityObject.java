@@ -166,6 +166,14 @@ public class TestEntityObject implements Serializable {
 		return this.caseTests;
 	}
 
+	public int getNumberOfCaseTests(){
+		int toReturn = 0;
+		if(getCaseTests() != null){
+			toReturn = getCaseTests().size();
+		}
+		return toReturn;
+	}
+	
 	public void setCaseTests(List<CaseTest> caseTests) {
 		this.caseTests = caseTests;
 	}
@@ -196,6 +204,10 @@ public class TestEntityObject implements Serializable {
 		List<TestEntityObject> resultList = JPA.em().createQuery(query).getResultList();
 		return resultList;
     	//return JPA.em().createQuery("from Test").getResultList();
+	}
+	
+	public static List<TestEntityObject> getTestsNeedingResults(){
+		return null;
 	}
 	
 	public static TestEntityObject findByTestNumber(int tnum){

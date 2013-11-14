@@ -1,0 +1,34 @@
+@(tests: List[TestEntityObject])
+@import helper._
+
+@main("Select a Test") {
+	<a href="@routes.MainController.returnToDashboard()">
+		Return To Dashboard
+	</a> 
+    <h1>Lab Tests Awaiting Testing</h1>
+    
+    <table>
+		<tr>
+			<th></th>
+			<th>Test Number</th>
+			<th>Test Name</th>
+			<th>Sample Type</th>
+			<th>Number of Cases</th>
+		</tr>
+		@for(test <- tests){
+			<tr>
+
+				<td>@test.getTestNumber()</td>
+				<td>@test.getTestName()</td>
+				<td>@test.getTypeOfSample()</td>
+				<td>@test.getNumberOfCaseTests()</td>
+				<td>
+	    			<a href="">
+	    				<button type="button">Print Worksheet</button>
+	    			</a>
+	    		</td>
+			</tr>
+		}
+    </table>
+
+}

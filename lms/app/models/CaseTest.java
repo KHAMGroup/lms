@@ -57,7 +57,9 @@ public class CaseTest implements Serializable {
 	//	})
 	//private CaseTestResultsComments resultsAndComments;
 
-	@OneToOne(mappedBy = "caseTest")
+//	@OneToOne(mappedBy = "caseTest")
+	@OneToOne(cascade = CascadeType.ALL)
+	@PrimaryKeyJoinColumn
 	//@JoinColumn(referencedColumnName="case_test_FK", nullable=true, insertable=false, updatable=false)
 	private CaseTestResultsComments resultsAndComments;
 
