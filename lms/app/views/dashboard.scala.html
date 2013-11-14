@@ -2,17 +2,17 @@
 @import helper._
 
 @main("Dashboard"){
-	<header style="margin-bottom: 20px;" >
-		<a href="@routes.Application.logout()">Logout</a>
-		<a href="@routes.EmployeeController.editPassword()">Change Password</a>
+	<header style="" >
+		<div style="float:left;"><a href="@routes.Application.logout()">Logout</a></div>
+		<div style="float:right;"><a href="@routes.EmployeeController.editPassword()">Change Password</a></div>
 	</header>
-	<div class="search_area" style="">
+	<div class="search_area" style="clear:both; background-color:#c0c0c0; border-bottom:thick solid blue; height:90px; padding:10px;">
 	<div style="float:left;">
 		@if(emp != null){
 		<h1>Welcome, @emp.getFirst()</h1>
 		}
 	</div>
-	<div style="float:right; margin-right:10%;">
+	<div style="float:right; margin:10px;">
 	<fieldset>
 	<legend>Search</legend>
 	<!--<input type="text"></input>-->
@@ -36,7 +36,6 @@
 
 	<button type="submit">Search</button>
 	}
-	<button>Adv. Search</button>
 	</fieldset>
 	
 	</div>
@@ -44,25 +43,13 @@
 
 <div class="main_content" style="clear:both; height:500px; background-color:#00FFFF;">
 
-<div style="float:left; background-color:grey; height:25%; width:30%;">
-	<h2>System Alerts</h2>
-	<table>
-		<tr>
-			<th>Delinquent Accounts:</th>
-			<td>365</td>
-		</tr>
-		<tr>
-			<th>Oldest unpaid case:</th>
-			<td>3/21/2012</td>
-		</tr>
-	</table>
-</div>
+
 <!--
 <div style="float:left; background-color:#C0C0C0; height:25%; width:70%;">
 	<h2>Item Details</h2>
 </div>
 -->
-<nav class="button_area" style="clear:left; float:left; background-color:#C0C0C0; height:100%; width:10%;">
+<nav class="button_area" style="clear:left; float:left; background-color:#C0C0C0; height:97.9%; width:10%; padding-top:10px;">
 	<center>
 	@if(emp!=null){
 		@if(userRoles.contains("manage clients")){
@@ -87,7 +74,7 @@
 	</center>
 </nav>
 
-<div class="search_results" style="float:left; background-color:#00FF00; height:100%; width:90%;">
+<div class="search_results" style="float:left; height:100%; width:90%; overflow-y:auto;">
 	<center>
 	@if(clientSearchResults != null && clientSearchResults.size() > 0) {
 		@views.html.client.client_table(clientSearchResults, userRoles)
