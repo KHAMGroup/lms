@@ -129,45 +129,7 @@ public class CaseEntityObject implements Serializable {
 //		setTotalPaid(new BigDecimal(0.0));
 	}
 
-	public int getCasePK() {
-		return this.case_PK;
-	}
 
-	public void setCasePK(int casePK) {
-		this.case_PK = casePK;
-	}
-
-	public boolean getAllTasksCompleted() {
-		return this.allTasksCompleted;
-	}
-
-	public void setAllTasksCompleted(boolean allTasksCompleted) {
-		this.allTasksCompleted = allTasksCompleted;
-	}
-
-	public String getCaseNumber() {
-		return this.caseNumber;
-	}
-
-	public void setCaseNumber(String caseNumber) {
-		this.caseNumber = caseNumber;
-	}
-
-	public Date getDateCollected() {
-		return this.dateCollected;
-	}
-
-	public void setDateCollected(Date dateCollected) {
-		this.dateCollected = dateCollected;
-	}
-
-	public Date getDateTasksCompleted() {
-		return this.dateTasksCompleted;
-	}
-
-	public void setDateTasksCompleted(Date dateTasksCompleted) {
-		this.dateTasksCompleted = dateTasksCompleted;
-	}
 
 //	public boolean getEmailInvoiceOk() {
 //		return this.email_invoice_OK;
@@ -177,13 +139,6 @@ public class CaseEntityObject implements Serializable {
 //		this.email_invoice_OK = email_invoice_OK;
 //	}
 
-	public boolean getEmailResultsOk() {
-		return this.email_results_OK;
-	}
-
-	public void setEmailResultsOk(boolean email_results_OK) {
-		this.email_results_OK = email_results_OK;
-	}
 
 //	public int getInvoiceNumber() {
 //		return this.invoiceNumber;
@@ -193,69 +148,7 @@ public class CaseEntityObject implements Serializable {
 //		this.invoiceNumber = invoiceNumber;
 //	}
 
-	public String getMedicalHistoryNotes() {
-		return this.medicalHistoryNotes;
-	}
 
-	public void setMedicalHistoryNotes(String medicalHistoryNotes) {
-		this.medicalHistoryNotes = medicalHistoryNotes;
-	}
-
-	public String getOtherIdNumber() {
-		return this.otherIdNumber;
-	}
-
-	public void setOtherIdNumber(String otherIdNumber) {
-		this.otherIdNumber = otherIdNumber;
-	}
-
-	public Date getReceivedDate() {
-		return this.receivedDate;
-	}
-
-	public void setReceivedDate(Date receivedDate) {
-		this.receivedDate = receivedDate;
-	}
-
-	public int getReceivedFrom() {
-		return this.receivedFrom;
-	}
-
-	public void setReceivedFrom(int receivedFrom) {
-		this.receivedFrom = receivedFrom;
-	}
-
-	public String getSampleType() {
-		return this.sampleType;
-	}
-
-	public void setSampleType(String sampleType) {
-		this.sampleType = sampleType;
-	}
-
-	public String getSubjectFirstname() {
-		return this.subjectFirstname;
-	}
-
-	public void setSubjectFirstname(String subjectFirstname) {
-		this.subjectFirstname = subjectFirstname;
-	}
-
-	public String getSubjectLastname() {
-		return this.subjectLastname;
-	}
-
-	public void setSubjectLastname(String subjectLastname) {
-		this.subjectLastname = subjectLastname;
-	}
-
-	public Time getTimeCollected() {
-		return this.timeCollected;
-	}
-
-	public void setTimeCollected(Time timeCollected) {
-		this.timeCollected = timeCollected;
-	}
 
 //	public BigDecimal getTotalCost() {
 //		return this.totalCost;
@@ -293,37 +186,7 @@ public class CaseEntityObject implements Serializable {
 //		setUnpaidBalance(new BigDecimal(unpaidBalance));
 //	}
 
-	public Client getClient() {
-		return this.client;
-	}
 
-	public void setClient(Client client) {
-		this.client = client;
-	}
-
-	public Client getCctoClient() {
-		return this.cctoClient;
-	}
-
-	public void setCctoClient(Client cctoClient) {
-		this.cctoClient = cctoClient;
-	}
-
-	public Comment getCaseNote() {
-		return this.caseNote;
-	}
-
-	public void setCaseNote(Comment caseNote) {
-		this.caseNote = caseNote;
-	}
-
-	public Employee getReceivedByEmployee() {
-		return this.receivedByEmployee;
-	}
-
-	public void setReceivedByEmployee(Employee receivedByEmployee) {
-		this.receivedByEmployee = receivedByEmployee;
-	}
 
 //	public List<CaseDeposit> getCaseDeposits() {
 //		return this.caseDeposits;
@@ -333,12 +196,246 @@ public class CaseEntityObject implements Serializable {
 //		this.caseDeposits = caseDeposits;
 //	}
 
-	public List<CaseTest> getCaseTests() {
-		return this.caseTests;
+	public int getCasePK() {
+		return case_PK;
 	}
+
+	public void setCasePK(int case_PK) {
+		this.case_PK = case_PK;
+	}
+
+	public boolean isAllTasksCompleted() {
+		return allTasksCompleted;
+	}
+
+
+
+	public String getCaseNumber() {
+		return caseNumber;
+	}
+
+
+
+	public Date getDateCollected() {
+		return dateCollected;
+	}
+
+
+
+	public Date getDateTasksCompleted() {
+		return dateTasksCompleted;
+	}
+
+
+
+	public boolean isEmailResultsOk() {
+		return email_results_OK;
+	}
+
+
+
+	public String getMedicalHistoryNotes() {
+		return medicalHistoryNotes;
+	}
+
+
+
+	public String getOtherIdNumber() {
+		return otherIdNumber;
+	}
+
+
+
+	public Date getReceivedDate() {
+		return receivedDate;
+	}
+
+
+
+	public int getReceivedFrom() {
+		return receivedFrom;
+	}
+
+
+
+	public String getSampleType() {
+		return sampleType;
+	}
+
+
+
+	public String getSubjectFirstname() {
+		return subjectFirstname;
+	}
+
+
+
+	public String getSubjectLastname() {
+		return subjectLastname;
+	}
+
+
+
+	public Time getTimeCollected() {
+		return timeCollected;
+	}
+
+
+
+	public Client getClient() {
+		return client;
+	}
+
+
+
+	public Client getCctoClient() {
+		return cctoClient;
+	}
+
+
+
+	public Comment getCaseNote() {
+		return caseNote;
+	}
+
+
+
+	public Employee getReceivedByEmployee() {
+		return receivedByEmployee;
+	}
+
+
+
+	public List<CaseTest> getCaseTests() {
+		return caseTests;
+	}
+
+
+
+	public void setAllTasksCompleted(boolean allTasksCompleted) {
+		this.allTasksCompleted = allTasksCompleted;
+	}
+
+
+
+	public void setCaseNumber(String caseNumber) {
+		this.caseNumber = caseNumber;
+	}
+
+
+
+	public void setDateCollected(Date dateCollected) {
+		this.dateCollected = dateCollected;
+	}
+
+
+
+	public void setDateTasksCompleted(Date dateTasksCompleted) {
+		this.dateTasksCompleted = dateTasksCompleted;
+	}
+
+
+
+	public void setEmailResultsOk(boolean email_results_OK) {
+		this.email_results_OK = email_results_OK;
+	}
+
+
+
+	public void setMedicalHistoryNotes(String medicalHistoryNotes) {
+		this.medicalHistoryNotes = medicalHistoryNotes;
+	}
+
+
+
+	public void setOtherIdNumber(String otherIdNumber) {
+		this.otherIdNumber = otherIdNumber;
+	}
+
+
+
+	public void setReceivedDate(Date receivedDate) {
+		this.receivedDate = receivedDate;
+	}
+
+
+
+	public void setReceivedFrom(int receivedFrom) {
+		this.receivedFrom = receivedFrom;
+	}
+
+
+
+	public void setSampleType(String sampleType) {
+		this.sampleType = sampleType;
+	}
+
+
+
+	public void setSubjectFirstname(String subjectFirstname) {
+		this.subjectFirstname = subjectFirstname;
+	}
+
+
+
+	public void setSubjectLastname(String subjectLastname) {
+		this.subjectLastname = subjectLastname;
+	}
+
+
+
+	public void setTimeCollected(Time timeCollected) {
+		this.timeCollected = timeCollected;
+	}
+
+
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
+
+
+	public void setCctoClient(Client cctoClient) {
+		this.cctoClient = cctoClient;
+	}
+
+
+
+	public void setCaseNote(Comment caseNote) {
+		this.caseNote = caseNote;
+	}
+
+
+
+	public void setReceivedByEmployee(Employee receivedByEmployee) {
+		this.receivedByEmployee = receivedByEmployee;
+	}
+
+
 
 	public void setCaseTests(List<CaseTest> caseTests) {
 		this.caseTests = caseTests;
+	}
+
+	public String getClientFirst(){
+		return getClient().getFirst();
+	}
+
+	public String getClientLast(){
+		return getClient().getLast();
+	}
+	
+	public String getClientOfficePhone(){
+		return getClient().getOfficePhone();
+	}
+	
+	public String getClientCellPhone(){
+		return getClient().getCellPhone();
+	}
+	
+	public String getClientCompany(){
+		return getClient().getCompany();
 	}
 	
 	public List<String> getCaseTestsSparse(){

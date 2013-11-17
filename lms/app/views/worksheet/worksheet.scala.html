@@ -1,8 +1,51 @@
-@(theTest: TestEntityObject, caseTests: List[CaseTest] )
+@(theTest: TestEntityObject, caseTests: List[CaseTest], today: Date )
 @import helper._
 
 @main("Worksheet") {
-	<div>@theTest.getTestNumber(), @theTest.getTestName()</div>
-
-
+	<div>
+		@theTest.getTestNumber(), 
+		@theTest.getTestName()
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		@today
+	</div>
+	<div>
+	---------------------------------------------------------------------------------------------
+	</div>
+	<div>
+	@theTest.getControlText()
+	</div>
+	<div>
+	_____________________________________________________________________________________________
+	</div>	
+	<div>
+	@theTest.getControlResultLine()
+	</div>
+	<div>
+	=============================================================================================
+	</div>
+	<div>
+		@theTest.getTestNumber(), 
+		@theTest.getTestName()
+	</div>
+	<div>
+	---------------------------------------------------------------------------------------------
+	</div>
+	@caseTests.map { ct => 
+		<div>
+			<span>@ct.getCaseNumber()</span>
+			<span>@ct.getCaseSubjectLast(), @ct.getCaseSubjectFirst()</span>
+			<span>@ct.getCaseSampleType() </span>
+			<span>@ct.getTestRespicture()</span>
+			<span>@ct.getTestUnits()</span>
+		</div>
+		<div>
+			<span>COL: @ct.getSampleDateCollected(),@ct.getSampleTimeCollected()</span>
+			<span>(ID=@ct.getCaseOtherId())</span>
+			<span>(@ct.getClientNumber())</span>
+			<span>@ct.getClientFirstName() @ct.getClientLastName() @ct.getClientCompanyName()</span>
+			<span>@ct.getClientOfficePhone()</span>
+		</div>
+		<br />
+	}
 }

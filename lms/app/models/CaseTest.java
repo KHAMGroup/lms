@@ -12,6 +12,7 @@ import javax.persistence.criteria.Root;
 import play.db.jpa.JPA;
 
 import java.math.BigDecimal;
+import java.sql.Time;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -124,78 +125,147 @@ public class CaseTest implements Serializable {
 //		this.billedDate = billedDate;
 //	}
 
-	public Date getDateCompleted() {
-		return this.dateCompleted;
+	
+	public long getCaseTestPK() {
+		return caseTestPK;
 	}
 
-	public void setDateCompleted(Date dateCompleted) {
-		this.dateCompleted = dateCompleted;
+	public Date getDateCompleted() {
+		return dateCompleted;
 	}
 
 	public boolean isReported() {
-		return this.reported;
-	}
-
-	public void setReported(boolean reported) {
-		this.reported = reported;
+		return reported;
 	}
 
 	public boolean isResultsEntered() {
 		return resultsEntered;
 	}
 
-	public void setResultsEntered(boolean resultsEntered) {
-		this.resultsEntered = resultsEntered;
+	public Date getReportedDate() {
+		return reportedDate;
+	}
+
+	public CaseEntityObject getCaseEntity() {
+		return caseEntity;
 	}
 	
-	public Date getReportedDate() {
-		return this.reportedDate;
+	public String getCaseNumber(){
+		return getCaseEntity().getCaseNumber();
+	}
+	
+	public String getCaseSubjectFirst(){
+		return getCaseEntity().getSubjectFirstname();
+	}
+
+	public String getCaseSubjectLast(){
+		return getCaseEntity().getSubjectLastname();
+	}
+	
+	public String getCaseSampleType(){
+		return getCaseEntity().getSampleType();
+	}
+	
+	public Date getSampleDateCollected(){
+		return getCaseEntity().getDateCollected();
+	}
+	
+	public Time getSampleTimeCollected(){
+		return getCaseEntity().getTimeCollected();
+	}
+	
+	public String getCaseOtherId(){
+		return getCaseEntity().getOtherIdNumber();
+	}
+	
+	public String getClientNumber(){
+		return getCaseEntity().getClient().getClientId()+"";
+	}
+	
+	public String getClientOfficePhone(){
+		return getCaseEntity().getClientOfficePhone();
+	}
+	
+	public String getClientFirstName(){
+		return getCaseEntity().getClientFirst();
+	}
+	
+	public String getClientLastName(){
+		return getCaseEntity().getClientLast();
+	}
+	
+	public String getClientCompanyName(){
+		return getCaseEntity().getClientCompany();
+	}
+	
+	public String getClientCellPhone(){
+		return getCaseEntity().getClientCellPhone();
+	}
+	
+	public CaseTestResultsComments getResultsAndComments() {
+		return resultsAndComments;
+	}
+
+	public Employee getEmployeeEntered() {
+		return employeeEntered;
+	}
+
+	public Employee getEmployeePerformed() {
+		return employeePerformed;
+	}
+
+	public TestEntityObject getTest() {
+		return test;
+	}
+	
+	public String getTestRespicture(){
+		return getTest().getRespicture();
+	}
+
+	public String getTestUnits(){
+		return getTest().getUnits();
+	}
+	
+	public void setCaseTestPK(long caseTestPK) {
+		this.caseTestPK = caseTestPK;
+	}
+
+	public void setDateCompleted(Date dateCompleted) {
+		this.dateCompleted = dateCompleted;
+	}
+
+	public void setReported(boolean reported) {
+		this.reported = reported;
+	}
+
+	public void setResultsEntered(boolean resultsEntered) {
+		this.resultsEntered = resultsEntered;
 	}
 
 	public void setReportedDate(Date reportedDate) {
 		this.reportedDate = reportedDate;
 	}
 
-	public CaseEntityObject getCaseEntity() {
-		return this.caseEntity;
-	}
-
 	public void setCaseEntity(CaseEntityObject caseEntity) {
 		this.caseEntity = caseEntity;
-	}
-
-	public CaseTestResultsComments getResultsAndComments() {
-		return this.resultsAndComments;
 	}
 
 	public void setResultsAndComments(CaseTestResultsComments resultsAndComments) {
 		this.resultsAndComments = resultsAndComments;
 	}
 
-	public Employee getEmployeeEntered() {
-		return this.employeeEntered;
-	}
-
 	public void setEmployeeEntered(Employee employeeEntered) {
 		this.employeeEntered = employeeEntered;
-	}
-
-	public Employee getEmployeePerformed() {
-		return this.employeePerformed;
 	}
 
 	public void setEmployeePerformed(Employee employeePerformed) {
 		this.employeePerformed = employeePerformed;
 	}
 
-	public TestEntityObject getTest() {
-		return this.test;
-	}
-
 	public void setTest(TestEntityObject test) {
 		this.test = test;
 	}
-	
+
 	public static List<CaseTest> caseTestsNeedingResults(){
 //		List<CaseTest> needsResults = new LinkedList<CaseTest>();
 		String query = "from CaseTest ct " +

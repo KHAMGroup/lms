@@ -1,5 +1,7 @@
 package controllers;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import play.*;
@@ -29,7 +31,8 @@ public class WorksheetController extends Controller {
 				return redirect(routes.MainController.printWorksheet());
 			}
 			List<CaseTest> caseTests = CaseTest.caseTestsNeedingResults(testNumber);
-			return ok(views.html.worksheet.worksheet.render(theTest, caseTests));
+			Date today = new Date(Calendar.getInstance().getTimeInMillis());
+			return ok(views.html.worksheet.worksheet.render(theTest, caseTests, today));
 		} else {
 			return redirect(routes.MainController.returnToDashboard());
 		}
