@@ -1,31 +1,37 @@
 package controllers;
 
+import java.util.List;
+
 import play.*;
 import play.mvc.*;
 import static play.data.Form.*;
 import play.data.*;
 import play.db.jpa.Transactional;
 import models.*;
+import models.helpers.WorksheetHelper;
 
 @Security.Authenticated(Avocado.class)
 public class WorksheetController extends Controller {
 
     public static Result printWorksheet() {
-		if (Avocado.hasRole("print worksheet")) {
-
-//			return ok(views.html.worksheet.selectTest());
-			return null;
+		if (Avocado.hasRole("manage cases")) {
+			return ok(views.html.worksheet.selectTest.render(WorksheetHelper.getTestsNeedingResults()));
 		} else {
-			return forbidden();
+			return redirect(routes.MainController.returnToDashboard());
 		}
     }
 
+    @Transactional
     public static Result printWorksheet(int testNumber) {
-		if (Avocado.hasRole("print worksheet")) {
-	//		return ok();
-			return TODO;
+		if (Avocado.hasRole("manage cases")) {
+			TestEntityObject theTest = TestEntityObject.findByTestNumber(testNumber);
+			if(theTest == null){
+				return redirect(routes.MainController.printWorksheet());
+			}
+			List<CaseTest> caseTests = CaseTest.caseTestsNeedingResults(testNumber);
+			return ok(views.html.worksheet.worksheet.render(theTest, caseTests));
 		} else {
-			return forbidden();
+			return redirect(routes.MainController.returnToDashboard());
 		}
     }
 
@@ -61,10 +67,6 @@ public class WorksheetController extends Controller {
 	return TODO;
     }
 
-    public static Result getTestsNeedingResults() {
-    	
-    	return TODO;
-    }
 
     public static Result getCasesForWorksheet(int testNumber) {
 	return TODO;

@@ -206,18 +206,9 @@ public class TestEntityObject implements Serializable {
     	//return JPA.em().createQuery("from Test").getResultList();
 	}
 	
-	public static List<TestEntityObject> getTestsNeedingResults(){
-//		SELECT t.test_number, t.test_name, count(t.test_number) 
-//		FROM TEST AS t INNER JOIN CASE_TEST AS c 
-//		ON t.test_number = c.test_FK  
-//		WHERE t.test_type = 'T' 
-//		AND c.results_entered = 0
-//		GROUP BY t.test_number 
-//		HAVING count(t.test_number) > 0;
+	public static List<TestEntityObject> getLabTests(){
 		String query = "from TestEntityObject t " +
-				"where t.testType = 'T' " +
-				"and t.caseTests. ";
-
+				"where t.testType = 'T' ";
 		return JPA.em().createQuery(query).getResultList();
 	}
 	

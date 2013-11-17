@@ -203,6 +203,13 @@ public class CaseTest implements Serializable {
 //		needsResults.addAll(JPA.em().createQuery(query).getResultList());
 		return JPA.em().createQuery(query).getResultList();
 	}
+
+	public static List<CaseTest> caseTestsNeedingResults(int testNumber) {
+		String query = "from CaseTest ct " +
+				"where ct.resultsEntered = 0 " +
+				"and ct.test.testNumber = "+testNumber;
+		return JPA.em().createQuery(query).getResultList();
+	}
 	
 /*	@Embeddable
 	public class CaseTestPK implements Serializable {

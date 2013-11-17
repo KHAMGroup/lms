@@ -43,7 +43,7 @@ public class ClientController extends Controller {
     }
     
     
-    @Transactional
+
     public static Result createClient() {
 		if (Avocado.hasRole("manage clients")) {
 			return ok(views.html.client.client.render("Create",form(Client.class)));

@@ -1,4 +1,4 @@
-@(tests: List[TestEntityObject])
+@(tests: List[SelectTestPOJO])
 @import helper._
 
 @main("Select a Test") {
@@ -17,16 +17,16 @@
 		</tr>
 		@for(test <- tests){
 			<tr>
-
-				<td>@test.getTestNumber()</td>
-				<td>@test.getTestName()</td>
-				<td>@test.getTypeOfSample()</td>
-				<td>@test.getNumberOfCaseTests()</td>
 				<td>
-	    			<a href="">
+	    			<a href="@routes.WorksheetController.printWorksheet(test.getTestNumber())">
 	    				<button type="button">Print Worksheet</button>
 	    			</a>
 	    		</td>
+				<td>@test.getTestNumber()</td>
+				<td>@test.getTestName()</td>
+				<td>@test.getTypeOfSample()</td>
+				<td>@test.getNumberOfCases()</td>
+
 			</tr>
 		}
     </table>

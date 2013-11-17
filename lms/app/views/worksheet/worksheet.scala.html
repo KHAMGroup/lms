@@ -1,0 +1,8 @@
+@(theTest: TestEntityObject, caseTests: List[CaseTest] )
+@import helper._
+
+@main("Worksheet") {
+	<div>@theTest.getTestNumber(), @theTest.getTestName()</div>
+
+
+}

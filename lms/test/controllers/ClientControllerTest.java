@@ -27,7 +27,7 @@ public class ClientControllerTest extends WithApplication {
 		       JPA.withTransaction(new play.libs.F.Callback0() {
 		           public void invoke() {
 						Result result = callAction(
-							controllers.routes.ref.ClientController.createClient(), 
+							controllers.routes.ref.MainController.createClient(), 
 							fakeRequest().withSession("username", "labman")
 						);
 						assertEquals(200, status(result));

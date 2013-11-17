@@ -4,28 +4,28 @@
 
 # Home page
 GET     /                           controllers.MainController.returnToDashboard()
-#POST	/			    controllers.MainController.showDashboard()
+
 POST	/			    controllers.MainController.search()
 GET		/search/:clientOrCase/$data<.*>		controllers.MainController.searchResults(clientOrCase: String, data: String)
 GET	/login			    controllers.Application.login()
 POST	/login			    controllers.Application.authenticate()
 
 GET	/logout			    controllers.Application.logout()
-
-# POST	/search/:clientsOrCases		controllers.MainController.search(clientsOrCases: String)
-#POST	/search/			controllers.MainController.search()
+GET		/selectTest			controllers.MainController.printWorksheet()
+GET		/enterResults		controllers.MainController.enterResults()
 
 GET		/clients/:id		controllers.ClientController.viewClient(id: Int)
 GET		/clients/:id/edit		controllers.ClientController.editClient(id: Int)
-POST	/clients/new	controllers.ClientController.createClient()
+POST	/clients/new	controllers.MainController.createClient()
 POST	/clients/save	controllers.ClientController.saveClient()
 POST	/clients/:id/update		controllers.ClientController.updateClient(id: Int)
 
 GET		/cases/:clientID/new	controllers.CaseController.createCase(clientID: Int)
 POST	/cases/save	controllers.CaseController.saveCase()
 
+GET		/worksheet/:id			controllers.WorksheetController.printWorksheet(id: Int)
+
 GET		/employees					controllers.EmployeeController.employees()
-#GET		/employees/:id				controllers.EmployeeController.employee(id: Int) 
 GET		/employees/:id/edit			controllers.EmployeeController.editEmployee(id: Int)
 POST	/employees/:id/update		controllers.EmployeeController.update(id: Int)
 GET		/employees/:id/resetPassword	controllers.EmployeeController.resetPassword(id: Int)

@@ -61,6 +61,7 @@ public class MainController extends Controller {
 		}
 	}
 
+	@Transactional
     public static Result createClient() {
     	return ClientController.createClient();
     }
@@ -102,9 +103,9 @@ public class MainController extends Controller {
 		return redirect(routes.MainController.searchResults(clientOrCase,searchQueryData));
     }    
 
-
+    @Transactional
     public static Result printWorksheet() {
-	return TODO;
+    	return WorksheetController.printWorksheet();
     }
 
     public static Result enterResults() {

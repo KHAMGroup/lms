@@ -53,14 +53,20 @@
 	<center>
 	@if(emp!=null){
 		@if(userRoles.contains("manage clients")){
-			@form(routes.ClientController.createClient()){
+			@form(routes.MainController.createClient()){
 				<button type="submit">Create Client</button><br/>
 			}
 		}
-		<button>Print Worksheet</button><br/>
-		<button>Enter Results</button><br/>
+		@if(userRoles.contains("manage cases")){
+			@form(routes.MainController.printWorksheet()){
+				<button>Print Worksheet</button><br/>
+			}
+			@form(routes.MainController.enterResults()){
+				<button>Enter Results</button><br/>
+			}
+		}
+		
 		<button>Create Batch Reports</button><br/>
-		<button>Create Batch Invoices</button><br/>
 		@if(userRoles.contains("admin")){
 			@form(routes.EmployeeController.employees()){
 				<button type="submit">Manage Employees</button><br/>
