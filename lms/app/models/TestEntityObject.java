@@ -52,7 +52,7 @@ public class TestEntityObject implements Serializable {
 	@Required
 	private String testName;
 
-	//Acceptable values = L or C
+	//Acceptable values = T or C
 	@Column(name="test_type", nullable=false, length=1)
 	@MaxLength(1)
 	@Required
@@ -207,7 +207,18 @@ public class TestEntityObject implements Serializable {
 	}
 	
 	public static List<TestEntityObject> getTestsNeedingResults(){
-		return null;
+//		SELECT t.test_number, t.test_name, count(t.test_number) 
+//		FROM TEST AS t INNER JOIN CASE_TEST AS c 
+//		ON t.test_number = c.test_FK  
+//		WHERE t.test_type = 'T' 
+//		AND c.results_entered = 0
+//		GROUP BY t.test_number 
+//		HAVING count(t.test_number) > 0;
+		String query = "from TestEntityObject t " +
+				"where t.testType = 'T' " +
+				"and t.caseTests. ";
+
+		return JPA.em().createQuery(query).getResultList();
 	}
 	
 	public static TestEntityObject findByTestNumber(int tnum){

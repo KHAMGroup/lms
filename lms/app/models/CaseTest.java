@@ -2,11 +2,19 @@ package models;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import play.db.jpa.JPA;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 
 /**
@@ -39,6 +47,9 @@ public class CaseTest implements Serializable {
 
 	@Column(nullable=false)
 	private boolean reported;
+	
+	@Column(nullable=false, name="results_entered")
+	private boolean resultsEntered;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="reported_date")
@@ -121,7 +132,7 @@ public class CaseTest implements Serializable {
 		this.dateCompleted = dateCompleted;
 	}
 
-	public boolean getReported() {
+	public boolean isReported() {
 		return this.reported;
 	}
 
@@ -129,6 +140,14 @@ public class CaseTest implements Serializable {
 		this.reported = reported;
 	}
 
+	public boolean isResultsEntered() {
+		return resultsEntered;
+	}
+
+	public void setResultsEntered(boolean resultsEntered) {
+		this.resultsEntered = resultsEntered;
+	}
+	
 	public Date getReportedDate() {
 		return this.reportedDate;
 	}
@@ -177,7 +196,13 @@ public class CaseTest implements Serializable {
 		this.test = test;
 	}
 	
-	
+	public static List<CaseTest> caseTestsNeedingResults(){
+//		List<CaseTest> needsResults = new LinkedList<CaseTest>();
+		String query = "from CaseTest ct " +
+				"where ct.resultsEntered = 0 ";
+//		needsResults.addAll(JPA.em().createQuery(query).getResultList());
+		return JPA.em().createQuery(query).getResultList();
+	}
 	
 /*	@Embeddable
 	public class CaseTestPK implements Serializable {

@@ -11,49 +11,50 @@ import models.*;
 public class WorksheetController extends Controller {
 
     public static Result printWorksheet() {
-	if (Avocado.hasRole("print worksheet")) {
-//		return ok();
-		return TODO;
-	} else {
-		return forbidden();
-	}
+		if (Avocado.hasRole("print worksheet")) {
+
+//			return ok(views.html.worksheet.selectTest());
+			return null;
+		} else {
+			return forbidden();
+		}
     }
 
     public static Result printWorksheet(int testNumber) {
-	if (Avocado.hasRole("print worksheet")) {
-//		return ok();
-		return TODO;
-	} else {
-		return forbidden();
-	}
+		if (Avocado.hasRole("print worksheet")) {
+	//		return ok();
+			return TODO;
+		} else {
+			return forbidden();
+		}
     }
 
     public static Result enterResults() {
-	if (Avocado.hasRole("enter results")) {
-//		return ok();
-		return TODO;
-	} else {
-		return forbidden();
-	}
+		if (Avocado.hasRole("enter results")) {
+	//		return ok();
+			return TODO;
+		} else {
+			return forbidden();
+		}
     }
 
     public static Result enterResults(int testNumber) {
-	if (Avocado.hasRole("enter results")) {
-//		return ok();
-		return TODO;
-	} else {
-		return forbidden();
-	}
+		if (Avocado.hasRole("enter results")) {
+	//		return ok();
+			return TODO;
+		} else {
+			return forbidden();
+		}
     }
 
 
     public static Result enterResultsTest() {
-	if (Avocado.hasRole("enter results")) {
-//		return ok();
-		return TODO;
-	} else {
-		return forbidden();
-	}
+		if (Avocado.hasRole("enter results")) {
+	//		return ok();
+			return TODO;
+		} else {
+			return forbidden();
+		}
     }
 
     public static Result saveData() {

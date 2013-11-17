@@ -31,7 +31,7 @@ public class TestEntityObjectTest extends WithApplication{
 					t1.setTestType("t");
 //					t1.setPrice(new BigDecimal(25.5));
 //					t1.setPriceType("f");
-					t1.merge();
+					t1.save();
 					
 					TestEntityObject t2 = new TestEntityObject();
 					t2.setTestNumber(202);
@@ -39,12 +39,12 @@ public class TestEntityObjectTest extends WithApplication{
 					t2.setTestType("T");
 //					t2.setPrice(new BigDecimal(30.5));
 //					t2.setPriceType("f");
-					t2.merge();
+					t2.save();
 
 					List<TestEntityObject> tests = TestEntityObject.getAllTests();
 
 					//tests.size == 4 because there are already 2 tests in the table.
-					assertEquals(tests.size(), 4);
+					assertEquals(4, tests.size());
 			           }
 			       });
 			   }
