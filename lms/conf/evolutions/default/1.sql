@@ -41,7 +41,8 @@ CREATE TABLE IF NOT EXISTS TEST (
 	default_comment INT, 
 	type_of_sample VARCHAR(10), 
 	respicture VARCHAR(8), 
-	control_text VARCHAR(300), 
+	control_text VARCHAR(300),  
+	result_text VARCHAR(300), 
 	control_result_line VARCHAR(10), 
 	PRIMARY KEY(test_number), 
 	FOREIGN KEY (default_comment) REFERENCES COMMENTS(comment_code) 

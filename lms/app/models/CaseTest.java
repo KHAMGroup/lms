@@ -226,6 +226,10 @@ public class CaseTest implements Serializable {
 		return getTest().getUnits();
 	}
 	
+	public String getResultSection(){
+		return getTest().getResultText();
+	}
+	
 	public void setCaseTestPK(long caseTestPK) {
 		this.caseTestPK = caseTestPK;
 	}

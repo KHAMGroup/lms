@@ -36,6 +36,10 @@ public class TestEntityObject implements Serializable {
 	@Column(name="control_text", length=300)
 	@MaxLength(300)
 	private String controlText;
+	
+	@Column(name="result_text", length=300)
+	@MaxLength(300)
+	private String resultText;
 
 //	@Column(nullable=false, precision=9, scale=2)
 //	private BigDecimal price;
@@ -82,29 +86,7 @@ public class TestEntityObject implements Serializable {
 	public TestEntityObject() {
 	}
 
-	public int getTestNumber() {
-		return this.testNumber;
-	}
-
-	public void setTestNumber(int testNumber) {
-		this.testNumber = testNumber;
-	}
-
-	public String getControlResultLine() {
-		return this.controlResultLine;
-	}
-
-	public void setControlResultLine(String controlResultLine) {
-		this.controlResultLine = controlResultLine;
-	}
-
-	public String getControlText() {
-		return this.controlText;
-	}
-
-	public void setControlText(String controlText) {
-		this.controlText = controlText;
-	}
+	
 
 //	public BigDecimal getPrice() {
 //		return this.price;
@@ -122,49 +104,66 @@ public class TestEntityObject implements Serializable {
 //		this.priceType = priceType;
 //	}
 
-	public String getRespicture() {
-		return this.respicture;
+
+	public int getTestNumber() {
+		return testNumber;
 	}
 
-	public void setRespicture(String respicture) {
-		this.respicture = respicture;
+
+
+	public String getControlResultLine() {
+		return controlResultLine;
 	}
+
+
+
+	public String getControlText() {
+		return controlText;
+	}
+
+
+
+	public String getResultText() {
+		return resultText;
+	}
+
+
+
+	public String getRespicture() {
+		return respicture;
+	}
+
+
 
 	public String getTestName() {
-		return this.testName;
+		return testName;
 	}
 
-	public void setTestName(String testName) {
-		this.testName = testName;
-	}
+
 
 	public String getTestType() {
-		return this.testType;
+		return testType;
 	}
 
-	public void setTestType(String testType) {
-		this.testType = testType;
-	}
+
 
 	public String getTypeOfSample() {
-		return this.typeOfSample;
+		return typeOfSample;
 	}
 
-	public void setTypeOfSample(String typeOfSample) {
-		this.typeOfSample = typeOfSample;
-	}
+
 
 	public String getUnits() {
-		return this.units;
+		return units;
 	}
 
-	public void setUnits(String units) {
-		this.units = units;
-	}
+
 
 	public List<CaseTest> getCaseTests() {
-		return this.caseTests;
+		return caseTests;
 	}
+
+
 
 	public int getNumberOfCaseTests(){
 		int toReturn = 0;
@@ -174,25 +173,90 @@ public class TestEntityObject implements Serializable {
 		return toReturn;
 	}
 	
+
+	public List<Comment> getAssociatedComments() {
+		return associatedComments;
+	}
+
+
+
+	public Comment getDefaultComment() {
+		return defaultComment;
+	}
+
+
+
+	public void setTestNumber(int testNumber) {
+		this.testNumber = testNumber;
+	}
+
+
+
+	public void setControlResultLine(String controlResultLine) {
+		this.controlResultLine = controlResultLine;
+	}
+
+
+
+	public void setControlText(String controlText) {
+		this.controlText = controlText;
+	}
+
+
+
+	public void setResultText(String resultText) {
+		this.resultText = resultText;
+	}
+
+
+
+	public void setRespicture(String respicture) {
+		this.respicture = respicture;
+	}
+
+
+
+	public void setTestName(String testName) {
+		this.testName = testName;
+	}
+
+
+
+	public void setTestType(String testType) {
+		this.testType = testType;
+	}
+
+
+
+	public void setTypeOfSample(String typeOfSample) {
+		this.typeOfSample = typeOfSample;
+	}
+
+
+
+	public void setUnits(String units) {
+		this.units = units;
+	}
+
+
+
 	public void setCaseTests(List<CaseTest> caseTests) {
 		this.caseTests = caseTests;
 	}
 
-	public List<Comment> getAssociatedComments() {
-		return this.associatedComments;
-	}
+
 
 	public void setAssociatedComments(List<Comment> associatedComments) {
 		this.associatedComments = associatedComments;
 	}
 
-	public Comment getDefaultComment() {
-		return this.defaultComment;
-	}
+
 
 	public void setDefaultComment(Comment defaultComment) {
 		this.defaultComment = defaultComment;
 	}
+
+
 	
 	public static List<TestEntityObject> getAllTests(){
 		//get all tests from the database;

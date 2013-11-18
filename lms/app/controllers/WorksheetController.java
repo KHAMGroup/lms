@@ -24,7 +24,7 @@ public class WorksheetController extends Controller {
     }
 
     @Transactional
-    public static Result printWorksheet(int testNumber) {
+    public static Result getCasesForWorksheet(int testNumber) {
 		if (Avocado.hasRole("manage cases")) {
 			TestEntityObject theTest = TestEntityObject.findByTestNumber(testNumber);
 			if(theTest == null){
@@ -70,10 +70,6 @@ public class WorksheetController extends Controller {
 	return TODO;
     }
 
-
-    public static Result getCasesForWorksheet(int testNumber) {
-	return TODO;
-    }
 
     private static void createPDF(){
 
