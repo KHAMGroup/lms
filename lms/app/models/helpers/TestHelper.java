@@ -16,6 +16,7 @@ public class TestHelper {
 		to.setRespicture(from.getRespicture());
 		to.setControlResultLine(from.getControlResultLine());
 		to.setControlText(from.getControlText());
+		to.setResultText(from.getResultText());
 		Comment defaultComment = from.getDefaultComment();
 		if(defaultComment != null){
 			to.setDefaultComment(defaultComment.getCommentText());
@@ -35,6 +36,7 @@ public class TestHelper {
 		to.setRespicture(from.getRespicture());
 		to.setControlResultLine(from.getControlResultLine());
 		to.setControlText(from.getControlText());
+		to.setResultText(from.getResultText());
 		String defaultComment = from.getDefaultComment();
 		if(!(defaultComment.equals(""))){
 			Comment defComment = new Comment();

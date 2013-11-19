@@ -15,6 +15,9 @@ public class TestPOJO implements Serializable {
 
 	@MaxLength(300)
 	private String controlText;
+	
+	@MaxLength(300)
+	private String resultText;
 
 	@MaxLength(8)
 	private String respicture;
@@ -41,76 +44,85 @@ public class TestPOJO implements Serializable {
 	}
 
 	public int getTestNumber() {
-		return this.testNumber;
+		return testNumber;
+	}
+
+	public String getControlResultLine() {
+		return controlResultLine;
+	}
+
+	public String getControlText() {
+		return controlText;
+	}
+
+	public String getResultText() {
+		return resultText;
+	}
+
+	public String getRespicture() {
+		return respicture;
+	}
+
+	public String getTestName() {
+		return testName;
+	}
+
+	public String getTestType() {
+		return testType;
+	}
+
+	public String getTypeOfSample() {
+		return typeOfSample;
+	}
+
+	public String getUnits() {
+		return units;
+	}
+
+	public String getDefaultComment() {
+		return defaultComment;
 	}
 
 	public void setTestNumber(int testNumber) {
 		this.testNumber = testNumber;
 	}
 
-	public String getControlResultLine() {
-		return this.controlResultLine;
-	}
-
 	public void setControlResultLine(String controlResultLine) {
 		this.controlResultLine = controlResultLine;
-	}
-
-	public String getControlText() {
-		return this.controlText;
 	}
 
 	public void setControlText(String controlText) {
 		this.controlText = controlText;
 	}
 
-	public String getRespicture() {
-		return this.respicture;
+	public void setResultText(String resultText) {
+		this.resultText = resultText;
 	}
 
 	public void setRespicture(String respicture) {
 		this.respicture = respicture;
 	}
 
-	public String getTestName() {
-		return this.testName;
-	}
-
 	public void setTestName(String testName) {
 		this.testName = testName;
-	}
-
-	public String getTestType() {
-		return this.testType;
 	}
 
 	public void setTestType(String testType) {
 		this.testType = testType;
 	}
 
-	public String getTypeOfSample() {
-		return this.typeOfSample;
-	}
-
 	public void setTypeOfSample(String typeOfSample) {
 		this.typeOfSample = typeOfSample;
-	}
-
-	public String getUnits() {
-		return this.units;
 	}
 
 	public void setUnits(String units) {
 		this.units = units;
 	}
 
-	public String getDefaultComment() {
-		return this.defaultComment;
-	}
-
 	public void setDefaultComment(String defaultComment) {
 		this.defaultComment = defaultComment;
 	}
+
 	
 
 }
