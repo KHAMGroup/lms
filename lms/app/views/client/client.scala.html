@@ -40,11 +40,6 @@
 		@inputText(clientForm("fax"), 
 			'_label -> "Fax Number", 
 			'_showConstraints -> false)
-		@checkbox(clientForm("emailInvoiceOk"), 
-			'_label -> "Receive Invoices via Email?", 
-			'_showConstraints -> false)
-		@inputText(clientForm("invoiceEmail"), 
-			'_label -> "Invoice Email")
 		@checkbox(clientForm("emailReportOk"), 
 			'_label -> "Receive Case Reports via Email?", 
 			'_showConstraints -> false)
@@ -66,7 +61,7 @@
 			<button type="submit" formmethod="post" formaction="@routes.ClientController.updateClient(clientForm.get().getClientId())">Save</button>
 		}
 		@if(goal != "Create"){
-			<a href="@routes.MainController.searchResults("client",clientForm.get().getFirst()+"+"+clientForm.get().getLast())"><button type="button">Back</button></a>
+			<a href="@routes.MainController.searchResults("client",clientForm.get().getClientId()+"")"><button type="button">Back</button></a>
 		}
 	</div>
 	</form>

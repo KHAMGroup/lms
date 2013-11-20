@@ -33,12 +33,12 @@ public class TestEntityObject implements Serializable {
 	@MaxLength(10)
 	private String controlResultLine;
 
-	@Column(name="control_text", length=300)
-	@MaxLength(300)
+	@Column(name="control_text", length=500)
+	@MaxLength(500)
 	private String controlText;
 	
-	@Column(name="result_text", length=300)
-	@MaxLength(300)
+	@Column(name="result_text", length=500)
+	@MaxLength(500)
 	private String resultText;
 
 //	@Column(nullable=false, precision=9, scale=2)

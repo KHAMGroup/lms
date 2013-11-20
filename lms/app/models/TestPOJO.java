@@ -13,10 +13,10 @@ public class TestPOJO implements Serializable {
 	@MaxLength(10)
 	private String controlResultLine;
 
-	@MaxLength(300)
+	@MaxLength(500)
 	private String controlText;
 	
-	@MaxLength(300)
+	@MaxLength(500)
 	private String resultText;
 
 	@MaxLength(8)

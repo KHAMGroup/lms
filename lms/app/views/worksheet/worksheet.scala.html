@@ -5,22 +5,19 @@
 	<div>
 		@theTest.getTestNumber(), 
 		@theTest.getTestName()
+		<!-- 
 		&nbsp;&nbsp;&nbsp;&nbsp;
 		&nbsp;&nbsp;&nbsp;&nbsp;
-		@today
+		@today -->
 	</div>
 	<div>
 	---------------------------------------------------------------------------------------------
 	</div>
-	<div>
-	@theTest.getControlText()
-	</div>
+	<div style="white-space:pre;">@theTest.getControlText()</div>
 	<div>
 	_____________________________________________________________________________________________
 	</div>	
-	<div>
-	@theTest.getControlResultLine()
-	</div>
+	<div style="white-space:pre;">@theTest.getControlResultLine()</div>
 	<div>
 	=============================================================================================
 	</div>
@@ -46,9 +43,7 @@
 			<span>@ct.getClientFirstName() @ct.getClientLastName() @ct.getClientCompanyName()</span>
 			<span>@ct.getClientOfficePhone()</span>
 		</div>
-		<div>
-			@ct.getResultSection();
-		</div>
+		<div style="white-space:pre;">@ct.getResultSection()</div>
 		<br />
 	}
 	<p>
