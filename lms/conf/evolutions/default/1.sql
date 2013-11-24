@@ -15,11 +15,9 @@ CREATE TABLE IF NOT EXISTS EMPLOYEES
 
 CREATE TABLE IF NOT EXISTS USER_ROLES 
 (
-	 
 	employee_number TINYINT NOT NULL, 
 	role_name VARCHAR(64) NOT NULL, 
-	PRIMARY KEY(employee_number, role_name),  
-	 
+	PRIMARY KEY(employee_number, role_name),   
 	FOREIGN KEY(employee_number) REFERENCES EMPLOYEES(employee_number) 
 ); 
  

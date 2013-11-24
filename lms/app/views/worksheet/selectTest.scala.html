@@ -4,10 +4,14 @@
 @main("Select a Test") {
 	<script type="text/javascript">
 	function getWorksheet() {
-		$(location).attr('href', 
-				'worksheet/'
-				+$("#getTest").val()
-		);
+		var testNo = $("#getTest").val();
+		
+		if(testNo != ''){
+			$(location).attr('href', 
+					'worksheet/'
+					+testNo
+			);
+		}
 	}
 	
 	function getTest(e){
