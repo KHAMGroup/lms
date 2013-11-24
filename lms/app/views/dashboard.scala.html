@@ -54,26 +54,26 @@
 	@if(emp!=null){
 		@if(userRoles.contains("manage clients")){
 			@form(routes.MainController.createClient()){
-				<button type="submit">Create Client</button><br/>
+				<button class="dashButton" type="submit">Create Client</button><br/>
 			}
 		}
 		@if(userRoles.contains("manage cases")){
 			@form(routes.MainController.printWorksheet()){
-				<button>Print Worksheet</button><br/>
+				<button class="dashButton" >Print Worksheet</button><br/>
 			}
 		}
 		@if(userRoles.contains("manage results")){
 			@form(routes.MainController.enterResults()){
-				<button>Enter Results</button><br/>
+				<button class="dashButton" >Enter Results</button><br/>
 			}
 		}
 		
 		@if(userRoles.contains("admin")){
 			@form(routes.EmployeeController.employees()){
-				<button type="submit">Manage Employees</button><br/>
+				<button class="dashButton" type="submit">Manage Employees</button><br/>
 			}
 			@form(routes.TestController.tests()){
-				<button type="submit">Manage Tests</button>
+				<button class="dashButton" type="submit">Manage Tests</button>
 			}
 		}
 	}
