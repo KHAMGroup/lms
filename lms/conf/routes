@@ -14,7 +14,9 @@ GET	/logout			    controllers.Application.logout()
 GET		/worksheet			controllers.MainController.printWorksheet()
 GET		/worksheet/:id			controllers.WorksheetController.getCasesForWorksheet(id: Int)
 
-GET		/enterResults		controllers.MainController.enterResults()
+GET		/results		controllers.MainController.enterResults()
+GET		/results/:id	controllers.WorksheetController.getCasesForResults(id: Int)
+GET		/results/:id/case/:caseNo		controllers.WorksheetController.enterResultsForCaseTest(id: Int, caseNo: Long)
 
 GET		/clients/:id		controllers.ClientController.viewClient(id: Int)
 GET		/clients/:id/edit		controllers.ClientController.editClient(id: Int)

@@ -40,10 +40,28 @@ public class WorksheetController extends Controller {
 
     public static Result enterResults() {
 		if (Avocado.hasRole("manage results")) {
-			return ok(views.html.worksheet.selectTest.render(WorksheetHelper.getTestsNeedingResults()));
+			return ok(views.html.worksheet.results_select_test.render(WorksheetHelper.getTestsNeedingResults()));
 		} else {
 			return redirect(routes.MainController.returnToDashboard());
 		}
+    }
+    
+    @Transactional
+    public static Result getCasesForResults(int testNumber) {
+		if (Avocado.hasRole("manage results")) {
+			TestEntityObject theTest = TestEntityObject.findByTestNumber(testNumber);
+			if(theTest == null){
+				return redirect(routes.MainController.enterResults());
+			}
+			List<CaseTest> caseTests = CaseTest.caseTestsNeedingResults(testNumber);
+			return ok(views.html.worksheet.worksheet_overview.render(theTest, caseTests));
+		} else {
+			return redirect(routes.MainController.returnToDashboard());
+		}
+    }
+    
+    public static Result enterResultsForCaseTest(int testNumber, long caseTestPK){
+    	return TODO;
     }
 
     public static Result enterResults(int testNumber) {

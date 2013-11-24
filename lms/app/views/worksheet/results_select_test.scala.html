@@ -7,7 +7,7 @@
 		var testNo = $("#getTest").val();
 		if(testNo != ''){
 			$(location).attr('href', 
-					'worksheet/'
+					'results/'
 					+testNo
 			);
 		}
@@ -22,7 +22,7 @@
 	<a href="@routes.MainController.returnToDashboard()">
 		Return To Dashboard
 	</a> 
-    <h1>Lab Tests Awaiting Testing</h1>
+    <h1>Lab Tests Awaiting Results</h1>
     <p>
     	<input type="text" size="8" id="getTest" onKeyPress="getTest(event)" > 
     	<a href="javascript:getWorksheet()"><button type="submit">Search</button></a>
@@ -32,19 +32,17 @@
 			<th></th>
 			<th>Test Number</th>
 			<th>Test Name</th>
-			<!-- <th>Sample Type</th> -->
 			<th>Number of Cases</th>
 		</tr>
 		@for(test <- tests){
 			<tr>
 				<td>
-	    			<a href="@routes.WorksheetController.getCasesForWorksheet(test.getTestNumber())">
-	    				<button type="button">Print Worksheet</button>
+	    			<a href="@routes.WorksheetController.getCasesForResults(test.getTestNumber())">
+	    				<button type="button">Enter Results</button>
 	    			</a>
 	    		</td>
 				<td>@test.getTestNumber()</td>
 				<td>@test.getTestName()</td>
-				<!--  <td>@test.getTypeOfSample()</td> -->
 				<td>@test.getNumberOfCases()</td>
 
 			</tr>
