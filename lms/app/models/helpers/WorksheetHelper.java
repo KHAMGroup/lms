@@ -32,10 +32,10 @@ public class WorksheetHelper {
 		List<Object[]> resultList = JPA.em().createQuery(query).getResultList();
 		for(Object[] obj : resultList){
 			SelectTestPOJO test = new SelectTestPOJO();
-			test.setTestNumber((int)obj[0]);
+			test.setTestNumber((Integer)obj[0]);
 			test.setTestName((String)obj[1]);
 			test.setTypeOfSample((String)obj[2]);
-			test.setNumberOfCases((long)obj[3]);
+			test.setNumberOfCases((Long)obj[3]);
 			toReturn.add(test);
 		}
 		return toReturn;
