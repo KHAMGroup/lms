@@ -17,7 +17,7 @@ public class WorksheetController extends Controller {
 
     public static Result printWorksheet() {
 		if (Avocado.hasRole("manage cases")) {
-			return ok(views.html.worksheet.selectTest.render(WorksheetHelper.getTestsNeedingResults()));
+			return ok(views.html.worksheet.selectTest.render("print",WorksheetHelper.getTestsNeedingResults()));
 		} else {
 			return redirect(routes.MainController.returnToDashboard());
 		}
@@ -39,11 +39,10 @@ public class WorksheetController extends Controller {
     }
 
     public static Result enterResults() {
-		if (Avocado.hasRole("enter results")) {
-	//		return ok();
-			return TODO;
+		if (Avocado.hasRole("manage results")) {
+			return ok(views.html.worksheet.selectTest.render("enter",WorksheetHelper.getTestsNeedingResults()));
 		} else {
-			return forbidden();
+			return redirect(routes.MainController.returnToDashboard());
 		}
     }
 

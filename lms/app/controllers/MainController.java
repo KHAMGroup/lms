@@ -22,24 +22,6 @@ public class MainController extends Controller {
     		return redirect(routes.Application.login());
     	}
     }
-
-//    public static Result showDashboard() {
-//    	Employee user = Avocado.getCurrentUser();
-//    	if(user!=null){
-//		Form<SearchResults> searchResultsForm = form(SearchResults.class).bindFromRequest();
-//		String clientOrCase = searchResultsForm.get().clientOrCase;
-//		if(clientOrCase.equals("Client")){
-//	    		return ok(views.html.dashboard.render(user, user.getUserRolesAsStrings(), searchResultsForm.get().clientsFound, null, form(SearchQuery.class)));
-//		}else if(clientOrCase.equals("Case")){
-//			return ok(views.html.dashboard.render(user, user.getUserRolesAsStrings(), null, searchResultsForm.get().casesFound, form(SearchQuery.class)));
-//		}else{
-//			return ok(views.html.dashboard.render(user, user.getUserRolesAsStrings(), null, null, form(SearchQuery.class)));
-//		}
-//
-//    	}else{
-//    		return redirect(routes.Application.login());
-//    	}
-//    }
     
 	public static Result showDashboardWithClients(List<Client> clientsFound) {
 		Employee user = Avocado.getCurrentUser();
@@ -108,8 +90,9 @@ public class MainController extends Controller {
     	return WorksheetController.printWorksheet();
     }
 
+    @Transactional
     public static Result enterResults() {
-	return TODO;
+		return WorksheetController.enterResults();
     }
 
     public static class SearchQuery {

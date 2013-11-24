@@ -14,7 +14,7 @@ public class EmployeeHelper {
 	private static final String ADMIN_ROLE = "admin";
 	private static final String CLIENT_ROLE = "manage clients";
 	private static final String CASES_ROLE = "manage cases";
-	private static final String RESULTS_ROLE = "manage case results";
+	private static final String RESULTS_ROLE = "manage results";
 	
 	public static EmployeePOJO getEmployeePOJO(int findById) {
 		return employeeToPOJO(Employee.findById(findById));

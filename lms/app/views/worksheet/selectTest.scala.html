@@ -1,14 +1,14 @@
-@(tests: List[SelectTestPOJO])
+@(goal: String, tests: List[SelectTestPOJO])
 @import helper._
 
 @main("Select a Test") {
 	<script type="text/javascript">
 	function getWorksheet() {
 		var testNo = $("#getTest").val();
-		
+		var dest = 'worksheet/';
 		if(testNo != ''){
 			$(location).attr('href', 
-					'worksheet/'
+					dest
 					+testNo
 			);
 		}

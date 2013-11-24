@@ -61,12 +61,13 @@
 			@form(routes.MainController.printWorksheet()){
 				<button>Print Worksheet</button><br/>
 			}
+		}
+		@if(userRoles.contains("manage results")){
 			@form(routes.MainController.enterResults()){
 				<button>Enter Results</button><br/>
 			}
 		}
 		
-		<button>Create Batch Reports</button><br/>
 		@if(userRoles.contains("admin")){
 			@form(routes.EmployeeController.employees()){
 				<button type="submit">Manage Employees</button><br/>
