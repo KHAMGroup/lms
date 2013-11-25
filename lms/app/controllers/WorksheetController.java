@@ -60,31 +60,22 @@ public class WorksheetController extends Controller {
 		}
     }
     
+    @Transactional
     public static Result enterResultsForCaseTest(int testNumber, long caseTestPK){
-    	return TODO;
+    	
+    	return ok(views.html.worksheet.enter_results.render());
     }
 
-    public static Result enterResults(int testNumber) {
-		if (Avocado.hasRole("enter results")) {
-	//		return ok();
-			return TODO;
-		} else {
-			return forbidden();
-		}
+    @Transactional
+    public static Result enterComment(int testNumber, long caseTestPK){
+    	
+    	return ok(views.html.worksheet.enter_comments.render());
     }
 
-
-    public static Result enterResultsTest() {
-		if (Avocado.hasRole("enter results")) {
-	//		return ok();
-			return TODO;
-		} else {
-			return forbidden();
-		}
-    }
-
-    public static Result saveData() {
-	return TODO;
+    @Transactional
+    public static Result save(int testNumber, long caseTestPK) {
+    	
+    	return ok(views.html.worksheet.enter_results.render());
     }
 
 

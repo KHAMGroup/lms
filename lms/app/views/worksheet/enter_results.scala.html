@@ -1,0 +1,15 @@
+
+@import helper._
+
+@main("Enter Results") {
+    <form>
+    
+    
+		<div>
+		<button type="submit" formmethod="post" 
+		formaction="@routes.WorksheetController.enterComment(1, 1)">
+		Next</button>
+		<a href="@routes.MainController.returnToDashboard()"><button type="button">Quit</button></a>
+		</div> 
+ 	</form>    
+}
