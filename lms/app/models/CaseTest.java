@@ -218,6 +218,27 @@ public class CaseTest implements Serializable {
 		return test;
 	}
 	
+	public int getTestNumber(){
+		return getTest().getTestNumber();
+	}
+	
+	public String getTestName(){
+		return getTest().getTestName();
+	}
+	
+	public Comment getTestDefaultComment(){
+		return getTest().getDefaultComment();
+	}
+	
+	public String getTestDefaultCommentText(){
+		Comment defaultComment = getTestDefaultComment();
+		String toReturn = "";
+		if(defaultComment != null){
+			toReturn = getTestDefaultComment().getCommentText();	
+		}
+		return toReturn;
+	}
+	
 	public String getTestRespicture(){
 		return getTest().getRespicture();
 	}
@@ -312,4 +333,11 @@ public class CaseTest implements Serializable {
 //		}
 
 	}*/
+    public static CaseTest findByCaseTestPK(long caseTestPK){
+    	return JPA.em().find(CaseTest.class, caseTestPK);
+    }
+
+	public void update() {
+		JPA.em().merge(this);
+	}
 }

@@ -95,11 +95,4 @@ public class ClientController extends Controller {
 		}
     }
 
-    public static Result enterRequisition() {
-	return TODO;
-    } 
-
-    public static Result createCase() {
-	return TODO;
-    }
 }

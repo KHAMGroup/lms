@@ -62,20 +62,42 @@ public class WorksheetController extends Controller {
     
     @Transactional
     public static Result enterResultsForCaseTest(int testNumber, long caseTestPK){
-    	
-    	return ok(views.html.worksheet.enter_results.render());
+    	CaseTest ct = CaseTest.findByCaseTestPK(caseTestPK);
+    	if(ct == null){
+    		return redirect(routes.MainController.enterResults());
+    	}
+    	EnterResultsPOJO res = new EnterResultsPOJO();
+    	res.setCaseTestPK(caseTestPK);
+    	Form<EnterResultsPOJO> resForm = form(EnterResultsPOJO.class).fill(res);
+    	return ok(views.html.worksheet.enter_results.render(ct, resForm));
     }
 
     @Transactional
     public static Result enterComment(int testNumber, long caseTestPK){
-    	
-    	return ok(views.html.worksheet.enter_comments.render());
+    	Form<EnterResultsPOJO> resSent = form(EnterResultsPOJO.class).bindFromRequest();
+    	CaseTest ct = CaseTest.findByCaseTestPK(caseTestPK);
+    	if(ct == null){
+    		return redirect(routes.MainController.enterResults());
+    	}
+    	else if(resSent.hasErrors()){
+    		flash("resLenError", "Results should be 8 characters or less!");
+    		return badRequest(views.html.worksheet.enter_results.render(ct, resSent));
+    	}
+    	EnterResultsPOJO res = resSent.get();
+    	res.setInformationalComment(ct.getTestDefaultCommentText());
+    	Form<EnterResultsPOJO> resComments = form(EnterResultsPOJO.class).fill(res);
+    	return ok(views.html.worksheet.enter_comments.render(ct, resComments));
     }
 
     @Transactional
     public static Result save(int testNumber, long caseTestPK) {
-    	
-    	return ok(views.html.worksheet.enter_results.render());
+    	Form<EnterResultsPOJO> results = form(EnterResultsPOJO.class).bindFromRequest();
+    	CaseTest toUpdate = CaseTest.findByCaseTestPK(caseTestPK);
+    	if(results.hasErrors()){
+    		return badRequest(views.html.worksheet.enter_comments.render(toUpdate, results));
+    	}
+    	WorksheetHelper.saveResultsEntry(toUpdate, results.get());
+    	return TODO;
     }
 
 

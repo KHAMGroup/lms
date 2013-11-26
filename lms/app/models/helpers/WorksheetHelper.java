@@ -10,8 +10,13 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 
+import controllers.Avocado;
+
 import play.db.jpa.JPA;
 import models.CaseTest;
+import models.CaseTestResultsComments;
+import models.Comment;
+import models.EnterResultsPOJO;
 import models.TestEntityObject;
 import models.SelectTestPOJO;
 
@@ -39,6 +44,35 @@ public class WorksheetHelper {
 			toReturn.add(test);
 		}
 		return toReturn;
+	}
+
+	public static void saveResultsEntry(CaseTest toUpdate,
+			EnterResultsPOJO enterResultsPOJO) {
+		CaseTestResultsComments resComms = new CaseTestResultsComments();
+		
+		Comment actualComment = new Comment();
+		actualComment.setCommentText(enterResultsPOJO.getActualComment());
+		resComms.setActualComment(actualComment);
+		String infoCommentText = enterResultsPOJO.getInformationalComment();
+		if(infoCommentText.equals("")){
+			resComms.setInformationalComment(null);
+		}
+		else if(!(infoCommentText
+				.equals(toUpdate.getTestDefaultCommentText()))){
+			Comment infoComment = new Comment();
+			infoComment.setCommentText(infoCommentText);
+			System.out.println(infoCommentText+", "+toUpdate.getTestDefaultCommentText());
+			resComms.setInformationalComment(infoComment);
+		}else{
+			Comment defaultComm = toUpdate.getTestDefaultComment();
+			resComms.setInformationalComment(defaultComm);
+		}
+		resComms.setResults(enterResultsPOJO.getResults());
+		resComms.setEmployeeEntered(Avocado.getCurrentUser());
+		resComms.setCaseTestFK(toUpdate.getCaseTestPK());
+		toUpdate.setResultsAndComments(resComms);
+		toUpdate.setResultsEntered(true);
+		toUpdate.update();
 	}
 	
 	

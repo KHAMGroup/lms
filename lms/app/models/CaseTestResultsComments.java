@@ -22,12 +22,12 @@ public class CaseTestResultsComments implements Serializable {
 	@Column(length = 8)
 	private String results;
 	
-	@ManyToOne
-	@JoinColumn(name="informational_comment")
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="informational_comment", nullable = true)
 	private Comment informationalComment;
 	
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="actual_comment")
 	private Comment actualComment;
 	
@@ -37,43 +37,57 @@ public class CaseTestResultsComments implements Serializable {
 	@JoinColumn(name="employee_entered")
 	private Employee employeeEntered;
 
-//	public CaseTestPK getId() {
-//		return this.id;
-//	}
-//
-//	public void setId(CaseTestPK id) {
-//		this.id = id;
-//	}
-	
-	public String getResults() {
-		return this.results;
+
+	public long getCaseTestFK() {
+		return caseTestFK;
 	}
-	
+
+
+	public String getResults() {
+		return results;
+	}
+
+
+	public Comment getInformationalComment() {
+		return informationalComment;
+	}
+
+
+	public Comment getActualComment() {
+		return actualComment;
+	}
+
+
+	public Employee getEmployeeEntered() {
+		return employeeEntered;
+	}
+
+
+	public void setCaseTestFK(long caseTestFK) {
+		this.caseTestFK = caseTestFK;
+	}
+
+
 	public void setResults(String results) {
 		this.results = results;
 	}
-	
-	public Employee getEmployeeEntered() {
-		return this.employeeEntered;
+
+
+	public void setInformationalComment(Comment informationalComment) {
+		this.informationalComment = informationalComment;
 	}
+
+
+	public void setActualComment(Comment actualComment) {
+		this.actualComment = actualComment;
+	}
+
 
 	public void setEmployeeEntered(Employee employeeEntered) {
 		this.employeeEntered = employeeEntered;
 	}
 
-	public Comment getInformationalComment() {
-		return this.informationalComment;
-	}
+
 	
-	public void setInformationalComment(Comment infoComment) {
-		this.informationalComment = infoComment;
-	}
-	
-	public Comment getActualComment() {
-		return this.actualComment;
-	}
-	
-	public void setActualComment(Comment comment) {
-		this.actualComment = comment;
-	}
+
 }
