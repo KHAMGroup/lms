@@ -16,7 +16,7 @@ GET		/worksheet/:id			controllers.WorksheetController.getCasesForWorksheet(id: I
 
 GET		/results		controllers.MainController.enterResults()
 GET		/results/:id	controllers.WorksheetController.getCasesForResults(id: Int)
-GET		/results/:id/case/:caseNo		controllers.WorksheetController.enterResultsForCaseTest(id: Int, caseNo: Long)
+GET		/results/:id/enter		controllers.WorksheetController.enterResultsForCaseTest(id: Int)
 POST	/results/:id/case/:caseNo/comments		controllers.WorksheetController.enterComment(id: Int, caseNo: Long)
 POST	/results/:id/case/:caseNo/save		controllers.WorksheetController.save(id: Int, caseNo: Long)		
 

@@ -61,13 +61,15 @@ public class WorksheetController extends Controller {
     }
     
     @Transactional
-    public static Result enterResultsForCaseTest(int testNumber, long caseTestPK){
-    	CaseTest ct = CaseTest.findByCaseTestPK(caseTestPK);
-    	if(ct == null){
+    public static Result enterResultsForCaseTest(int testNumber){
+
+    	List<CaseTest> cases = CaseTest.caseTestsNeedingResults(testNumber);
+    	if(cases.size() < 1){
     		return redirect(routes.MainController.enterResults());
     	}
+    	CaseTest ct = cases.get(0);
     	EnterResultsPOJO res = new EnterResultsPOJO();
-    	res.setCaseTestPK(caseTestPK);
+    	res.setCaseTestPK(ct.getCaseTestPK());
     	Form<EnterResultsPOJO> resForm = form(EnterResultsPOJO.class).fill(res);
     	return ok(views.html.worksheet.enter_results.render(ct, resForm));
     }
@@ -81,7 +83,7 @@ public class WorksheetController extends Controller {
     	if(ct == null){
     		return redirect(routes.MainController.enterResults());
     	}
-    	else if(resSent.hasErrors()){
+    	if(resSent.hasErrors()){
     		flash("resLenError", "Results should be 8 characters or less!");
     		return badRequest(views.html.worksheet.enter_results.render(ct, resSent));
     	}
@@ -99,7 +101,7 @@ public class WorksheetController extends Controller {
     		return badRequest(views.html.worksheet.enter_comments.render(toUpdate, results));
     	}
     	WorksheetHelper.saveResultsEntry(toUpdate, results.get());
-    	return TODO;
+    	return redirect(routes.WorksheetController.enterResultsForCaseTest(testNumber));
     }
 
 

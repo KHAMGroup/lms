@@ -61,7 +61,7 @@ public class WorksheetHelper {
 				.equals(toUpdate.getTestDefaultCommentText()))){
 			Comment infoComment = new Comment();
 			infoComment.setCommentText(infoCommentText);
-			System.out.println(infoCommentText+", "+toUpdate.getTestDefaultCommentText());
+			
 			resComms.setInformationalComment(infoComment);
 		}else{
 			Comment defaultComm = toUpdate.getTestDefaultComment();

@@ -47,8 +47,13 @@
 		DATA REVIEW: DATE_________ BY ___
 	</p>
 	
-	<a href="@routes.WorksheetController.enterResultsForCaseTest(theTest.getTestNumber(),caseTests.get(0).getCaseTestPK())">
+	
+	<a href="@routes.WorksheetController.enterResultsForCaseTest(theTest.getTestNumber())">
 		<button type="button">Start Entering Results</button>
+	</a>
+	
+	<a href="@routes.MainController.enterResults()">
+		<button type="button">Cancel</button>
 	</a>
 
 }

@@ -41,12 +41,6 @@ public class TestEntityObject implements Serializable {
 	@MaxLength(500)
 	private String resultText;
 
-//	@Column(nullable=false, precision=9, scale=2)
-//	private BigDecimal price;
-//
-//	@Column(name="price_type", nullable=false, length=1)
-//	private String priceType;
-
 	@Column(length=8)
 	@MaxLength(8)
 	private String respicture;
@@ -86,23 +80,6 @@ public class TestEntityObject implements Serializable {
 	public TestEntityObject() {
 	}
 
-	
-
-//	public BigDecimal getPrice() {
-//		return this.price;
-//	}
-//
-//	public void setPrice(BigDecimal price) {
-//		this.price = price;
-//	}
-//
-//	public String getPriceType() {
-//		return this.priceType;
-//	}
-//
-//	public void setPriceType(String priceType) {
-//		this.priceType = priceType;
-//	}
 
 
 	public int getTestNumber() {
