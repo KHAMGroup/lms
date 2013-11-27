@@ -28,9 +28,6 @@
 				<td>View All Cases</td>-->
 				<td><a href="@routes.CaseController.createCase(client.getClientId)">Enter Requisition</a></td>
 			}
-			@if(userRoles.contains("manage deposits")){
-				<td>Manage Deposits</td>
-			}
 		</tr>
 	}
 </table>

@@ -1,4 +1,4 @@
-@(cases: List[CaseEntityObject])
+@(cases: List[CaseEntityObject], userRoles: Set[String])
 <h3>Case Search Results</h3>
 <table>
 	<tr>
@@ -9,6 +9,9 @@
 		<!-- <th>Amount Owed</th> -->
 		<th>Tests Ordered</th>
 		<th>Comment</th>
+		@if(userRoles.contains("manage results")){
+			<th>Create Report</th>
+		}
 	</tr>
 	@cases.map { theCase => 
 		<tr>
@@ -24,6 +27,13 @@
 				No comment.
 			}
 			</td>
+			@if(userRoles.contains("manage results")){
+				<td>
+					<a href="@routes.ReportController.createReport(theCase.getCaseNumber())">
+					Create Report
+					</a>
+				</td>
+			}
 		</tr>
 	}
 </table>
