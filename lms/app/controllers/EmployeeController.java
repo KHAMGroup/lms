@@ -138,6 +138,17 @@ public class EmployeeController extends Controller {
         	flash("wrongPw", "Incorrect password entered!");
             return badRequest(views.html.employee.changePassword.render(passwordForm));
         }
+
+        if( !(current.hasUserRole("admin")) && 
+        		(   (change.getNewPassword() == null) ||
+        			(change.getNewPassword().length() == 0)		)  ){
+        	change.setUserName(current.getUserName());
+        	change.setNewPassword("");
+        	change.setOldPassword("");
+        	passwordForm.fill(change);
+        	flash("noPw", "Password cannot be blank!");
+            return badRequest(views.html.employee.changePassword.render(passwordForm));
+        }
         EmployeeHelper.updatePassword(change);
         flash("pwChange", "Password changed!");
     	return redirect(routes.Application.logout());
