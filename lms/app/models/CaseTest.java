@@ -61,14 +61,6 @@ public class CaseTest implements Serializable {
 	@JoinColumn(name="case_FK")
 	private CaseEntityObject caseEntity;
 
-	//bi-directional one-to-one association to CaseTestResultsComment
-	//@OneToOne
-	//@JoinColumns({
-	//	@JoinColumn(name="case_FK", referencedColumnName="case_FK", nullable=false, insertable=false, updatable=false),
-	//	@JoinColumn(name="test_FK", referencedColumnName="test_FK", nullable=false, insertable=false, updatable=false)
-	//	})
-	//private CaseTestResultsComments resultsAndComments;
-
 //	@OneToOne(mappedBy = "caseTest")
 	@OneToOne(cascade = CascadeType.ALL)
 	@PrimaryKeyJoinColumn
