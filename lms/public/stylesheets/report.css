@@ -1,0 +1,45 @@
+		.clearFloat {
+			float:none;
+			clear:both;
+		}
+		.blackBar {
+			float:none;
+			clear:both;
+			border:thin solid black;
+			height:0px;
+			width:100%;
+		}
+		.caseTestCellHeader {
+			text-decoration:underline;
+			float:left;
+			width:33%;
+		}
+		.caseTestCell {
+			float:left;
+			width:33%;
+		}
+		.signatureText {
+			text-decoration:overline;
+			font-style: italic;
+		}
+		#report {
+			width:800px;
+			font-size:10pt;
+			margin-right:auto;
+			margin-left:auto;
+		}
+		#contentSection {
+			margin-top:4%; 
+			width:90%;
+			margin-right:auto;
+			margin-left:auto
+		}
+		#caseInfo {
+			width:40%;
+			margin-right:auto;
+			margin-left:auto;
+		}
+		#signatureSection {
+			margin-bottom:2%;
+			margin-top:100px;
+		}
