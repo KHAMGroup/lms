@@ -57,6 +57,24 @@ public class CaseController extends Controller {
     	}
     	
     }
+    
+    @Transactional
+    public static Result editCase(String caseNumber) {
+
+    	CaseEntityObject c = CaseEntityObject.findByCaseNumber(caseNumber);
+    	if(c == null){
+    		return forbidden("\nThe case: " + caseNumber + " could not be found\n");
+    	}else{
+
+        	Form<RequisitionPOJO> theForm = form(RequisitionPOJO.class);
+        	RequisitionPOJO req = new RequisitionPOJO();
+        	req.fillFromEntity(c);
+        	theForm = theForm.fill(req);
+
+        	return ok(views.html.cases.edit_case.render(theForm, req.testNumber, null));
+    	}
+    	
+    }    
 
     @Transactional
     public static Result saveCase() {
@@ -74,6 +92,26 @@ public class CaseController extends Controller {
 	    	RequisitionPOJO.persistRequisition(req, err);
 	    	if(err.size() > 0){
 				return badRequest(views.html.cases.create_case.render(theForm, err));
+			}else{
+		    	return redirect(routes.MainController.returnToDashboard());
+			}
+	    	
+    	}
+    }
+    
+    @Transactional
+    public static Result updateCase(){
+    	Form<RequisitionPOJO> theForm = form(RequisitionPOJO.class).bindFromRequest();
+    	List<String> err = new LinkedList<String>(); 
+    	if(theForm.hasErrors()){
+    		err.add("There are errors with the submitted form data");
+    		return badRequest(views.html.cases.edit_case.render(theForm, theForm.get().testNumber, err));
+    	}else{
+	    	
+	    	RequisitionPOJO req = theForm.get();
+	    	RequisitionPOJO.updateRequisition(req, err);
+	    	if(err.size() > 0){
+				return badRequest(views.html.cases.edit_case.render(theForm, theForm.get().testNumber, err));
 			}else{
 		    	return redirect(routes.MainController.returnToDashboard());
 			}

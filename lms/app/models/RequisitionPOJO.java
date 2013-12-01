@@ -1,9 +1,12 @@
 package models;
 
 //import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
+
 import play.data.validation.Constraints.*;
 import play.db.jpa.Transactional;
 
@@ -137,6 +140,108 @@ public class RequisitionPOJO {
 
 		if(err.size() == 0){
 			newCase.save();
+		}
+	}
+
+	public void fillFromEntity(CaseEntityObject c) {
+		clientID = c.getClientNumber()+"";
+		subjectFirstName = c.getSubjectFirstname();
+		subjectLastName = c.getSubjectLastname();
+		otherIdNumber = c.getOtherIdNumber();
+		sampleType = c.getSampleType();
+		dateCollected = c.getDateCollected();
+		caseNumber = c.getCaseNumber();
+		dateReceived = c.getReceivedDate();
+		caseNote = c.getCaseNoteText();
+		if(c.getReceivedByEmployee() != null){
+		receivedByEmployee = c.getReceivedByEmployee().getEmployeeNumber()+"";
+		}
+		Set<Integer> caseTests = c.getCaseTestNumbers();
+		testNumber = new ArrayList<Integer>(caseTests.size());
+		testNumber.addAll(caseTests);
+	}
+
+	public static void updateRequisition(RequisitionPOJO req, List<String> err) {
+		//performs non-trivial input validation, and persists the updated requisition
+		//if there are no errors.
+		
+		Employee emp;
+    	int empID = -1;
+    	
+    	Client cli;
+    	int cliID = -1;
+
+    	CaseEntityObject existingCase = CaseEntityObject.findByCaseNumber(req.caseNumber);
+
+    	
+    	if(req.receivedByEmployee.length() > 0){
+    		//check if it's a valid #
+    		try{
+    			empID = Integer.parseInt(req.receivedByEmployee);
+    		}catch (Exception ex){
+    			err.add("Receieved by employee id# can only contain digits");
+    			empID = -1;
+    		}
+    		
+    		//check if receivedByEmployee is valid #
+    		
+    		emp = Employee.findById(empID);
+    		if((emp != null) && (emp.getEmployeeNumber() == empID)){
+    			
+    		}else{
+    			err.add("Employee: " + req.receivedByEmployee + " was not found.");
+    		}
+    	}else{
+    		err.add("Must enter a \"received by\" employee number");
+    		emp = null;
+    	}
+    	
+    	
+
+    	
+    	//add case tests
+    	List<CaseTest> theTests = new LinkedList<CaseTest>();
+    	CaseTest theTest;
+    	for(Integer testNum : req.testNumber){
+    		if(testNum != null && testNum != -1 ){
+    			
+    			TestEntityObject t = TestEntityObject.findByTestNumber((int)testNum);
+    			if(t == null){
+    				err.add("Test number: " + testNum + " is not valid.");
+    			}
+    			theTest = new CaseTest();
+    			theTest.setTest(t); //link the test to the caseTest
+    			theTests.add(theTest);
+    			
+    			
+    		}
+    	}
+//    	existingCase.setCaseTests(theTests);
+    	
+    	
+    	//fill in other standard fields for the case from the form.
+    	existingCase.setSubjectFirstname(req.subjectFirstName);
+    	existingCase.setSubjectLastname(req.subjectLastName);
+    	existingCase.setReceivedDate(req.dateReceived);
+    	existingCase.setDateCollected(req.dateCollected);
+    	existingCase.setReceivedByEmployee(emp);
+    	existingCase.setSampleType(req.sampleType);
+//    	existingCase.setEmailResultsOk(cli.getEmailReportOk());
+		
+		
+		if(req.otherIdNumber != null && (req.otherIdNumber.length() > 0)){
+			existingCase.setOtherIdNumber(req.otherIdNumber);
+		}
+		
+		if(req.caseNote != null && (req.caseNote.length() > 0)){
+			Comment comment = new Comment();
+			comment.setCommentText(req.caseNote);
+			existingCase.setCaseNote(comment);
+		}
+		
+
+		if(err.size() == 0){
+//			existingCase.update(existingCase.getCasePK());
 		}
 	}
 	

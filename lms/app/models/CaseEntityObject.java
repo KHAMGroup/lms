@@ -11,8 +11,10 @@ import java.math.BigDecimal;
 import java.sql.Time;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -316,7 +318,13 @@ public class CaseEntityObject implements Serializable {
 		return caseTests;
 	}
 
-
+	public Set<Integer> getCaseTestNumbers() {
+		Set<Integer> caseTestNumbers = new HashSet<Integer>();
+		for(CaseTest ct : getCaseTests()){
+			caseTestNumbers.add(ct.getTestNumber());
+		}
+		return caseTestNumbers;
+	}
 
 	public void setAllTasksCompleted(boolean allTasksCompleted) {
 		this.allTasksCompleted = allTasksCompleted;
@@ -545,5 +553,9 @@ public class CaseEntityObject implements Serializable {
     		.setParameter(2, asLowerCase)
     		.getResultList();
 	}
+
+
+
+
 
 }
