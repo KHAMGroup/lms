@@ -47,14 +47,11 @@ public class CaseEntityObject implements Serializable {
 	@Column(name="date_tasks_completed")
 	private Date dateTasksCompleted;
 
-//	@Column(nullable=false)
-//	private boolean email_invoice_OK;
+
 
 	@Column(nullable=false)
 	private boolean email_results_OK;
 
-//	@Column(name="invoice_number")
-//	private int invoiceNumber;
 
 	@Column(name="medical_history_notes", length=100)
 	private String medicalHistoryNotes;
@@ -83,17 +80,7 @@ public class CaseEntityObject implements Serializable {
 	@Column(name="time_collected")
 	private Time timeCollected;
 
-//	@Column(columnDefinition="total_cost DECIMAL(9,2) NOT NULL DEFAULT 0", 
-//			name="total_cost", precision=9, scale=2)
-//	private BigDecimal totalCost;
-//
-//	@Column(columnDefinition="total_paid DECIMAL(9,2) NOT NULL DEFAULT 0", 
-//			name="total_paid", precision=9, scale=2)
-//	private BigDecimal totalPaid;
-//
-//	@Column(columnDefinition="unpaid_balance DECIMAL(9,2) NOT NULL DEFAULT 0",
-//			name="unpaid_balance", precision=9, scale=2)
-//	private BigDecimal unpaidBalance;
+
 
 	//bi-directional many-to-one association to Client
 	@ManyToOne
@@ -115,10 +102,6 @@ public class CaseEntityObject implements Serializable {
 	@JoinColumn(name="received_by", nullable=false)
 	private Employee receivedByEmployee;
 
-	//bi-directional many-to-one association to CaseDeposit
-//	@OneToMany(mappedBy="caseEntity")
-//	private List<CaseDeposit> caseDeposits;
-
 	//bi-directional many-to-one association to CaseTest
 	//@OneToMany(mappedBy="caseEntity", fetch=FetchType.EAGER, cascade={CascadeType.MERGE})//mappedBy="caseEntity",
 	@OneToMany(mappedBy="caseEntity", cascade=CascadeType.ALL, orphanRemoval = true)
@@ -126,77 +109,10 @@ public class CaseEntityObject implements Serializable {
 	private List<CaseTest> caseTests;
 
 	public CaseEntityObject() {
-//		setUnpaidBalance(new BigDecimal(0.0));
-//		setTotalCost(new BigDecimal(0.0));
-//		setTotalPaid(new BigDecimal(0.0));
+
 	}
 
 
-
-//	public boolean getEmailInvoiceOk() {
-//		return this.email_invoice_OK;
-//	}
-//
-//	public void setEmailInvoiceOk(boolean email_invoice_OK) {
-//		this.email_invoice_OK = email_invoice_OK;
-//	}
-
-
-//	public int getInvoiceNumber() {
-//		return this.invoiceNumber;
-//	}
-//
-//	public void setInvoiceNumber(int invoiceNumber) {
-//		this.invoiceNumber = invoiceNumber;
-//	}
-
-
-
-//	public BigDecimal getTotalCost() {
-//		return this.totalCost;
-//	}
-//
-//	public void setTotalCost(BigDecimal totalCost) {
-//		this.totalCost = totalCost;
-//	}
-//	
-//	public void setTotalCost(double totalCost) {
-//		setTotalCost(new BigDecimal(totalCost));
-//	}
-//
-//	public BigDecimal getTotalPaid() {
-//		return this.totalPaid;
-//	}
-//
-//	public void setTotalPaid(BigDecimal totalPaid) {
-//		this.totalPaid = totalPaid;
-//	}
-//	
-//	public void setTotalPaid(double totalPaid){
-//		setTotalPaid(new BigDecimal(totalPaid));
-//	}
-//
-//	public BigDecimal getUnpaidBalance() {
-//		return this.unpaidBalance;
-//	}
-//
-//	public void setUnpaidBalance(BigDecimal unpaidBalance) {
-//		this.unpaidBalance = unpaidBalance;
-//	}
-//	
-//	public void setUnpaidBalance(double unpaidBalance) {
-//		setUnpaidBalance(new BigDecimal(unpaidBalance));
-//	}
-
-
-
-//	public List<CaseDeposit> getCaseDeposits() {
-//		return this.caseDeposits;
-//	}
-//
-//	public void setCaseDeposits(List<CaseDeposit> caseDeposits) {
-//		this.caseDeposits = caseDeposits;
-//	}
 
 	public int getCasePK() {
 		return case_PK;
@@ -326,6 +242,34 @@ public class CaseEntityObject implements Serializable {
 		return caseTestNumbers;
 	}
 
+	public void setAllCaseTestsReportedDate(Date date) {
+		for(CaseTest ct: getCaseTests()){
+			ct.setReportedDate(date);
+		}
+	}
+	
+	public void setAllCaseTestsToReported() {
+		for(CaseTest ct: getCaseTests()){
+			ct.setReported(true);
+		}
+	}
+	
+	public void setAllCaseTestsToReported(Date date) {
+		for(CaseTest ct: getCaseTests()){
+			ct.setReported(true);
+			ct.setReportedDate(date);
+		}
+	}
+	
+	public Date getLatestReportedDate(){
+		Date toReturn = new Date();
+		for(CaseTest ct: getCaseTests()){
+			toReturn = ct.getReportedDate();
+		}
+		
+		return toReturn;
+	}
+	
 	public void setAllTasksCompleted(boolean allTasksCompleted) {
 		this.allTasksCompleted = allTasksCompleted;
 	}
@@ -561,6 +505,10 @@ public class CaseEntityObject implements Serializable {
     		.setParameter(2, asLowerCase)
     		.getResultList();
 	}
+
+
+
+
 
 
 

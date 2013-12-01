@@ -49,8 +49,8 @@
 				Acct#: @theCase.getClientNumber()&nbsp;&nbsp;
 				@theCase.getClientOfficePhone()
 				</div>
-				<div id="reportPrintedDate" style="float:right;margin-right:25%">
-				Report printed: 
+				<div id="reportPrintedDate" style="float:right;margin-right:8%">
+				Report printed: (waiting for Report confirmation)
 				</div>
 				<div class="clearFloat"></div>
 			</div>
@@ -144,5 +144,11 @@
 			</center>
 		</footer>
 	</div>
+	<form>
+	<button type="submit" formmethod="post" formaction=
+	"@routes.ReportController.setReported(theCase.getCaseNumber())">
+	Confirm Report
+	</button></form>
+	
 
 }

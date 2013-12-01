@@ -50,9 +50,6 @@ public class Client implements Serializable {
 	@MaxLength(20)
 	private String first;
 
-//	@Column(name="invoice_email", length=30)
-//	@MaxLength(30)
-//	private String invoiceEmail;
 
 	@Column(nullable=false, length=20)
 	@Required
@@ -98,18 +95,7 @@ public class Client implements Serializable {
 	@OneToMany(mappedBy="cctoClient")
 	private List<CaseEntityObject> casesCCedOn;
 
-	//bi-directional many-to-one association to Client
-//	@ManyToOne
-//	@JoinColumn(name="bill_to_client")
-//	private Client billToClient;
 
-	//bi-directional many-to-one association to Client
-//	@OneToMany(mappedBy="billToClient")
-//	private List<Client> billedByClients;
-
-	//bi-directional many-to-one association to Deposit
-//	@OneToMany(mappedBy="client")
-//	private List<Deposit> deposits;
 
 	public Client() {
 	}
@@ -154,13 +140,7 @@ public class Client implements Serializable {
 		this.company = company;
 	}
 
-//	public boolean getEmailInvoiceOk() {
-//		return this.email_invoice_OK;
-//	}
-//
-//	public void setEmailInvoiceOk(boolean email_invoice_OK) {
-//		this.email_invoice_OK = email_invoice_OK;
-//	}
+
 
 	public boolean getEmailReportOk() {
 		return this.email_report_OK;
@@ -186,13 +166,6 @@ public class Client implements Serializable {
 		this.first = first;
 	}
 
-//	public String getInvoiceEmail() {
-//		return this.invoiceEmail;
-//	}
-//
-//	public void setInvoiceEmail(String invoiceEmail) {
-//		this.invoiceEmail = invoiceEmail;
-//	}
 
 	public String getLast() {
 		return this.last;
@@ -290,29 +263,7 @@ public class Client implements Serializable {
 		this.casesCCedOn = casesCCedOn;
 	}
 
-//	public Client getBillToClient() {
-//		return this.billToClient;
-//	}
-//
-//	public void setBillToClient(Client billToClient) {
-//		this.billToClient = billToClient;
-//	}
-//
-//	public List<Client> getBilledByClients() {
-//		return this.billedByClients;
-//	}
-//
-//	public void setBilledByClients(List<Client> billedByClients) {
-//		this.billedByClients = billedByClients;
-//	}
-//
-//	public List<Deposit> getDeposits() {
-//		return this.deposits;
-//	}
-//
-//	public void setDeposits(List<Deposit> deposits) {
-//		this.deposits = deposits;
-//	}
+
 	
     public void save(){
         JPA.em().persist(this);

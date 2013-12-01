@@ -32,7 +32,8 @@ POST	/cases/save	controllers.CaseController.saveCase()
 POST	/cases/update	controllers.CaseController.updateCase()
 
 GET		/cases/:caseNum/newreport		controllers.ReportController.createReport(caseNum: String)
-
+POST	/cases/:caseNum/setReported 	controllers.ReportController.setReported(caseNum: String)
+GET		/cases/:caseNum/report			controllers.ReportController.getReport(caseNum: String)
 
 GET		/employees					controllers.EmployeeController.employees()
 GET		/employees/:id/edit			controllers.EmployeeController.editEmployee(id: Int)

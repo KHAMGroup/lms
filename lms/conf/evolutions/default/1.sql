@@ -126,6 +126,12 @@ CREATE TABLE IF NOT EXISTS CASE_TEST_RESULTS_COMMENTS
 	FOREIGN KEY (actual_comment) REFERENCES COMMENTS(comment_code) 
 );
 
+INSERT INTO EMPLOYEES(first,last,username) VALUES('Jeff','Zehnder','labman');
+INSERT INTO USER_ROLES(employee_number,role_name) VALUES((SELECT employee_number FROM EMPLOYEES WHERE username = 'labman') ,'admin');
+INSERT INTO USER_ROLES(employee_number,role_name) VALUES((SELECT employee_number FROM EMPLOYEES WHERE username = 'labman') ,'manage clients');
+INSERT INTO USER_ROLES(employee_number,role_name) VALUES((SELECT employee_number FROM EMPLOYEES WHERE username = 'labman') ,'manage cases');
+INSERT INTO USER_ROLES(employee_number,role_name) VALUES((SELECT employee_number FROM EMPLOYEES WHERE username = 'labman') ,'manage results');
+
 # --- !Downs
 
 SET REFERENTIAL_INTEGRITY FALSE;

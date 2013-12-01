@@ -23,9 +23,36 @@ public class ReportController extends Controller {
 		if(theCase == null){
 			return redirect(routes.MainController.searchResults("Case", caseNumber));
 		}
-		
+//		theCase.setAllCaseTestsReportedDate();
+//		theCase.update(theCase.getCasePK());	
+//		theCase = CaseEntityObject.findByCaseNumber(caseNumber);
 		ReportPOJO report = new ReportPOJO();
 		Form<ReportPOJO> reportForm = form(ReportPOJO.class).fill(report);
 		return ok(views.html.report.edit_report.render(theCase, reportForm));
+	}
+	
+	@Transactional
+	public static Result getReport(String caseNumber){
+		CaseEntityObject theCase = CaseEntityObject.findByCaseNumber(caseNumber);
+		if(theCase == null){
+			return redirect(routes.MainController.searchResults("Case", caseNumber));
+		}
+
+		ReportPOJO report = new ReportPOJO();
+		Form<ReportPOJO> reportForm = form(ReportPOJO.class).fill(report);
+		return ok(views.html.report.report.render(theCase, reportForm));
+	}
+	
+	@Transactional
+	public static Result setReported(String caseNumber){
+		CaseEntityObject theCase = CaseEntityObject.findByCaseNumber(caseNumber);
+		if(theCase == null){
+			return redirect(routes.MainController.searchResults("Case", caseNumber));
+		}
+		theCase.setAllCaseTestsToReported(new Date(Calendar.getInstance().getTimeInMillis()));
+		theCase.update(theCase.getCasePK());
+		ReportPOJO report = new ReportPOJO();
+		Form<ReportPOJO> reportForm = form(ReportPOJO.class).fill(report);
+		return redirect(routes.ReportController.getReport(caseNumber));
 	}
 }
