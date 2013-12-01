@@ -186,14 +186,14 @@ public class RequisitionPOJO {
     		//check if receivedByEmployee is valid #
     		
     		emp = Employee.findById(empID);
-    		if((emp != null) && (emp.getEmployeeNumber() == empID)){
-    			
-    		}else{
+    		if((emp == null) || (emp.getEmployeeNumber() != empID)){
     			err.add("Employee: " + req.receivedByEmployee + " was not found.");
+    			return;
     		}
     	}else{
     		err.add("Must enter a \"received by\" employee number");
     		emp = null;
+    		return;
     	}
     	
     	
@@ -201,10 +201,11 @@ public class RequisitionPOJO {
     	
     	//add case tests
     	List<CaseTest> theTests = new LinkedList<CaseTest>();
-    	CaseTest theTest;
+    	
     	for(Integer testNum : req.testNumber){
-    		if(testNum != null && testNum != -1 ){
-    			
+    		if(testNum != null && testNum != -1 && 
+    				!(existingCase.getCaseTestNumbers().contains(testNum))){
+    			CaseTest theTest;
     			TestEntityObject t = TestEntityObject.findByTestNumber((int)testNum);
     			if(t == null){
     				err.add("Test number: " + testNum + " is not valid.");
@@ -217,7 +218,7 @@ public class RequisitionPOJO {
     		}
     	}
 //    	existingCase.setCaseTests(theTests);
-    	
+    	existingCase.getCaseTests().addAll(theTests);
     	
     	//fill in other standard fields for the case from the form.
     	existingCase.setSubjectFirstname(req.subjectFirstName);
@@ -241,7 +242,7 @@ public class RequisitionPOJO {
 		
 
 		if(err.size() == 0){
-//			existingCase.update(existingCase.getCasePK());
+			existingCase.update(existingCase.getCasePK());
 		}
 	}
 	

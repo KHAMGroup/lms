@@ -39,6 +39,9 @@
 			margin-right:auto;
 			margin-left:auto;
 		}
+		#caseComment {
+			margin-bottom:2%;
+		}
 		#signatureSection {
 			margin-bottom:2%;
 			margin-top:100px;

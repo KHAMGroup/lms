@@ -111,9 +111,11 @@ public class CaseController extends Controller {
 	    	RequisitionPOJO req = theForm.get();
 	    	RequisitionPOJO.updateRequisition(req, err);
 	    	if(err.size() > 0){
-				return badRequest(views.html.cases.edit_case.render(theForm, theForm.get().testNumber, err));
+	    		RequisitionPOJO bad = theForm.get();
+	    		List<Integer> tests = bad.testNumber;
+				return badRequest(views.html.cases.edit_case.render(theForm, tests , err));
 			}else{
-		    	return redirect(routes.MainController.returnToDashboard());
+		    	return redirect(routes.MainController.searchResults("case", req.caseNumber));
 			}
 	    	
     	}

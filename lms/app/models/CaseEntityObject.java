@@ -516,6 +516,14 @@ public class CaseEntityObject implements Serializable {
     
     public void update(int casePK) {
     	setCasePK(casePK);
+    	if(this.getCaseNote() != null){ //save the comment if they entered one.
+    		JPA.em().merge(this.getCaseNote());
+    	}
+    	if(caseTests!=null){
+	    	for(CaseTest t : caseTests){
+				t.setCaseEntity(this);
+			}
+    	}
     	JPA.em().merge(this);
     }
     
