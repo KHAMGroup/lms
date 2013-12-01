@@ -286,8 +286,6 @@ public class CaseEntityObject implements Serializable {
 		return client;
 	}
 
-
-
 	public Client getCctoClient() {
 		return cctoClient;
 	}
@@ -296,6 +294,14 @@ public class CaseEntityObject implements Serializable {
 
 	public Comment getCaseNote() {
 		return caseNote;
+	}
+	
+	public String getCaseNoteText(){
+		String toReturn = "";
+		if(getCaseNote()!=null){
+			toReturn = getCaseNote().getCommentText();
+		}
+		return toReturn;
 	}
 
 
@@ -418,6 +424,10 @@ public class CaseEntityObject implements Serializable {
 		this.caseTests = caseTests;
 	}
 
+	public int getClientNumber(){
+		return getClient().getClientId();
+	}
+	
 	public String getClientFirst(){
 		return getClient().getFirst();
 	}
@@ -435,8 +445,46 @@ public class CaseEntityObject implements Serializable {
 	}
 	
 	public String getClientCompany(){
-		return getClient().getCompany();
+		String toReturn = getClient().getCompany();
+		if(toReturn == null){
+			toReturn = "";
+		}
+		return toReturn;
 	}
+	
+	public String getClientMailingAddress(){
+		String toReturn = getClient().getMailingAddress();
+		if(toReturn == null){
+			toReturn = "";
+		}
+		return toReturn;
+	}
+	
+	public String getClientCity(){
+		String toReturn = getClient().getCity();
+		if(toReturn == null){
+			toReturn = "";
+		}
+		return toReturn;
+	}
+	
+	public String getClientState(){
+		String toReturn = getClient().getState();
+		if(toReturn == null){
+			toReturn = "";
+		}
+		return toReturn;
+	}
+	
+	public String getClientZip(){
+		String toReturn = getClient().getZip();
+		if(toReturn == null){
+			toReturn = "";
+		}
+		return toReturn;
+	}
+	
+
 	
 	public List<String> getCaseTestsSparse(){
 		List<String> sparseTests = new LinkedList<String>();

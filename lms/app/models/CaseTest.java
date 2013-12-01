@@ -206,6 +206,34 @@ public class CaseTest implements Serializable {
 		return resultsAndComments;
 	}
 
+	public String getResults(){
+		String results = "";
+		if(getResultsAndComments() != null){
+			results = getResultsAndComments().getResults();
+		}
+		return results;
+	}
+	
+	public String getActualCommentText(){
+		String toReturn = "";
+		CaseTestResultsComments results = getResultsAndComments();
+		if(results != null &&
+				results.getActualComment() != null){
+			toReturn = results.getActualComment().getCommentText();
+		}
+		return toReturn;
+	}
+	
+	public String getInformationalCommentText(){
+		String toReturn = "";
+		CaseTestResultsComments results = getResultsAndComments();
+		if(results != null &&
+				results.getInformationalComment() != null){
+			toReturn = results.getInformationalComment().getCommentText();
+		}
+		return toReturn;		
+	}
+	
 	public Employee getEmployeeEntered() {
 		return employeeEntered;
 	}

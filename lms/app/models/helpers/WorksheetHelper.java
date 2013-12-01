@@ -2,6 +2,8 @@ package models.helpers;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -72,7 +74,9 @@ public class WorksheetHelper {
 		resComms.setCaseTestFK(toUpdate.getCaseTestPK());
 		toUpdate.setResultsAndComments(resComms);
 		toUpdate.setResultsEntered(true);
+		toUpdate.setDateCompleted(new Date(Calendar.getInstance().getTimeInMillis()));
 		toUpdate.update();
+	
 	}
 	
 	
