@@ -441,7 +441,7 @@ public class CaseEntityObject implements Serializable {
 	public List<String> getCaseTestsSparse(){
 		List<String> sparseTests = new LinkedList<String>();
 		for(CaseTest caseTest : this.getCaseTests()){
-			sparseTests.add(caseTest.getTest().getTestNumber()+"");
+			sparseTests.add(caseTest.getTestNumber()+" "+caseTest.getTestName());
 		}
 		return sparseTests;
 	}

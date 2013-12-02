@@ -44,9 +44,15 @@
 	@inputText(caseForm("otherIdNumber"),
 			'_label -> "Other Id",
 			'_showConstraints -> false)
-	@inputText(caseForm("dateCollected"),
-			'_label -> "Date Collected",
-			'_showConstraints -> true)
+
+			
+
+	<dl class=" " id="dateCollected_field">
+	    <dt><label for="dateCollected">Date Collected</label></dt>
+	    <dd>
+	    <input type="text" id="dateCollected" name="dateCollected" value="" placeholder="YYYY-MM-DD">
+	</dd>
+	</dl>
 
 	</fieldset>
 	
@@ -54,8 +60,16 @@
 	<legend>DDL Data</legend>
 	@inputText(caseForm("caseNumber"),
 			'_label -> "Case #:")
-	@inputText(caseForm("dateReceived"),
-			'_label -> "Date Received:")
+
+
+	<dl class=" " id="dateReceived_field">
+    <dt><label for="dateReceived">Date Received:</label></dt>
+    <dd>
+   		<input type="text" id="dateReceived" name="dateReceived" value="" placeholder="YYYY-MM-DD">
+	</dd>
+	</dl>
+
+
 	@inputText(caseForm("receivedByEmployee"),
 			'_label -> "Received By Employee id#:")
 	<label for="sampleType">Sample Type: &nbsp;</label>

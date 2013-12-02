@@ -18,7 +18,9 @@
 			<td>@theCase.getSubjectLastname(), @theCase.getSubjectFirstname()</td>
 			<td>@theCase.getReceivedDate()</td>
 			<td>
-			@theCase.getCaseTestsSparse().size()
+			@theCase.getCaseTestsSparse().map { cTs =>
+				<div>@cTs</div>
+			}
 			</td>
 			<!--  
 			<td>@if(theCase.getCaseNote() != null){
