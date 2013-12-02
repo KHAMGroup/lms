@@ -201,22 +201,25 @@ public class RequisitionPOJO {
     	
     	//add case tests
     	List<CaseTest> theTests = new LinkedList<CaseTest>();
-    	
-    	for(Integer testNum : req.testNumber){
-    		if(testNum != null && testNum != -1 && 
-    				!(existingCase.getCaseTestNumbers().contains(testNum))){
-    			CaseTest theTest;
-    			TestEntityObject t = TestEntityObject.findByTestNumber((int)testNum);
-    			if(t == null){
-    				err.add("Test number: " + testNum + " is not valid.");
-    			}
-    			theTest = new CaseTest();
-    			theTest.setTest(t); //link the test to the caseTest
-    			theTests.add(theTest);
-    			
-    			
-    		}
+    	if(req.testNumber != null){
+        	for(Integer testNum : req.testNumber){
+        		if(testNum != null && testNum != -1 && 
+        				!(existingCase.getCaseTestNumbers().contains(testNum))){
+        			CaseTest theTest;
+        			TestEntityObject t = TestEntityObject.findByTestNumber((int)testNum);
+        			if(t == null){
+        				err.add("Test number: " + testNum + " is not valid.");
+        				return;
+        			}
+        			theTest = new CaseTest();
+        			theTest.setTest(t); //link the test to the caseTest
+        			theTests.add(theTest);
+        			
+        			
+        		}
+        	}
     	}
+
 //    	existingCase.setCaseTests(theTests);
     	existingCase.getCaseTests().addAll(theTests);
     	
@@ -235,7 +238,13 @@ public class RequisitionPOJO {
 		}
 		
 		if(req.caseNote != null && (req.caseNote.length() > 0)){
-			Comment comment = new Comment();
+			Comment comment = null;
+			if(existingCase.getCaseNote() == null){
+				comment = new Comment();
+			}
+			else{
+				comment = existingCase.getCaseNote();
+			}
 			comment.setCommentText(req.caseNote);
 			existingCase.setCaseNote(comment);
 		}
