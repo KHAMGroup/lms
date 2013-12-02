@@ -36,41 +36,47 @@ public class CaseController extends Controller {
 
     @Transactional
     public static Result createCase(int clientID) {
-    	
-    	Client c = Client.findByClientNumber(clientID);
-    	if(c == null){
-    		return forbidden("\nThe client: " + clientID + " could not be found\n");
-    	}else{
-    		//get list of tests
-    		//List<TestEntityObject> tests = TestEntityObject.getAllTests();
+		if (Avocado.hasRole("manage cases")) {
+    		Client c = Client.findByClientNumber(clientID);
+    		if(c == null){
+    			return forbidden("\nThe client: " + clientID + " could not be found\n");
+    		}else{
+    			//get list of tests
+    			//List<TestEntityObject> tests = TestEntityObject.getAllTests();
     		
-    		//create form object
-        	Form<RequisitionPOJO> theForm = form(RequisitionPOJO.class);
-        	RequisitionPOJO req = new RequisitionPOJO();
-        	req.clientID = "" + clientID;
-        	theForm = theForm.fill(req);
-        	
-        	return ok(views.html.cases.create_case.render(theForm, null));
-    	}
-    	
+    			//create form object
+       		 	Form<RequisitionPOJO> theForm = form(RequisitionPOJO.class);
+      		  	RequisitionPOJO req = new RequisitionPOJO();
+        		req.clientID = "" + clientID;
+        		theForm = theForm.fill(req);
+        		
+        		return ok(views.html.cases.create_case.render(theForm, null));
+    		}
+		}
+		else{
+			return redirect(routes.MainController.returnToDashboard());
+		}
     }
     
     @Transactional
     public static Result editCase(String caseNumber) {
+    	if (Avocado.hasRole("manage cases")) {
+    		CaseEntityObject c = CaseEntityObject.findByCaseNumber(caseNumber);
+    		if(c == null){
+    			return forbidden("\nThe case: " + caseNumber + " could not be found\n");
+    		}else{
 
-    	CaseEntityObject c = CaseEntityObject.findByCaseNumber(caseNumber);
-    	if(c == null){
-    		return forbidden("\nThe case: " + caseNumber + " could not be found\n");
-    	}else{
+        		Form<RequisitionPOJO> theForm = form(RequisitionPOJO.class);
+        		RequisitionPOJO req = new RequisitionPOJO();
+        		req.fillFromEntity(c);
+        		theForm = theForm.fill(req);
 
-        	Form<RequisitionPOJO> theForm = form(RequisitionPOJO.class);
-        	RequisitionPOJO req = new RequisitionPOJO();
-        	req.fillFromEntity(c);
-        	theForm = theForm.fill(req);
-
-        	return ok(views.html.cases.edit_case.render(theForm, req.testNumber, null));
+        		return ok(views.html.cases.edit_case.render(theForm, req.testNumber, null));
+    		}
     	}
-    	
+		else{
+			return redirect(routes.MainController.returnToDashboard());
+		}
     }    
 
     @Transactional

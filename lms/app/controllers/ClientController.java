@@ -16,8 +16,6 @@ import models.*;
 public class ClientController extends Controller {
 
     public static Result search(String searchString) {
-
-		if(Avocado.hasRole("manage clients")){
 			List<Client> clientsFound = new LinkedList<Client>();
 			if(SearchTools.isNumber(searchString)){
 				int clientNumber = Integer.parseInt(searchString);
@@ -36,10 +34,6 @@ public class ClientController extends Controller {
 				clientsFound.addAll(Client.findByFirstOrLastName(searchString));
 			}
 			return MainController.showDashboardWithClients(clientsFound);
-		}
-		else{
-			return redirect(routes.MainController.returnToDashboard());
-		}
     }
     
     
