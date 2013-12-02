@@ -487,6 +487,14 @@ public class CaseEntityObject implements Serializable {
     	}
     }
     
+    public static List<CaseEntityObject> searchByCaseNumber(String caseNumber){
+    	return JPA.em().createQuery("from " +
+    			"CaseEntityObject where caseNumber LIKE ? ")
+    			.setParameter(1, caseNumber+"%")
+    			.getResultList();
+
+    }
+    
 	public static List<CaseEntityObject> findBySubjectFirstAndLastName(
 			String first, String last) {
     	return JPA.em().createQuery("from CaseEntityObject where lower(subjectFirstname) LIKE ? " +

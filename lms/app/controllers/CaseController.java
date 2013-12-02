@@ -20,10 +20,7 @@ public class CaseController extends Controller {
     public static Result search(String searchString) {
 		List<CaseEntityObject> casesFound = new LinkedList<CaseEntityObject>();
 		if(SearchTools.isNumber(searchString)){
-			CaseEntityObject caseFound =  CaseEntityObject.findByCaseNumber(searchString);
-			if(caseFound!=null){
-				casesFound.add(caseFound);
-			}
+			casesFound.addAll(CaseEntityObject.searchByCaseNumber(searchString));
 		}
 		else if(SearchTools.isFormattedFirstAndLast(searchString)){
 			String[] firstAndLast = SearchTools.getFormattedFirstAndLast(searchString);
