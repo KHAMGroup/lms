@@ -239,7 +239,7 @@ public class RequisitionPOJO {
 		
 		if(req.caseNote != null && (req.caseNote.length() > 0)){
 			Comment comment = null;
-			if(existingCase.getCaseNote() == null){
+			if(existingCase.getCaseNote() == null || !(existingCase.getCaseNoteText().equals(req.caseNote))){
 				comment = new Comment();
 			}
 			else{
