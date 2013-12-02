@@ -2,8 +2,60 @@
 @import helper._
 
 @main("Report") {
-    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/report.css")">
+    
+	<style>
+		.clearFloat {
+			float:none;
+			clear:both;
+		}
+		.blackBar {
+			float:none;
+			clear:both;
+			border:thin solid black;
+			height:0px;
+			width:100%;
+		}
+		.caseTestCellHeader {
+			text-decoration:underline;
+			float:left;
+			width:33%;
+		}
+		.caseTestCell {
+			float:left;
+			width:33%;
+		}
+		.signatureText {
+			text-decoration:overline;
+			font-style: italic;
+		}
+		#report {
+			width:800px;
+			font-size:10pt;
+			margin-right:auto;
+			margin-left:auto;
+		}
+		#contentSection {
+			margin-top:4%; 
+			width:90%;
+			margin-right:auto;
+			margin-left:auto
+		}
+		#caseInfo {
+			width:40%;
+			margin-right:auto;
+			margin-left:auto;
+		}
+		#caseComment {
+			margin-bottom:2%;
+		}
+		#signatureSection {
+			margin-bottom:2%;
+			margin-top:100px;
+		}
+	</style>
 	<div id="report" >
+		<a href="@routes.MainController.returnToDashboard()">Back</a>
+		<br />
 		<header>
 			<div id="ddltitle" style="float:left;">
 				<h2>DRUG DETECTION LABORATORIES, INC.</h2>
