@@ -25,11 +25,13 @@ GET		/clients/:id/edit		controllers.ClientController.editClient(id: Int)
 POST	/clients/new	controllers.MainController.createClient()
 POST	/clients/save	controllers.ClientController.saveClient()
 POST	/clients/:id/update		controllers.ClientController.updateClient(id: Int)
+GET		/clients/:id/delete		controllers.ClientController.deleteClient(id: Int)
 
 GET		/cases/:clientID/new	controllers.CaseController.createCase(clientID: Int)
 GET		/cases/:caseNumber/edit		controllers.CaseController.editCase(caseNumber: String)
 POST	/cases/save	controllers.CaseController.saveCase()
 POST	/cases/update	controllers.CaseController.updateCase()
+GET		/cases/:caseNumber/delete	controllers.CaseController.deleteCase(caseNumber: String)
 
 GET		/cases/:caseNum/newreport		controllers.ReportController.createReport(caseNum: String)
 POST	/cases/:caseNum/setReported 	controllers.ReportController.setReported(caseNum: String)

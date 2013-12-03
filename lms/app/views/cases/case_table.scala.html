@@ -13,6 +13,9 @@
 		@if(userRoles.contains("manage results")){
 			<th>Create Report</th>
 		}
+		@if(userRoles.contains("admin")){
+			<th>Delete</th>
+		}
 	</tr>
 	@cases.map { theCase => 
 		<tr>
@@ -46,6 +49,13 @@
 					</a>
 				</td>
 			}
+			@if(userRoles.contains("admin")){
+			<td>
+					<a href="@routes.CaseController.deleteCase(theCase.getCaseNumber())">
+					Delete
+					</a>
+			</td>
+			}			
 		</tr>
 	}
 </table>

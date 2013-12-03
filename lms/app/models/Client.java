@@ -275,6 +275,12 @@ public class Client implements Serializable {
     }
 
 
+    public void delete(){
+    	for(CaseEntityObject en : getCases()){
+    		en.delete();
+    	}
+    	JPA.em().remove(this);
+    }
     
     public static Client findByClientNumber(int clientNumber){
     	return JPA.em().find(Client.class, clientNumber);

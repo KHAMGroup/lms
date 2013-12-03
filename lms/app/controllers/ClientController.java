@@ -88,5 +88,16 @@ public class ClientController extends Controller {
 			return redirect(routes.MainController.returnToDashboard());
 		}
     }
-
+    
+    @Transactional
+    public static Result deleteClient(int id){
+		if (Avocado.hasRole("admin")) {
+	    	Client theClient = Client.findByClientNumber(id);
+	    	if(theClient == null){
+	    		return redirect(routes.MainController.searchResults("client", id+""));
+	    	}
+	    	theClient.delete();	
+		}
+		return redirect(routes.MainController.returnToDashboard());
+    }
 }

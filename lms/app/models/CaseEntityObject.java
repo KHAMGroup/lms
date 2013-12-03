@@ -93,7 +93,8 @@ public class CaseEntityObject implements Serializable {
 	private Client cctoClient;
 
 	//bi-directional many-to-one association to Comment
-	@ManyToOne(cascade={CascadeType.ALL})
+//	@ManyToOne(cascade={CascadeType.ALL})
+	@ManyToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinColumn(name="note_code")
 	private Comment caseNote;
 
@@ -469,6 +470,10 @@ public class CaseEntityObject implements Serializable {
     	JPA.em().merge(this);
     }
     
+	public void delete() {
+		JPA.em().remove(this);
+	}
+   
     public static CaseEntityObject findByCasePK(int casePK){
     	return JPA.em().find(CaseEntityObject.class, casePK);
     }

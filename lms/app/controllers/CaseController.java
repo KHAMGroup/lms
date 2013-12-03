@@ -47,6 +47,7 @@ public class CaseController extends Controller {
     			//create form object
        		 	Form<RequisitionPOJO> theForm = form(RequisitionPOJO.class);
       		  	RequisitionPOJO req = new RequisitionPOJO();
+      		  	req.receivedByEmployee = Avocado.getCurrentUser().getEmployeeNumber()+"";
         		req.clientID = "" + clientID;
         		theForm = theForm.fill(req);
         		
@@ -123,4 +124,16 @@ public class CaseController extends Controller {
 	    	
     	}
     }
+    
+    @Transactional
+    public static Result deleteCase(String caseNumber){
+		if (Avocado.hasRole("admin")) {
+	    	CaseEntityObject toDelete = CaseEntityObject.findByCaseNumber(caseNumber);
+	    	if(toDelete == null){
+	    		return redirect(routes.MainController.searchResults("case", caseNumber));
+	    	}
+	    	toDelete.delete();
+		}
+    	return redirect(routes.MainController.returnToDashboard());
+    }    
 }

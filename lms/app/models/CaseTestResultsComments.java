@@ -22,12 +22,14 @@ public class CaseTestResultsComments implements Serializable {
 	@Column(length = 8)
 	private String results;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+//	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinColumn(name="informational_comment", nullable = true)
 	private Comment informationalComment;
 	
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+//	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinColumn(name="actual_comment")
 	private Comment actualComment;
 	
